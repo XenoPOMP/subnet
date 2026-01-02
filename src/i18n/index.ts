@@ -8,6 +8,6 @@ import { appLocales } from './locales';
 export const useTranslations = () => {
   const params = useParams<{ lang: string }>();
   return {
-    t: appLocales[params.lang as Locales],
+    t: appLocales[(params?.lang ?? 'en-US') as Locales],
   };
 };

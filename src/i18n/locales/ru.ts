@@ -2,4 +2,11 @@ import type { LanguageResource } from './default';
 
 export const ru: LanguageResource = {
   hello: 'Привет, мир!',
+  errors: {
+    required: 'Это поле обязательное!',
+    net: {
+      wrongFormat: 'Неправильный формат адреса (правильный - "192.168.0.1/24")',
+      wrongMask: 'Маска подсети должна быть числом от 1 до 31',
+    },
+  },
 };
