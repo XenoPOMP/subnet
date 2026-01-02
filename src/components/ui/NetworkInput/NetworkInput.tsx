@@ -1,14 +1,34 @@
 'use client';
 
 import cn from 'classnames';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import type { VariableFC } from 'xenopomp-essentials';
+import type { LenientAutocomplete, VariableFC } from 'xenopomp-essentials';
 
 import { VStack } from '@/components/ui';
 import { InputField } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
+import { useNetworkStore } from '@/zustand';
+
+// eslint-disable-next-line jsdoc/require-jsdoc
+export const NetworkDisplay = ({ network }: { network: Network | null }) => {
+  const networkDisplay = useMemo(() => {
+    if (!network || Number.isNaN(network.mask)) return 'Empty';
+
+    const lhs = network.address.format?.() ?? '';
+    const rhs = network.broadcast.format?.() ?? '';
+    const mask = network.mask ?? '';
+
+    return `${lhs}/${mask} - ${rhs}/${mask}`;
+  }, [network]);
+
+  return (
+    <>
+      <p>{networkDisplay}</p>
+    </>
+  );
+};
 
 /**
  * @param className
@@ -17,7 +37,7 @@ import { Address, Network } from '@/utils/ip';
  */
 export const NetworkInput: VariableFC<
   typeof InputField,
-  unknown,
+  { target: LenientAutocomplete<'root'> },
   | 'onChange'
   | 'onBlur'
   | 'ref'
@@ -30,8 +50,9 @@ export const NetworkInput: VariableFC<
   | 'required'
   | 'disabled'
   | 'placeholder'
-> = ({ className, ...props }) => {
+> = ({ className, target, ...props }) => {
   const { t } = useTranslations();
+  const { updateRootNetwork, updateSubnet } = useNetworkStore();
 
   const form = useForm<{
     address: string;
@@ -55,20 +76,22 @@ export const NetworkInput: VariableFC<
     return new Network(ipAddress, +mask!);
   }, [form.formState.errors.address, addr]);
 
-  const networkDisplay = useMemo(() => {
-    if (!network) return '';
+  useEffect(() => {
+    if (!network) return;
 
-    const lhs = network.address.format();
-    const rhs = network.broadcast.format();
-    const mask = network.mask;
+    if (target === 'root') {
+      updateRootNetwork(network);
+      return;
+    }
 
-    return `${lhs}/${mask} - ${rhs}/${mask}`;
+    updateSubnet(target, network);
   }, [network]);
 
   return (
     <VStack
       alignment='topLeading'
       spacing='0.8rem'
+      className={cn('rounded-[0.8rem] bg-gray-500 p-[1.6rem]')}
     >
       <InputField
         className={cn(className)}
@@ -98,7 +121,7 @@ export const NetworkInput: VariableFC<
         <p>{form.formState.errors.address.message}</p>
       )}
 
-      {!form.formState.errors.address && <p>{networkDisplay}</p>}
+      {!form.formState.errors.address && <NetworkDisplay network={network} />}
     </VStack>
   );
 };
