@@ -1,6 +1,7 @@
 import { NotImplementedError } from '@/errors';
 
-import type { Binary, Decimal } from '../impl';
+import type { Binary } from '../impl';
+import { Decimal } from '../impl';
 import type {
   AbstractNumber,
   AnyBaseNumber,
@@ -18,9 +19,9 @@ export class BaseNumber<T, Base extends BaseNumberType>
   implements AbstractNumber<T>, Convertible, Arithmetic
 {
   public readonly value: T;
-  private transformKey: BaseNumberType;
+  private readonly transformKey: BaseNumberType;
 
-  constructor(value: T, transformKey: BaseNumberType) {
+  constructor(value: T, transformKey: Base) {
     this.value = value;
     this.transformKey = transformKey;
   }
@@ -45,11 +46,10 @@ export class BaseNumber<T, Base extends BaseNumberType>
     value: AnyBaseNumber,
     operation: ([lhs, rhs]: [number, number]) => number,
   ): NumberDataMap[Base] {
-    const lhs = 0;
-    const rhs = 0;
-    const result = operation([lhs, rhs]);
-
-    // TODO Implement this after implemented inheritance of Decimal and Binary. This should return instance of base number.
-    return result;
+    const lhs = this.decimal().value;
+    const rhs = value.decimal().value;
+    return new Decimal(operation([lhs, rhs]))[
+      this.transformKey
+    ]() as NumberDataMap[Base];
   }
 }
