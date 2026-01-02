@@ -3,8 +3,10 @@ import deepmerge from 'deepmerge';
 import Negotiator from 'negotiator';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+import type { ArrayItemType, Writeable } from 'xenopomp-essentials';
 
 const locales = ['en-US', 'ru-RU'] as const;
+export type Locales = ArrayItemType<Writeable<typeof locales>>;
 
 /**
  * Parse headers from Next.js
