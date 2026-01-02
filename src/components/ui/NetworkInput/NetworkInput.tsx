@@ -45,10 +45,20 @@ export const NetworkInput: VariableFC<
         placeholder='192.168.0.1/24'
         {...form.register('address', {
           required: t.errors.required,
-          pattern: {
-            // eslint-disable-next-line regexp/no-super-linear-backtracking,regexp/no-misleading-capturing-group
-            value: /^(\d+.?)+\/\d{1,2}$/,
-            message: t.errors.net.wrongFormat,
+          // eslint-disable-next-line jsdoc/require-jsdoc
+          validate: value => {
+            // eslint-disable-next-line regexp/no-unused-capturing-group,regexp/no-super-linear-backtracking,regexp/no-misleading-capturing-group
+            if (!/^(\d+.?)+\/\d+$/.test(value)) {
+              return t.errors.net.wrongFormat;
+            }
+
+            const match = /\d+$/.exec(value);
+            if (match === null && match?.[0] === undefined)
+              return t.errors.net.wrongMask;
+            if (+match![0] < 1 || +match![0] > 31)
+              return t.errors.net.wrongMask;
+
+            return true;
           },
         })}
         {...props}
