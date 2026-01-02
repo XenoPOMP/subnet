@@ -3,7 +3,11 @@
 import cn from 'classnames';
 import { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import type { LenientAutocomplete, VariableFC } from 'xenopomp-essentials';
+import type {
+  LenientAutocomplete,
+  Nullable,
+  VariableFC,
+} from 'xenopomp-essentials';
 
 import { VStack } from '@/components/ui';
 import { InputField } from '@/components/ui/kit';
@@ -65,7 +69,7 @@ export const NetworkInput: VariableFC<
 
   const addr = form.watch('address');
 
-  const network = useMemo(() => {
+  const ipAddress = useMemo((): Nullable<[Address, string | undefined]> => {
     if (form.formState.errors.address) {
       return null;
     }
@@ -73,8 +77,14 @@ export const NetworkInput: VariableFC<
     const [oct1, oct2, oct3, oct4] = ip!.split('.');
 
     const ipAddress = new Address(+oct1!, +oct2!, +oct3!, +oct4!);
-    return new Network(ipAddress, +mask!);
-  }, [form.formState.errors.address, addr]);
+    return [ipAddress, mask];
+  }, [addr, form.formState.errors.address]);
+
+  const network = useMemo(() => {
+    if (!ipAddress) return null;
+    const [ip, mask] = ipAddress;
+    return new Network(ip, +mask!);
+  }, [ipAddress]);
 
   useEffect(() => {
     if (!network) return;
