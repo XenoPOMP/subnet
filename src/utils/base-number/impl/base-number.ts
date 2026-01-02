@@ -1,4 +1,4 @@
-import { NotImplementedError } from '@/errors';
+import { PrivateApiError } from '@/errors';
 
 import type { Binary } from '../impl';
 import { Decimal } from '../impl';
@@ -27,11 +27,11 @@ export class BaseNumber<T, Base extends BaseNumberType>
   }
 
   decimal(): Decimal {
-    throw new NotImplementedError('BaseNumber.decimal()');
+    throw new PrivateApiError('BaseNumber.decimal()');
   }
 
   binary(): Binary {
-    throw new NotImplementedError('BaseNumber.binary()');
+    throw new PrivateApiError('BaseNumber.binary()');
   }
 
   plus(value: AnyBaseNumber): NumberDataMap[Base] {
