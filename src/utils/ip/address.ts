@@ -50,6 +50,16 @@ export class Address {
     return bin[grade]().value.toString();
   }
 
+  /**
+   * Alias for .format({ grade: 'decimal', delimiters: false })
+   */
+  asFullDecimal(): number {
+    return +this.format({
+      grade: 'decimal',
+      delimiters: false,
+    });
+  }
+
   static fromBitmap(bitmap: string): Address {
     const bin = binary(bitmap);
 
