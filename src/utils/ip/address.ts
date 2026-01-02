@@ -21,18 +21,26 @@ export class Address {
     const grade = options?.grade ?? 'decimal';
     const useDelimiters = options?.delimiters ?? true;
 
-    if (useDelimiters) {
-      const oct1 = decimal(this.oct1)[grade]().value;
-      const oct2 = decimal(this.oct2)[grade]().value;
-      const oct3 = decimal(this.oct3)[grade]().value;
-      const oct4 = decimal(this.oct4)[grade]().value;
+    if (useDelimiters && grade === 'decimal') {
+      const oct1 = decimal(this.oct1).decimal().value;
+      const oct2 = decimal(this.oct2).decimal().value;
+      const oct3 = decimal(this.oct3).decimal().value;
+      const oct4 = decimal(this.oct4).decimal().value;
       return `${oct1}.${oct2}.${oct3}.${oct4}`;
     }
 
-    const oct1 = anyBaseNumber(this.oct1).binary().value;
-    const oct2 = anyBaseNumber(this.oct2).binary().value;
-    const oct3 = anyBaseNumber(this.oct3).binary().value;
-    const oct4 = anyBaseNumber(this.oct4).binary().value;
+    if (useDelimiters && grade === 'binary') {
+      const oct1 = decimal(this.oct1).binary().value.padStart(8, '0');
+      const oct2 = decimal(this.oct2).binary().value.padStart(8, '0');
+      const oct3 = decimal(this.oct3).binary().value.padStart(8, '0');
+      const oct4 = decimal(this.oct4).binary().value.padStart(8, '0');
+      return `${oct1}.${oct2}.${oct3}.${oct4}`;
+    }
+
+    const oct1 = anyBaseNumber(this.oct1).binary().value.padStart(8, '0');
+    const oct2 = anyBaseNumber(this.oct2).binary().value.padStart(8, '0');
+    const oct3 = anyBaseNumber(this.oct3).binary().value.padStart(8, '0');
+    const oct4 = anyBaseNumber(this.oct4).binary().value.padStart(8, '0');
     const bin = binary(`${oct1}${oct2}${oct3}${oct4}`)!;
 
     return bin[grade]().value.toString();
