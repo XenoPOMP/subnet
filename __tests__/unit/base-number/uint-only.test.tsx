@@ -14,7 +14,7 @@ describe('Base numbers do not support negative numbers', () => {
   });
 
   test('Binary made from conversion is not negative', () => {
-    expect(decimal(-12).binary()!.value).toBe(0);
-    expect(binary('1')!.decimal().binary()).toBe(1);
+    expect(decimal(-12).binary()!.value).toBe('0');
+    expect(binary('1')!.decimal().binary()!.value).toBe('1');
   });
 });

@@ -30,8 +30,12 @@ export class Binary
   }
 
   decimal(): Decimal {
-    // TODO Implement conversion to decimal
-    const res = 12;
+    const res = this.value
+      .split('')
+      .reverse()
+      .map((char, grade) => +char * 2 ** grade)
+      .reduce((acc, rhs) => acc + rhs, 0);
+
     return new Decimal(res);
   }
 

@@ -25,6 +25,7 @@ describe('Base number conversions', () => {
     testConversion(12, 'binary', '1100');
     testConversion(0, 'binary', '0');
     testConversion(-12, 'binary', '0');
+    testConversion(192, 'binary', '11000000');
   });
 
   test('bin2bin', () => {
