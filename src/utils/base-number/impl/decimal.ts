@@ -1,6 +1,9 @@
 import { BaseNumber, Binary } from '../impl';
 import type { Convertible } from '../types';
 
+/** Safely create decimal numbers. */
+export const decimal = (value: number) => new Decimal(value);
+
 export class Decimal
   extends BaseNumber<number, 'decimal'>
   implements Convertible

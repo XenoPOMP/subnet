@@ -1,6 +1,15 @@
 import { BaseNumber, Decimal } from '../impl';
 import type { Convertible } from '../types';
 
+/** Safely create binary numbers. */
+export const binary = (value: string) => {
+  try {
+    return new Binary(value);
+  } catch {
+    return null;
+  }
+};
+
 export class Binary
   extends BaseNumber<string, 'binary'>
   implements Convertible
