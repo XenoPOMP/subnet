@@ -1,10 +1,14 @@
+'use client';
+
 import cn from 'classnames';
+import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import type { VariableFC } from 'xenopomp-essentials';
 
 import { VStack } from '@/components/ui';
 import { InputField } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
+import { Address, Network } from '@/utils/ip';
 
 /**
  * @param className
@@ -33,7 +37,33 @@ export const NetworkInput: VariableFC<
     address: string;
   }>({
     mode: 'onChange',
+    defaultValues: {
+      address: '',
+    },
   });
+
+  const addr = form.watch('address');
+
+  const network = useMemo(() => {
+    if (form.formState.errors.address) {
+      return null;
+    }
+    const [ip, mask] = addr.split('/');
+    const [oct1, oct2, oct3, oct4] = ip!.split('.');
+
+    const ipAddress = new Address(+oct1!, +oct2!, +oct3!, +oct4!);
+    return new Network(ipAddress, +mask!);
+  }, [form.formState.errors.address, addr]);
+
+  const networkDisplay = useMemo(() => {
+    if (!network) return '';
+
+    const lhs = network.address.format();
+    const rhs = network.broadcast.format();
+    const mask = network.mask;
+
+    return `${lhs}/${mask} - ${rhs}/${mask}`;
+  }, [network]);
 
   return (
     <VStack
@@ -67,6 +97,8 @@ export const NetworkInput: VariableFC<
       {form.formState.errors.address && (
         <p>{form.formState.errors.address.message}</p>
       )}
+
+      {!form.formState.errors.address && <p>{networkDisplay}</p>}
     </VStack>
   );
 };
