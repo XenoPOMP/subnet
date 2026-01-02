@@ -8,7 +8,7 @@ export class Network {
   readonly mask: number;
 
   constructor(ipAddress: Address, mask: number) {
-    const trueMask = clamp(1, 32, mask);
+    const trueMask = clamp(1, 31, mask);
     const bitmap = ipAddress.format({
       grade: 'binary',
       delimiters: false,
