@@ -1,4 +1,5 @@
-import { BaseNumber, Decimal } from '../impl';
+import { BaseNumber } from '../impl/base-number';
+import { Decimal } from '../impl/decimal';
 import type { Convertible } from '../types';
 
 /** Safely create binary numbers. */
