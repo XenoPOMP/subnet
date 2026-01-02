@@ -1,6 +1,6 @@
 import { describe } from 'vitest';
 
-import Home from '@app/page';
+import Home from '@app/[lang]/page.tsx';
 
 import { testNextPage } from '@test/assets';
 

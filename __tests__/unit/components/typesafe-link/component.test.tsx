@@ -7,7 +7,7 @@ describe('TypesafeLink component', () => {
   test('It renders', () => {
     assertRendering(
       <TypesafeLink
-        href='/page/:number'
+        href='/[lang]/page.tsx/:number'
         params={{
           number: '1',
         }}
