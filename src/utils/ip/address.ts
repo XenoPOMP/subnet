@@ -17,7 +17,11 @@ export class Address {
     this.oct4 = this.octet(oct4);
   }
 
-  format(options?: { grade?: BaseNumberType; delimiters?: boolean }): string {
+  format(options?: {
+    /** @default 'decimal' */
+    grade?: BaseNumberType;
+    delimiters?: boolean;
+  }): string {
     const grade = options?.grade ?? 'decimal';
     const useDelimiters = options?.delimiters ?? true;
 
