@@ -1,1 +1,1 @@
-export { decimal, binary } from './impl';
+export { decimal, binary, anyBaseNumber } from './impl';

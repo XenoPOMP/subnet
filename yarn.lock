@@ -3270,6 +3270,11 @@
   dependencies:
     "@types/deep-eql" "*"
 
+"@types/chunk-text@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/chunk-text/-/chunk-text-1.0.2.tgz#e2acf371114ba4856aba78e78388f5ce11290aec"
+  integrity sha512-qhgRZk99hNjXBzKoNeXNY4w4fF1a6zgDag7yOIHX9aZo2qwwkT2K1CJJbIrahx2UCIvsIMTwE3RxZUnksuFQMQ==
+
 "@types/debug@^4.0.0":
   version "4.1.12"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.12.tgz#a155f21690871953410df4b6b6f53187f0500917"
@@ -4904,6 +4909,13 @@ chrome-trace-event@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/chrome-trace-event/-/chrome-trace-event-1.0.3.tgz#1015eced4741e15d06664a957dbbf50d041e26ac"
   integrity sha512-p3KULyQg4S7NIHixdwbGX+nFHkoBiA4YQmyWtjb8XngSKV124nJmRysgAeujbUVb15vh+RvFUfCPqU7rXk+hZg==
+
+chunk-text@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/chunk-text/-/chunk-text-2.0.1.tgz#4d6e9946c6b842f823b504ee25366a6644733272"
+  integrity sha512-ER6TSpe2DT4wjOVOKJ3FFAYv7wE77HA/Ztz88Peiv3lq/2oVMsItYJJsVVI0xNZM8cdImOOTNqlw+LQz7gYdJg==
+  dependencies:
+    runes "^0.4.3"
 
 ci-info@^4.1.0:
   version "4.2.0"
@@ -11152,6 +11164,11 @@ run-parallel@^1.1.9:
   integrity sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==
   dependencies:
     queue-microtask "^1.2.2"
+
+runes@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/runes/-/runes-0.4.3.tgz#32f7738844bc767b65cc68171528e3373c7bb355"
+  integrity sha512-K6p9y4ZyL9wPzA+PMDloNQPfoDGTiFYDvdlXznyGKgD10BJpcAosvATKrExRKOrNLgD8E7Um7WGW0lxsnOuNLg==
 
 rxjs@^7.5.1:
   version "7.8.1"
