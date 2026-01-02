@@ -41,7 +41,7 @@
     "types": [
       // This allows Serwist to type `window.serwist`.
       "@serwist/next/typings"
-    ]
+    ],
   },
   "include": [
     // Declarations
@@ -60,7 +60,7 @@
     ".config/.dev/data/**/*.ts",
     ".config/**/*.ts",
     ".storybook/**/*.ts",
-    ".storybook/**/*.tsx",
+    ".storybook/**/*.tsx"
   ],
-  "exclude": ["node_modules", "public/sw.js"],
+  "exclude": ["node_modules", "public/sw.js"]
 }

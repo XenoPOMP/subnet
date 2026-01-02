@@ -1,3 +1,5 @@
+import { NumberCreationError } from '@/errors';
+
 import { BaseNumber } from '../impl/base-number';
 import { Decimal } from '../impl/decimal';
 import type { Convertible } from '../types';
@@ -16,7 +18,14 @@ export class Binary
   implements Convertible
 {
   constructor(value: string) {
-    // TODO Add validation here
+    const illegalChars: boolean = !value
+      .split('')
+      .every(c => c === '1' || c === '0');
+
+    if (illegalChars) {
+      throw new NumberCreationError('binary');
+    }
+
     super(value, 'binary');
   }
 

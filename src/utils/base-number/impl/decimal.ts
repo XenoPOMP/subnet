@@ -10,7 +10,7 @@ export class Decimal
   implements Convertible
 {
   constructor(value: number) {
-    super(value, 'decimal');
+    super(Math.max(0, value), 'decimal');
   }
 
   decimal(): Decimal {
