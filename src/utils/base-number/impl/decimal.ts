@@ -51,9 +51,8 @@ export class Decimal
 
   private neareastPow2(num: number) {
     const target = Math.max(0, num);
-    if (target <= 0) return 1;
     // Calculate the logarithm base 2 of the number
-    const exponent = Math.log(num) / Math.log(2);
+    const exponent = Math.log(target) / Math.log(2);
     // Round the exponent to the nearest integer
     const roundedExponent = Math.floor(exponent);
     // Raise 2 to the rounded exponent
