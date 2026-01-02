@@ -1,0 +1,21 @@
+@use "templates";
+@use "config";
+@use "mixins/cascade-down";
+
+// Design system related variables.
+// Can be enabled if needed.
+:root {
+  // This rule is for sass backwards capability.
+  & {
+    /* Base font size is 10px, because of easy multiplication. */
+    font-size: 10px;
+  }
+
+  & body {
+    font-size: 2.0rem;
+  }
+
+  & * {
+    line-height: 140%;
+  }
+}

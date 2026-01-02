@@ -1,0 +1,59 @@
+# This workflow is supposed to be triggered automatically when a new template-based repository has been created.
+
+name: Template Cleanup
+on:
+  push:
+    branches: [main]
+
+jobs:
+
+  # Run a cleaning process only if the workflow is triggered by the non-"next-template" repository.
+  template-cleanup:
+    name: Template Cleanup
+    runs-on: ubuntu-latest
+    if: github.event.repository.name != 'next-template'
+    permissions:
+      contents: write
+
+    steps:
+
+      # Check out the current repository
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+
+      - name: '🧩 Install Node 22'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: '📦 Install dependencies'
+        run: |
+          npm i -g cross-env
+          yarn install --frozen-lockfile
+
+      # Cleanup project
+      - name: Cleanup
+        run: |
+          export LC_CTYPE=C
+          export LANG=C
+          
+          # Prepare variables
+          NAME="${GITHUB_REPOSITORY##*/}"
+          ACTOR=$(echo $GITHUB_ACTOR)
+          
+          npx cross-env ACTOR="$ACTOR" REPO_NAME="$NAME" tsx .config/.dev/scripts/cleanup.ts
+
+      # Commit modified files
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Template cleanup"
+
+      # Push changes
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,28 @@
+// Helper mixin for creating .disableable component
+@mixin disableable {
+  @apply transition-[opacity];
+
+  &[data-disabled], &:disabled {
+    @apply opacity-40 pointer-events-none select-none;
+  }
+}
+
+// Style elements that can be disabled
+*:is(
+  button,
+  fieldset,
+  input,
+  keygen,
+  optgroup,
+  option,
+  select,
+  textarea
+) {
+  @include disableable;
+}
+
+@layer components {
+  .disableable {
+    @include disableable;
+  }
+}

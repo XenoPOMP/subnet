@@ -1,0 +1,17 @@
+.uiStack {
+  $size: min(var(--max-size), calc(100% - 2 * var(--insets)));
+
+  // Default values
+  --insets: 2rem;
+  --max-size: 1680px;
+
+  &.orientation {
+    &.vertical {
+      height: $size;
+    }
+
+    &.horizontal {
+      width: $size;
+    }
+  }
+}

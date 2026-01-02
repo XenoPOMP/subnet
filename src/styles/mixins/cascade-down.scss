@@ -1,0 +1,28 @@
+@use "sass:list";
+@use "../utils/media";
+@use "assign-variable";
+
+// Define map of variables that will be cascaded down on certain breakpoint
+@mixin cascadeDown($at, $values) {
+  // Assign initial values
+  @each $name, $value in $values {
+    @include assign-variable.assignVariable($name, $value);
+  }
+
+  // Cascade values down on certain breakpoint
+  @include media.endAtFixed($at) {
+    // Loop over all presented values
+    @each $name, $value in $values {
+      $listLength: list.length($values);
+      $nextIndex: list.index($values, $name $value) + 1;
+
+      // Overflow safe
+      @if $nextIndex > $listLength {
+        @include assign-variable.assignVariable($name, list.nth(list.nth($values, $listLength), 2));
+      }
+      @else {
+        @include assign-variable.assignVariable($name, list.nth(list.nth($values, list.index($values, $name $value) + 1), 2));
+      }
+    }
+  }
+}

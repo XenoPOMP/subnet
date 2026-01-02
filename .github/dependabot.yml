@@ -1,0 +1,151 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+    # Grouping dependecies to remove flood PRs from Dependabot
+    groups:
+      react-core:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+          - "@types/node"
+      storybook:
+        patterns:
+          - "@storybook/*"
+          - "@chromatic-com/storybook"
+          - "storybook"
+        update-types:
+          - "major"
+          - "minor"
+      next-js:
+        patterns:
+          - "@next/mdx"
+          - "@mdx-js/loader"
+          - "@mdx-js/react"
+          - "@serwist/next"
+          - "next"
+          - "next-themes"
+          - "@types/mdx"
+          - "serwist"
+      vitest:
+        patterns:
+          - "vitest"
+          - "vitest-*"
+          - "@vitest/*"
+          - "vite"
+          - "vite-*"
+          - "@vitejs/*"
+          - "@testing-library/*"
+          - "jest-extended"
+          - "jsdom"
+      tailwindcss:
+        patterns:
+          - "tailwindcss"
+          - "tailwindcss-*"
+          - "autoprefixer"
+          - "postcss"
+      stylelint:
+        patterns:
+          - "stylelint"
+          - "stylelint-*"
+      prettier:
+        patterns:
+          - "@trivago/prettier-plugin-sort-imports"
+          - "prettier"
+          - "prettier-plugin-*"
+      typescript:
+          patterns:
+            - "typescript"
+            - "type-fest"
+            - "tsx"
+            - "tsd"
+            - "zod"
+      eslint:
+          patterns:
+            - "@eslint-react/eslint-plugin"
+            - "eslint"
+            - "eslint-plugin-*"
+            - "jiti"
+      react-query:
+          patterns:
+            - "@tanstack/react-query*"
+      theming:
+          patterns:
+            - "@dicebear/collection"
+            - "@dicebear/core"
+            - "@headlessui/react"
+            - "@heroui/kbd"
+            - "@heroui/theme"
+            - "@radix-ui/react-slot"
+            - "class-variance-authority"
+      repo-workflow:
+          patterns:
+            - "lint-staged"
+            - "hygen"
+            - "husky"
+            - "npm-run-all"
+            - "start-server-and-test"
+      scss:
+          patterns:
+            - "sass"
+            - "str.scss"
+      others:
+          patterns:
+            - "@pacote/react-use-outside"
+            - "axios"
+            - "classnames"
+            - "cypress"
+            - "lucide-react"
+            - "motion"
+            - "use-clipboard-copy"
+            - "use-debounce"
+            - "xenopomp-essentials"
+            - "zustand"
+            - "@voxpelli/semver-set"
+    open-pull-requests-limit: 15
+    pull-request-branch-name:
+      separator: '-'
+    commit-message:
+      # cause a release for non-dev-deps
+      prefix: fix(deps)
+      # no release for dev-deps
+      prefix-development: chore(dev-deps)
+    ignore:
+      - dependency-name: "@storybook/*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+
+      - dependency-name: "@typescript-eslint/*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+
+      - dependency-name: "stylelint*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+
+      - dependency-name: "@types/node"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+
+      - dependency-name: "@types/react*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
+
+      - dependency-name: "vitest-matchmedia-mock"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"
