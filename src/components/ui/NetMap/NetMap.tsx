@@ -22,29 +22,31 @@ export function NetMap() {
   return (
     <>
       {!!root && !!min && !!max && (
-        <ZStack className={cn('w-full bg-zinc-800 p-[1.6rem]')}>
-          <VStack
-            className={cn('w-full')}
-            spacing='0.8rem'
-          >
-            <For each={subnets}>
-              {({ network, id }) => (
-                <Slider
-                  min={min}
-                  max={max}
-                  value={[
-                    network.address.asFullDecimal(),
-                    network.broadcast.asFullDecimal(),
-                  ]}
-                  disabled
-                  disableSwap
-                  className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]')}
-                  key={`slider-for-network-${id}`}
-                />
-              )}
-            </For>
-          </VStack>
-        </ZStack>
+        <VStack className={cn('w-full bg-zinc-800 p-[1.6rem]')}>
+          <ZStack className={cn('w-full')}>
+            <VStack
+              className={cn('w-full')}
+              spacing='0.8rem'
+            >
+              <For each={subnets}>
+                {({ network, id }) => (
+                  <Slider
+                    min={min}
+                    max={max}
+                    value={[
+                      network.address.asFullDecimal(),
+                      network.broadcast.asFullDecimal(),
+                    ]}
+                    disabled
+                    disableSwap
+                    className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]')}
+                    key={`slider-for-network-${id}`}
+                  />
+                )}
+              </For>
+            </VStack>
+          </ZStack>
+        </VStack>
       )}
 
       <For each={overlaps}>
