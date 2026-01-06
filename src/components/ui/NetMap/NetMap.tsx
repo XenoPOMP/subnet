@@ -4,8 +4,8 @@ import { Slider } from '@mui/material';
 import cn from 'classnames';
 
 import { For } from '@/components/layout';
-import { VStack, ZStack } from '@/components/ui';
-import { useOverlaps } from '@/hooks/useOverlaps.ts';
+import { Overlaps, VStack, ZStack } from '@/components/ui';
+import { useOverlaps } from '@/hooks';
 import { decimal } from '@/utils/base-number';
 import { Address } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -45,6 +45,8 @@ export function NetMap() {
                 )}
               </For>
             </VStack>
+
+            <Overlaps />
           </ZStack>
         </VStack>
       )}

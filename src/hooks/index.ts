@@ -4,6 +4,7 @@ export { useRace } from './use-race';
 export { useLinkedMutation } from './useLinkedMutation';
 export { useOutSide } from './useOutSide';
 export { useUniqueId } from './useUniqueId';
+export * from './useOverlaps';
 
 // eslint-disable-next-line deprecation/deprecation
 export { useCopyToClipboard };
