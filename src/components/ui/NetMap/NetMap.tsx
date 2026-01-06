@@ -5,11 +5,15 @@ import cn from 'classnames';
 
 import { For } from '@/components/layout';
 import { VStack, ZStack } from '@/components/ui';
+import { useOverlaps } from '@/hooks/useOverlaps.ts';
+import { decimal } from '@/utils/base-number';
+import { Address } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export function NetMap() {
   const { root, subnets } = useNetworkStore();
+  const overlaps = useOverlaps();
 
   // TODO Implement intersections calculation
   const min = root?.address.asFullDecimal();
@@ -42,6 +46,15 @@ export function NetMap() {
           </VStack>
         </ZStack>
       )}
+
+      <For each={overlaps}>
+        {([from, to]) => (
+          <div key={`range-from-${from}-to-${to}`}>
+            <b>{Address.fromBitmap(decimal(from!).binary().value).format()}</b>{' '}
+            - <b>{Address.fromBitmap(decimal(to!).binary().value).format()}</b>
+          </div>
+        )}
+      </For>
     </>
   );
 }

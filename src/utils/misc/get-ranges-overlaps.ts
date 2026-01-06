@@ -1,45 +1,61 @@
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function findOverlappingValues(ranges: [number, number][]) {
-  // 1. Collect events: start and end of each range
-  const events: Array<{ pos: number; type: 'start' | 'end' }> = [];
-  for (const [start, end] of ranges) {
-    events.push({ pos: start, type: 'start' });
-    events.push({ pos: end, type: 'end' });
+export function findOverlappingRanges(ranges: [number, number][]) {
+  // 1. Собираем события: начало и конец каждого диапазона
+  const events: Array<{ pos: number; type: 'start' | 'end'; index: number }> =
+    [];
+  for (let i = 0; i < ranges.length; i++) {
+    const [start, end] = ranges[i]!;
+    events.push({ pos: start, type: 'start', index: i });
+    events.push({ pos: end, type: 'end', index: i });
   }
 
-  // 2. Sort events by its position
-  events.sort((a, b) => a.pos - b.pos);
+  // 2. Сортируем: по позиции; при равенстве — start перед end
+  events.sort((a, b) => {
+    if (a.pos !== b.pos) return a.pos - b.pos;
+    return a.type === 'start' ? -1 : 1;
+  });
 
-  const result = new Set<number>(); // Exclude repeating values
+  const resultIntervals = []; // Массив диапазонов перекрытия [start, end]
   let activeCount = 0;
   let overlapStart = null;
 
-  for (let i = 0; i < events.length; i++) {
-    const event = events[i]!;
-
+  for (const event of events) {
     if (event.type === 'start') {
       activeCount++;
 
-      // If activeCount >= 2, start overlap
+      // Входим в зону перекрытия ≥2 диапазонов
       if (activeCount >= 2 && overlapStart === null) {
         overlapStart = event.pos;
       }
     } else {
       // type === 'end'
-      // First, we process the overlap until the counter is reduced
-      if (activeCount >= 2) {
+      // Выходим из зоны перекрытия
+      if (activeCount >= 2 && overlapStart !== null) {
         const overlapEnd = event.pos;
-        // Adding all integers from overlapStart to overlapEnd
-        for (let x = overlapStart!; x <= overlapEnd; x++) {
-          result.add(x);
-        }
+        resultIntervals.push([overlapStart, overlapEnd]);
+        overlapStart = null; // Сбрасываем для следующего возможного перекрытия
       }
       activeCount--;
-      overlapStart = null; // We are resetting, because the overlap has been interrupted
     }
   }
 
-  return Array.from(result)
-    .sort((a, b) => a - b)
-    .filter(n => !!n); // Returning the sorted array
+  // 3. Объединяем смежные/перекрывающиеся интервалы
+  if (resultIntervals.length === 0) return [];
+
+  const merged: number[][] = [];
+  let current = resultIntervals[0];
+
+  for (let i = 1; i < resultIntervals.length; i++) {
+    const next = resultIntervals[i];
+    if (next![0]! <= current![1]!) {
+      // Перекрываются или смежны — объединяем
+      current![1] = Math.max(current![1]!, next![1]!);
+    } else {
+      merged.push(current!);
+      current = next;
+    }
+  }
+  merged.push(current!);
+
+  return merged;
 }
