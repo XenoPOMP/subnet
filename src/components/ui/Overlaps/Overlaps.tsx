@@ -22,6 +22,7 @@ export const Overlaps: FC<unknown> = () => {
       const progress = ((end - start) / (max - min)) * 100;
       const left = ((start - min) / (max - min)) * 100;
 
+      // TODO Implement hatching
       return {
         className: cn('h-full bg-red-500/10'),
         style: {
