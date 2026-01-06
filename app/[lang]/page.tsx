@@ -1,8 +1,8 @@
 'use client';
 
 import cn from 'classnames';
-import { Fragment } from 'react';
 
+import { For } from '@/components/layout';
 import {
   HStack,
   NetMap,
@@ -10,17 +10,13 @@ import {
   NetworkInput,
   VStack,
 } from '@/components/ui';
-import { useIntersections } from '@/hooks';
 import { useTranslations } from '@/i18n';
-import { decimal } from '@/utils/base-number';
-import { Address } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export default function TestPage() {
   const { t } = useTranslations();
   const { root, subnets, createSubnet, removeSubnet } = useNetworkStore();
-  const intersections = useIntersections();
 
   return (
     <HStack
@@ -36,14 +32,14 @@ export default function TestPage() {
 
         <NetworkInput target='root' />
 
-        {subnets.map(n => (
-          <Fragment key={n.id}>
+        <For each={subnets}>
+          {n => (
             <NetworkInput
+              key={`net-input-for-${n.id}`}
               target={n.id}
-              key={n.id}
             />
-          </Fragment>
-        ))}
+          )}
+        </For>
 
         <button
           type='button'
@@ -63,32 +59,24 @@ export default function TestPage() {
         <h2>Root network</h2>
         <NetworkDisplay network={root} />
 
-        {subnets.map(n => (
-          <Fragment key={n.id}>
-            <div className={cn('bg-gray-800 p-[1.6rem]')}>
+        <For each={subnets}>
+          {n => (
+            <div
+              className={cn('bg-gray-800 p-[1.6rem]')}
+              key={`subnet-display-${n.id}`}
+            >
               <h3>Subnet #{n.id}</h3>
               <NetworkDisplay network={n.network} />
               <button
+                type='button'
                 className={cn('text-red-500')}
                 onClick={() => removeSubnet(n.id)}
               >
                 Remove
               </button>
             </div>
-          </Fragment>
-        ))}
-
-        <h2>Intersections</h2>
-
-        {intersections.map(value => (
-          <Fragment key={`intersection-for-${value}`}>
-            <div className={cn('bg-slate-800 p-[1.6rem]')}>
-              <p>
-                {Address.fromBitmap(decimal(value).binary().value).format()}
-              </p>
-            </div>
-          </Fragment>
-        ))}
+          )}
+        </For>
       </VStack>
     </HStack>
   );
