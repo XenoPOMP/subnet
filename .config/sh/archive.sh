@@ -36,7 +36,8 @@ case "$ACTION" in
     ;;
 
   list)
-    find ./.config/archive -type f
+    echo "These files are archived:"
+    find ./.config/archive -type f | sed 's|./.config/archive/||g'
     exit 0
     ;;
 
