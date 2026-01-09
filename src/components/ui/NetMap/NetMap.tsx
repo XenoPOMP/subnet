@@ -42,14 +42,25 @@ export function NetMap() {
         </VStack>
       )}
 
-      <For each={overlaps}>
-        {([from, to]) => (
-          <div key={`range-from-${from}-to-${to}`}>
-            <b>{Address.fromBitmap(decimal(from!).binary().value).format()}</b>{' '}
-            - <b>{Address.fromBitmap(decimal(to!).binary().value).format()}</b>
-          </div>
-        )}
-      </For>
+      {!!overlaps.length && (
+        <>
+          <h2>Overlaps</h2>
+
+          <For each={overlaps}>
+            {([from, to]) => (
+              <div key={`range-from-${from}-to-${to}`}>
+                <b>
+                  {Address.fromBitmap(decimal(from!).binary().value).format()}
+                </b>{' '}
+                -{' '}
+                <b>
+                  {Address.fromBitmap(decimal(to!).binary().value).format()}
+                </b>
+              </div>
+            )}
+          </For>
+        </>
+      )}
     </>
   );
 }
