@@ -15,7 +15,6 @@ export function NetMap() {
   const { root, subnets } = useNetworkStore();
   const overlaps = useOverlaps();
 
-  // TODO Implement intersections calculation
   const min = root?.address.asFullDecimal();
   const max = root?.broadcast.asFullDecimal();
 
