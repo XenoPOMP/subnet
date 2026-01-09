@@ -3,7 +3,7 @@ import { clamp } from 'motion';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import type { ComponentProps, FC } from 'react';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { RequiredDeep } from 'type-fest';
 
 import { VStack } from '@/components/ui';
@@ -23,27 +23,25 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
   const min = root?.address.asFullDecimal();
   const max = root?.broadcast.asFullDecimal();
 
-  const onChange = useCallback<
-    RequiredDeep<ComponentProps<typeof Slider>>['onChange']
-  >(
-    value => {
-      const start =
-        typeof value === 'number' ? value : value.sort((a, b) => a - b).at(0);
+  const onChange: RequiredDeep<
+    ComponentProps<typeof Slider>
+    // eslint-disable-next-line jsdoc/require-jsdoc
+  >['onChange'] = value => {
+    const start =
+      typeof value === 'number' ? value : value.sort((a, b) => a - b).at(0);
 
-      if (!start) return;
-      // We want to min and max values to be defined. Otherwise, root network is null.
-      if (!min || !max) return;
+    if (!start) return;
+    // We want to min and max values to be defined. Otherwise, root network is null.
+    if (!min || !max) return;
 
-      // Extra check to make sure that range is not ignored.
-      const newValue = clamp(min, max, start);
-      const bitmap = decimal(newValue).binary().value;
-      const ip = Address.fromBitmap(bitmap);
-      const newNetwork = new Network(ip, network.mask);
+    // Extra check to make sure that range is not ignored.
+    const newValue = clamp(min, max, start);
+    const bitmap = decimal(newValue).binary().value;
+    const ip = Address.fromBitmap(bitmap);
+    const newNetwork = new Network(ip, network.mask);
 
-      updateSubnet(networkId, newNetwork);
-    },
-    [max, min],
-  );
+    updateSubnet(networkId, newNetwork);
+  };
 
   const step = useMemo((): number => {
     const wildcard = network.wildcard().format({
