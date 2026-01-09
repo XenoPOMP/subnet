@@ -29,6 +29,7 @@ export const useNetworkStore = create<INetworkStore & NetworkFormDelegate>(
         network: get().root ?? new Network(new Address(127, 0, 0, 1), 24),
       });
 
+      set(lodashSet(get(), `form.${id}.input`, ''));
       set({
         subnets: previousSubnets,
       });

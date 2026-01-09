@@ -18,7 +18,7 @@ interface Props {
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const NetSlider: FC<Props> = ({ network, networkId }) => {
-  const { root, updateSubnet } = useNetworkStore();
+  const { root, updateSubnet, setValue } = useNetworkStore();
 
   const min = root?.address.asFullDecimal();
   const max = root?.broadcast.asFullDecimal();
@@ -41,6 +41,7 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
     const newNetwork = new Network(ip, network.mask);
 
     updateSubnet(networkId, newNetwork);
+    setValue(networkId, newNetwork.cidr());
   };
 
   const step = useMemo((): number => {

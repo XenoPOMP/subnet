@@ -2,7 +2,6 @@
 
 import cn from 'classnames';
 import { useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
 import type {
   LenientAutocomplete,
   Nullable,
@@ -22,21 +21,12 @@ export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
   ...props
 }) => {
   const { t } = useTranslations();
-  const { updateRootNetwork, updateSubnet } = useNetworkStore();
+  const { updateRootNetwork, updateSubnet, form, setValue } = useNetworkStore();
 
-  const form = useForm<{
-    address: string;
-  }>({
-    mode: 'onChange',
-    defaultValues: {
-      address: '',
-    },
-  });
-
-  const addr = form.watch('address');
+  const addr = form[target]!.input;
 
   const ipAddress = useMemo((): Nullable<[Address, string | undefined]> => {
-    if (form.formState.errors.address) {
+    if (form[target]!.error) {
       return null;
     }
     const [ip, mask] = addr.split('/');
@@ -44,7 +34,7 @@ export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
 
     const ipAddress = new Address(+oct1!, +oct2!, +oct3!, +oct4!);
     return [ipAddress, mask];
-  }, [addr, form.formState.errors.address]);
+  }, [addr, form[target]!.error]);
 
   // Network created from local state.
   const network = useMemo(() => {
@@ -74,32 +64,14 @@ export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
       <InputField
         className={cn(className)}
         placeholder='192.168.0.1/24'
-        {...form.register('address', {
-          required: t.errors.required,
-          // eslint-disable-next-line jsdoc/require-jsdoc
-          validate: value => {
-            // eslint-disable-next-line regexp/no-unused-capturing-group,regexp/no-super-linear-backtracking,regexp/no-misleading-capturing-group
-            if (!/^(\d+.?)+\/\d+$/.test(value)) {
-              return t.errors.net.wrongFormat;
-            }
-
-            const match = /\d+$/.exec(value);
-            if (match === null && match?.[0] === undefined)
-              return t.errors.net.wrongMask;
-            if (+match![0] < 1 || +match![0] > 31)
-              return t.errors.net.wrongMask;
-
-            return true;
-          },
-        })}
+        value={addr}
+        onChange={e => setValue(target, e.target.value)}
         {...props}
       />
 
-      {form.formState.errors.address && (
-        <p>{form.formState.errors.address.message}</p>
-      )}
+      {form[target]!.error && <p>{form[target]!.error}</p>}
 
-      {!form.formState.errors.address && !!network && (
+      {!form[target]?.error && !!network && (
         <p className={cn('text-lg')}>{network.cidr({ showRange: true })}</p>
       )}
     </VStack>
