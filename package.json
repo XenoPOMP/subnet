@@ -31,7 +31,8 @@
     "fullpack": "run-s pack:**",
     "pack:env": "tsx .config/.dev/scripts/pack-env.ts",
     "pack:node:semver": "tsx .config/.dev/scripts/caclulate-engine-reqs.ts",
-    "knip": "knip"
+    "knip": "knip",
+    "knip:deps": "yarn knip --dependencies"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.4",
