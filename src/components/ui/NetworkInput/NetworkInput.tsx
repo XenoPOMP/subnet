@@ -23,7 +23,8 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
   ...props
 }) => {
   const { t } = useTranslations();
-  const { updateRootNetwork, updateSubnet, form, setValue } = useNetworkStore();
+  const { updateRootNetwork, updateSubnet, form, setValue, removeSubnet } =
+    useNetworkStore();
   const [name, setName] = useState('');
   const [color, setColor] = useState<string>(randomColor());
 
@@ -101,6 +102,22 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 
       {!form[target]?.error && !!network && (
         <p className={cn('text-lg')}>{network.cidr({ showRange: true })}</p>
+      )}
+
+      {target !== 'root' && (
+        <>
+          <button>Copy</button>
+
+          <button
+            className={cn('text-red-500')}
+            onClick={() => {
+              if (target === 'root') return;
+              removeSubnet(target);
+            }}
+          >
+            Delete
+          </button>
+        </>
       )}
     </VStack>
   );
