@@ -67,7 +67,11 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
     <VStack
       alignment='topLeading'
       spacing='0.8rem'
-      className={cn('rounded-[0.8rem] bg-gray-500 p-[1.6rem]', className)}
+      className={cn(
+        'rounded-[0.8rem] bg-gray-500 p-[1.6rem]',
+        'w-full',
+        className,
+      )}
       {...props}
     >
       {target !== 'root' && (

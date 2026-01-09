@@ -16,31 +16,35 @@ export default function TestPage() {
     <HStack
       alignment='topLeading'
       spacing='1.2rem'
+      className={cn('h-dvh w-dvw overflow-hidden')}
     >
       <VStack
         alignment='topLeading'
         spacing='1.2rem'
-        className={cn('w-[350px]')}
+        className={cn('h-full w-1/4 max-w-[400px] overflow-y-auto')}
+        asChild
       >
-        <h1>{t.hello}</h1>
+        <aside>
+          <h1>{t.hello}</h1>
 
-        <NetworkInput target='root' />
+          <NetworkInput target='root' />
 
-        <For each={subnets}>
-          {n => (
-            <NetworkInput
-              key={`net-input-for-${n.id}`}
-              target={n.id}
-            />
-          )}
-        </For>
+          <For each={subnets}>
+            {n => (
+              <NetworkInput
+                key={`net-input-for-${n.id}`}
+                target={n.id}
+              />
+            )}
+          </For>
 
-        <button
-          type='button'
-          onClick={() => createSubnet()}
-        >
-          Create Subnet
-        </button>
+          <button
+            type='button'
+            onClick={() => createSubnet()}
+          >
+            Create Subnet
+          </button>
+        </aside>
       </VStack>
 
       <VStack
