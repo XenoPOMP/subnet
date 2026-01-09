@@ -36,7 +36,7 @@ case "$ACTION" in
     ;;
 
   list)
-    ls ./.config/archive
+    find ./.config/archive -type f
     exit 0
     ;;
 
