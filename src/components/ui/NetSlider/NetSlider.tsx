@@ -84,7 +84,21 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
           draggableTrack: true,
         }}
         onChange={onChange}
-        className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]', 'z-[20]')}
+        className={cn('z-[20]')}
+        classNames={{
+          handle: cn(
+            '!border-[0px] !opacity-100 !size-[1.0rem] !-mt-[3.5px]',
+            '!shadow-none',
+          ),
+        }}
+        styles={{
+          track: {
+            backgroundColor: network.color,
+          },
+          handle: {
+            backgroundColor: network.color,
+          },
+        }}
       />
 
       <VStack
