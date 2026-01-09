@@ -8,6 +8,9 @@ export class Network implements CIDR, Equatable {
   readonly broadcast: Address;
   readonly mask: number;
 
+  name: string | undefined;
+  color: string | undefined;
+
   constructor(ipAddress: Address, mask: number) {
     const trueMask = clamp(1, 31, mask);
     const bitmap = ipAddress.format({

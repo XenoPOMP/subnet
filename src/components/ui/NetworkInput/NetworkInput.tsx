@@ -15,7 +15,7 @@ import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
+export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
   className,
   target,
   ...props
@@ -59,14 +59,13 @@ export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
     <VStack
       alignment='topLeading'
       spacing='0.8rem'
-      className={cn('rounded-[0.8rem] bg-gray-500 p-[1.6rem]')}
+      className={cn('rounded-[0.8rem] bg-gray-500 p-[1.6rem]', className)}
+      {...props}
     >
       <InputField
-        className={cn(className)}
         placeholder='192.168.0.1/24'
         value={addr}
         onChange={e => setValue(target, e.target.value)}
-        {...props}
       />
 
       {form[target]!.error && <p>{form[target]!.error}</p>}
@@ -81,17 +80,3 @@ export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
 interface Props {
   target: LenientAutocomplete<'root'>;
 }
-
-type Exclusion =
-  | 'onChange'
-  | 'onBlur'
-  | 'ref'
-  | 'name'
-  | 'min'
-  | 'max'
-  | 'maxLength'
-  | 'minLength'
-  | 'pattern'
-  | 'required'
-  | 'disabled'
-  | 'placeholder';
