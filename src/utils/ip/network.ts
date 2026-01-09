@@ -1,9 +1,9 @@
 import { clamp } from 'motion';
 
-import type { CIDR } from '@/types';
+import type { CIDR, Equatable } from '@/types';
 import { Address } from '@/utils/ip';
 
-export class Network implements CIDR {
+export class Network implements CIDR, Equatable {
   readonly address: Address;
   readonly broadcast: Address;
   readonly mask: number;
@@ -38,6 +38,14 @@ export class Network implements CIDR {
   wildcard(): Address {
     const bitmap = `${'0'.repeat(this.mask)}`.padEnd(32, '1');
     return Address.fromBitmap(bitmap);
+  }
+
+  equals(rhs: Network): boolean {
+    const addressesAreSame = this.address.equals(rhs.address);
+    const broadcastestAreSame = this.broadcast.equals(rhs.broadcast);
+    const masksAreSame = this.mask === rhs.mask;
+
+    return addressesAreSame && broadcastestAreSame && masksAreSame;
   }
 
   private firstNChars(value: string, n: number): string {

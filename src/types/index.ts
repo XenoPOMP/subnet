@@ -7,3 +7,4 @@ export * from './typesafe-url';
 export * from './select-keys';
 export * from './css-color';
 export * from './cidr';
+export * from './equatable';
