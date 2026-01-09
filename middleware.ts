@@ -25,6 +25,22 @@ function getHeaders(request: NextRequest): Negotiator.Headers {
   return deepmerge.all<Record<string, string>>(objects);
 }
 
+// eslint-disable-next-line jsdoc/require-jsdoc
+function prepareLanguages(rawLanguages: string[]) {
+  if (rawLanguages.length !== 1) return rawLanguages;
+  const first = rawLanguages.at(0);
+  if (!first) return rawLanguages;
+
+  // * is incorrectly handled by library
+  if (first === '*') {
+    console.warn(
+      'Seems like you are running app inside Cypress headless mode.',
+    );
+    return [];
+  }
+  return rawLanguages;
+}
+
 /**
  * Get the preferred locale, similar to the above or using a library
  */
@@ -32,7 +48,7 @@ function getLocale(request: NextRequest) {
   const headers = getHeaders(request);
   const languages = new Negotiator({ headers }).languages();
   const defaultLocale = 'en-US';
-  return match(languages, locales, defaultLocale);
+  return match(prepareLanguages(languages), locales, defaultLocale);
 }
 
 // eslint-disable-next-line jsdoc/require-jsdoc
