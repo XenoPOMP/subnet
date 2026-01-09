@@ -31,7 +31,7 @@ export const Overlaps: FC<unknown> = () => {
         lineGap: '5px',
 
         // TODO Replace with actual theme color
-        className: cn('h-full', 'border-[1px] border-[red]'),
+        className: cn('h-full', 'z-[10]', 'border-[1px] border-[red]'),
         tint: 'red',
         // TODO Make separate color for transparent bg!!!
         backgroundTint: 'rgba(255 0 0 / .15)',

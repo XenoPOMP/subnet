@@ -26,7 +26,7 @@ export const NetSlider: FC<Props> = ({ network }) => {
       ]}
       disabled
       disableSwap
-      className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]')}
+      className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]', 'z-[20]')}
     />
   );
 };
