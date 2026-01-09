@@ -39,6 +39,7 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 
     const ipAddress = new Address(+oct1!, +oct2!, +oct3!, +oct4!);
     return [ipAddress, mask];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [addr, form[target]!.error]);
 
   // Network created from local state.
@@ -62,6 +63,7 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
     }
 
     updateSubnet(target, network);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [network]);
 
   return (

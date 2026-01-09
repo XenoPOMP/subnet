@@ -10,7 +10,7 @@ import { useNetworkStore } from '@/zustand';
 // eslint-disable-next-line jsdoc/require-jsdoc
 export default function TestPage() {
   const { t } = useTranslations();
-  const { root, subnets, createSubnet, removeSubnet } = useNetworkStore();
+  const { subnets, createSubnet } = useNetworkStore();
 
   return (
     <HStack

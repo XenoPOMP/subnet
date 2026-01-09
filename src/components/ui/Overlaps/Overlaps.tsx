@@ -9,7 +9,7 @@ import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const Overlaps: FC<unknown> = () => {
-  const { root, subnets } = useNetworkStore();
+  const { root } = useNetworkStore();
   const overlaps = useOverlaps();
 
   const min = root!.address.asFullDecimal();
