@@ -1,10 +1,9 @@
 'use client';
 
-import { Slider } from '@mui/material';
 import cn from 'classnames';
 
 import { For } from '@/components/layout';
-import { Overlaps, VStack, ZStack } from '@/components/ui';
+import { NetSlider, Overlaps, VStack, ZStack } from '@/components/ui';
 import { useOverlaps } from '@/hooks';
 import { decimal } from '@/utils/base-number';
 import { Address } from '@/utils/ip';
@@ -29,16 +28,8 @@ export function NetMap() {
             >
               <For each={subnets}>
                 {({ network, id }) => (
-                  <Slider
-                    min={min}
-                    max={max}
-                    value={[
-                      network.address.asFullDecimal(),
-                      network.broadcast.asFullDecimal(),
-                    ]}
-                    disabled
-                    disableSwap
-                    className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]')}
+                  <NetSlider
+                    network={network}
                     key={`slider-for-network-${id}`}
                   />
                 )}
