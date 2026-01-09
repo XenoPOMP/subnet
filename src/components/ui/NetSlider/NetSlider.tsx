@@ -4,7 +4,8 @@ import 'rc-slider/assets/index.css';
 import type { FC } from 'react';
 import { useMemo } from 'react';
 
-import { binary } from '@/utils/base-number';
+import { VStack } from '@/components/ui';
+import { binary, decimal } from '@/utils/base-number';
 import type { Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
@@ -24,10 +25,7 @@ export const NetSlider: FC<Props> = ({ network }) => {
       grade: 'binary',
       delimiters: false,
     });
-    const nextWildcard = '1'.repeat(
-      wildcard.split('').filter(c => c === '1').length + 1,
-    );
-    return binary(nextWildcard)!.decimal().value;
+    return binary(wildcard)!.decimal().plus(decimal(1)).value;
 
     // .wildcard() method uses .mask property under the hood.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +49,13 @@ export const NetSlider: FC<Props> = ({ network }) => {
         className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]', 'z-[20]')}
       />
 
-      <p>Mask (CIDR): {network.mask}</p>
+      <VStack
+        spacing='0.8rem'
+        className={cn('pt-[1.6rem]')}
+      >
+        <p>Mask (CIDR): {network.mask}</p>
+        <p>Step: {step}</p>
+      </VStack>
     </div>
   );
 };
