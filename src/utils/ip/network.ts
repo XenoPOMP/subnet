@@ -22,6 +22,12 @@ export class Network {
     this.mask = mask;
   }
 
+  // Calculates wildcard pattern for this network
+  wildcard(): Address {
+    const bitmap = `${'0'.repeat(this.mask)}`.padEnd(32, '1');
+    return Address.fromBitmap(bitmap);
+  }
+
   private firstNChars(value: string, n: number): string {
     return value.substring(0, n);
   }
