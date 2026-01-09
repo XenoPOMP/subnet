@@ -1,0 +1,15 @@
+// Get variables from container.
+$lineWidth: var(--hatch-line-width);
+$gap: var(--hatch-line-gap);
+$tint: var(--hatch-tint-color);
+$bgTint: var(--hatch-bg-tint-color);
+
+.effect {
+  background: repeating-linear-gradient(
+    135deg,
+    $tint,
+    $tint $lineWidth,
+    $bgTint $lineWidth,
+    $bgTint calc($lineWidth + $gap)
+  );
+}

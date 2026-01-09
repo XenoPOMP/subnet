@@ -1,45 +1,46 @@
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function findOverlappingValues(ranges: [number, number][]) {
-  // 1. Collect events: start and end of each range
-  const events: Array<{ pos: number; type: 'start' | 'end' }> = [];
-  for (const [start, end] of ranges) {
-    events.push({ pos: start, type: 'start' });
-    events.push({ pos: end, type: 'end' });
-  }
+export function findOverlappingRanges(ranges: [number, number][]) {
+  if (ranges.length < 2) return [];
 
-  // 2. Sort events by its position
-  events.sort((a, b) => a.pos - b.pos);
+  const intersections = [];
 
-  const result = new Set<number>(); // Exclude repeating values
-  let activeCount = 0;
-  let overlapStart = null;
+  // 1. Перебираем все пары диапазонов
+  for (let i = 0; i < ranges.length; i++) {
+    for (let j = i + 1; j < ranges.length; j++) {
+      const [a1, b1] = ranges[i]!;
+      const [a2, b2] = ranges[j]!;
 
-  for (let i = 0; i < events.length; i++) {
-    const event = events[i]!;
+      // 2. Находим пересечение пары
+      const start = Math.max(a1, a2);
+      const end = Math.min(b1, b2);
 
-    if (event.type === 'start') {
-      activeCount++;
-
-      // If activeCount >= 2, start overlap
-      if (activeCount >= 2 && overlapStart === null) {
-        overlapStart = event.pos;
+      if (start <= end) {
+        intersections.push([start, end]);
       }
-    } else {
-      // type === 'end'
-      // First, we process the overlap until the counter is reduced
-      if (activeCount >= 2) {
-        const overlapEnd = event.pos;
-        // Adding all integers from overlapStart to overlapEnd
-        for (let x = overlapStart!; x <= overlapEnd; x++) {
-          result.add(x);
-        }
-      }
-      activeCount--;
-      overlapStart = null; // We are resetting, because the overlap has been interrupted
     }
   }
 
-  return Array.from(result)
-    .sort((a, b) => a - b)
-    .filter(n => !!n); // Returning the sorted array
+  // 3. Если пересечений нет — возвращаем пустой массив
+  if (intersections.length === 0) return [];
+
+  // 4. Объединяем перекрывающиеся/смежные интервалы
+  const merged: [number, number][] = [];
+  // Сортируем по началу интервала
+  intersections.sort((a, b) => a[0]! - b[0]!);
+
+  let current = intersections[0];
+
+  for (let i = 1; i < intersections.length; i++) {
+    const next = intersections[i];
+    if (next![0]! <= current![1]!) {
+      // Перекрываются или смежны — объединяем
+      current![1]! = Math.max(current![1]!, next![1]!);
+    } else {
+      merged.push(current! as [number, number]);
+      current = next;
+    }
+  }
+  merged.push(current! as [number, number]);
+
+  return merged;
 }

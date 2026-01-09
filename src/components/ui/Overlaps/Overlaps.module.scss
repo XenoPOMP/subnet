@@ -1,0 +1,11 @@
+.overlapBox {
+  /* The core technique */
+  background: repeating-linear-gradient(
+    45deg, /* Angle of the lines */
+    #f00,  /* Line color */
+    #f00 2px, /* Line thickness */
+    #000 2px, /* Background color start */
+    #000 10px /* Pattern repeat distance */
+  );
+  background-size: 10px 10px;
+}
