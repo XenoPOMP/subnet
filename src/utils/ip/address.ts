@@ -1,10 +1,11 @@
 import chunkText from 'chunk-text';
 import { clamp } from 'motion';
 
+import type { CIDR } from '@/types';
 import { anyBaseNumber, binary, decimal } from '@/utils/base-number';
 import type { BaseNumberType } from '@/utils/base-number/types';
 
-export class Address {
+export class Address implements CIDR {
   private readonly oct1: number;
   private readonly oct2: number;
   private readonly oct3: number;
@@ -15,6 +16,10 @@ export class Address {
     this.oct2 = this.octet(oct2);
     this.oct3 = this.octet(oct3);
     this.oct4 = this.octet(oct4);
+  }
+
+  cidr(mask: number): string {
+    return `${this.format()}/${mask}`;
   }
 
   format(options?: {

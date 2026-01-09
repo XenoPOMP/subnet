@@ -6,3 +6,4 @@ export * from './next-link-href';
 export * from './typesafe-url';
 export * from './select-keys';
 export * from './css-color';
+export * from './cidr';
