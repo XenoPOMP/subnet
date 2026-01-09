@@ -6,7 +6,6 @@ export { useOutSide } from './useOutSide';
 export { useUniqueId } from './useUniqueId';
 export * from './useOverlaps';
 
-// eslint-disable-next-line deprecation/deprecation
 export { useCopyToClipboard };
 export * from './use-tracked-state';
 export * from './use-effect-after-mount';
