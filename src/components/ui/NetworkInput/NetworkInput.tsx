@@ -15,29 +15,7 @@ import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
-// eslint-disable-next-line jsdoc/require-jsdoc
-export const NetworkDisplay = ({ network }: { network: Network | null }) => {
-  const networkDisplay = useMemo(() => {
-    if (!network || Number.isNaN(network.mask)) return 'Empty';
-
-    const lhs = network.address.format?.() ?? '';
-    const rhs = network.broadcast.format?.() ?? '';
-    const mask = network.mask ?? '';
-
-    return `${lhs}/${mask} - ${rhs}/${mask}`;
-  }, [network]);
-
-  return (
-    <>
-      <p>{networkDisplay}</p>
-    </>
-  );
-};
-
 /**
- * @param className
- * @param props
- * @constructor
  */
 export const NetworkInput: VariableFC<
   typeof InputField,
@@ -131,7 +109,9 @@ export const NetworkInput: VariableFC<
         <p>{form.formState.errors.address.message}</p>
       )}
 
-      {!form.formState.errors.address && <NetworkDisplay network={network} />}
+      {!form.formState.errors.address && !!network && (
+        <p className={cn('text-lg')}>{network.cidr({ showRange: true })}</p>
+      )}
     </VStack>
   );
 };
