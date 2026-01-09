@@ -19,7 +19,7 @@ export default meta;
 const builder = new StoryBuilder<typeof HatchingEffect>()
   .defineMeta(meta)
   .defineSharedProps({
-    className: cn('w-[150px] h-[300px]', 'border border-[red]'),
+    className: cn('w-[150px] h-[300px]', 'border-[2px] border-[red]'),
     tint: 'red',
   });
 
