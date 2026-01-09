@@ -1,0 +1,19 @@
+.rootContainer {
+  @apply w-dvw h-dvh overflow-hidden;
+
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    ;
+  grid-template-rows: max-content 1fr;
+  grid-template-columns: max-content 1fr;
+
+  header.dashboardHeader {
+    grid-area: header;
+  }
+
+  .content {
+    grid-area: main;
+  }
+}

@@ -1,3 +1,5 @@
+'use client';
+
 import cn from 'classnames';
 import { clamp } from 'motion';
 import Slider from 'rc-slider';

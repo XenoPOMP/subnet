@@ -9,6 +9,10 @@
 @include meta.load-css("../src/styles/design-system");
 @include meta.load-css("../src/styles/nullstyles");
 
+:root {
+  --dashboard-header-height: 64px;
+}
+
 body {
   @apply bg-primary-bg text-primary-font;
 }
