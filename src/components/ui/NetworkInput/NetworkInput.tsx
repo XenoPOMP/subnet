@@ -106,9 +106,8 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 
       {target !== 'root' && (
         <>
-          <button>Copy</button>
-
           <button
+            type='button'
             className={cn('text-red-500')}
             onClick={() => {
               if (target === 'root') return;
