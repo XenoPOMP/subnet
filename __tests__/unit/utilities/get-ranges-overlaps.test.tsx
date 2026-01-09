@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { findOverlappingValues } from '@/utils/misc';
+import { findOverlappingRanges } from '@/utils/misc';
 
 describe('getRangesOverlaps fn', () => {
   test('It works', () => {
@@ -16,8 +16,8 @@ describe('getRangesOverlaps fn', () => {
       [8, 12],
       [1, 9],
     ];
-    const overlaps = findOverlappingValues(ranges);
-    expect(overlaps).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+    const overlaps = findOverlappingRanges(ranges);
+    expect(overlaps).toStrictEqual([[1, 12]]);
   });
 
   test('It can handle not connected overlaps', () => {
@@ -35,10 +35,10 @@ describe('getRangesOverlaps fn', () => {
       [1, 9],
       [18, 19],
     ];
-    const overlaps = findOverlappingValues(ranges);
+    const overlaps = findOverlappingRanges(ranges);
     expect(overlaps).toStrictEqual([
-      // eslint-disable-next-line antfu/consistent-list-newline
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 18, 19,
+      [1, 12],
+      [18, 19],
     ]);
   });
 });

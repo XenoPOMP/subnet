@@ -1,8 +1,7 @@
 import { describe, test } from 'vitest';
+import { assertRendering } from 'xenopomp-essentials/vitest';
 
 import { Overlaps } from '@/components/ui';
-
-import { assertRendering } from '@test/assets';
 
 describe('Overlaps component', () => {
   test('It renders', () => {
