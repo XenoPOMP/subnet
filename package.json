@@ -43,7 +43,7 @@
     "@heroui/theme": "^2.4.25",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@mui/material": "^7.3.6",
+    "@mui/material": "^7.3.7",
     "@mui/x-charts": "^8.23.0",
     "@next/mdx": "^15",
     "@pacote/react-use-outside": "^2.0.6",
