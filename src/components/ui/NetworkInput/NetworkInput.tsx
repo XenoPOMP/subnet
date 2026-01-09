@@ -19,7 +19,6 @@ import { useNetworkStore } from '@/zustand';
 export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
   className,
   target,
-  watchOn,
   ...props
 }) => {
   const { t } = useTranslations();
@@ -66,17 +65,6 @@ export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
     updateSubnet(target, network);
   }, [network]);
 
-  // Update local state when app state has been changed.
-  useEffect(() => {
-    if (!watchOn) return;
-    if (!network) return;
-    // If address has not been changed from outside, do not change local state.
-    if (watchOn.equals(network)) return;
-
-    // Finally, update local state
-    form.setValue('address', watchOn.cidr());
-  }, [watchOn, network, form]);
-
   return (
     <VStack
       alignment='topLeading'
@@ -120,11 +108,6 @@ export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
 
 interface Props {
   target: LenientAutocomplete<'root'>;
-
-  /**
-   * State that is passed to component. Usually states for app state`s value.
-   */
-  watchOn?: Network;
 }
 
 type Exclusion =
