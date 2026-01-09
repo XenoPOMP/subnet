@@ -77,8 +77,7 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
         spacing='0.8rem'
         className={cn('pt-[1.6rem]')}
       >
-        <p>Range: {network.cidr({ showRange: true })}</p>
-        <p>Mask (CIDR): {network.mask}</p>
+        <p>{network.cidr({ showRange: true })}</p>
         <p>Step: {step}</p>
       </VStack>
     </div>
