@@ -42,6 +42,9 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
     const ip = Address.fromBitmap(bitmap);
     const newNetwork = new Network(ip, network.mask);
 
+    // If network did not changed, do not update app state.
+    if (network.equals(newNetwork)) return;
+
     updateSubnet(networkId, newNetwork);
     setValue(networkId, newNetwork.cidr());
   };
