@@ -3,7 +3,7 @@ import type { ComponentProps, FC } from 'react';
 import { useCallback } from 'react';
 
 import { For } from '@/components/layout';
-import { ZStack } from '@/components/ui';
+import { HatchingEffect, ZStack } from '@/components/ui';
 import { useOverlaps } from '@/hooks';
 import { useNetworkStore } from '@/zustand';
 
@@ -16,19 +16,25 @@ export const Overlaps: FC<unknown> = () => {
   const max = root!.broadcast.asFullDecimal();
 
   const calculateMeasurements = useCallback(
-    ([from, to]: [number, number]): ComponentProps<'div'> => {
+    ([from, to]: [number, number]): ComponentProps<typeof HatchingEffect> => {
       const start = Math.max(from, min);
       const end = Math.min(to, max);
       const progress = ((end - start) / (max - min)) * 100;
       const left = ((start - min) / (max - min)) * 100;
 
-      // TODO Implement hatching
       return {
-        className: cn('h-full bg-red-500/10'),
         style: {
           width: `${progress}%`,
           left: `${left}%`,
         },
+        lineWidth: '1px',
+        lineGap: '5px',
+
+        // TODO Replace with actual theme color
+        className: cn('h-full', 'border-[1px] border-[red]'),
+        tint: 'red',
+        // TODO Make separate color for transparent bg!!!
+        backgroundTint: 'rgba(255 0 0 / .15)',
       };
     },
     [min, max],
@@ -39,7 +45,7 @@ export const Overlaps: FC<unknown> = () => {
       <div className={cn('size-[100%]')}></div>
 
       <For each={overlaps}>
-        {overlap => <div {...calculateMeasurements(overlap)}></div>}
+        {overlap => <HatchingEffect {...calculateMeasurements(overlap)} />}
       </For>
     </ZStack>
   );
