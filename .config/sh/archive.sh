@@ -8,11 +8,6 @@ if [ -z $ACTION ]; then
   exit 1
 fi
 
-if [ -z $FILE ]; then
-  echo "File is not defined!"
-  exit 1
-fi
-
 mkdir -p ./.config/archive/$(dirname "$FILE")
 
 case "$ACTION" in
@@ -29,8 +24,22 @@ case "$ACTION" in
     ;;
 
   restore)
+      if [ ! -f "./.config/archive/$FILE" ]; then
+        echo "File is not archived!"
+        exit 1
+      fi
 
+      echo "🏛️ Restoring file: $(basename "$FILE")"
+        cp ./.config/archive/$FILE $FILE
+        echo "✅ Successfully restored file: $(basename "$FILE")"
+      exit 0
     ;;
+
+  list)
+    ls ./.config/archive
+    exit 0
+    ;;
+
   *)
     echo This command is not allowed.
     echo Allowed options:
