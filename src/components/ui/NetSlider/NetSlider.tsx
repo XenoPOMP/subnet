@@ -94,6 +94,7 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
         onChange={onChange}
         className={cn(
           'z-[20] !bg-transparent [&>.rc-slider-rail]:bg-transparent',
+          '[&_.rc-slider-handle-2]:!-translate-x-[8px]',
         )}
         classNames={{
           handle: cn(
