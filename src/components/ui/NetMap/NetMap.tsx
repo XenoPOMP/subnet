@@ -30,6 +30,7 @@ export function NetMap() {
                 {({ network, id }) => (
                   <NetSlider
                     network={network}
+                    networkId={id}
                     key={`slider-for-network-${id}`}
                   />
                 )}

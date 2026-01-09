@@ -1,24 +1,49 @@
 import cn from 'classnames';
+import { clamp } from 'motion';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import type { FC } from 'react';
-import { useMemo } from 'react';
+import type { ComponentProps, FC } from 'react';
+import { useCallback, useMemo } from 'react';
+import type { RequiredDeep } from 'type-fest';
 
 import { VStack } from '@/components/ui';
 import { binary, decimal } from '@/utils/base-number';
-import type { Network } from '@/utils/ip';
+import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 interface Props {
   network: Network;
+  networkId: string;
 }
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export const NetSlider: FC<Props> = ({ network }) => {
-  const { root } = useNetworkStore();
+export const NetSlider: FC<Props> = ({ network, networkId }) => {
+  const { root, updateSubnet } = useNetworkStore();
 
   const min = root?.address.asFullDecimal();
   const max = root?.broadcast.asFullDecimal();
+
+  const onChange = useCallback<
+    RequiredDeep<ComponentProps<typeof Slider>>['onChange']
+  >(
+    value => {
+      const start =
+        typeof value === 'number' ? value : value.sort((a, b) => a - b).at(0);
+
+      if (!start) return;
+      // We want to min and max values to be defined. Otherwise, root network is null.
+      if (!min || !max) return;
+
+      // Extra check to make sure that range is not ignored.
+      const newValue = clamp(min, max, start);
+      const bitmap = decimal(newValue).binary().value;
+      const ip = Address.fromBitmap(bitmap);
+      const newNetwork = new Network(ip, network.mask);
+
+      updateSubnet(networkId, newNetwork);
+    },
+    [max, min],
+  );
 
   const step = useMemo((): number => {
     const wildcard = network.wildcard().format({
@@ -40,12 +65,12 @@ export const NetSlider: FC<Props> = ({ network }) => {
           network.address.asFullDecimal(),
           network.broadcast.asFullDecimal(),
         ]}
-        // disabled
-        // disableSwap
+        disabled={!min || !max}
+        step={step}
         range={{
-          // editable: false,
           draggableTrack: true,
         }}
+        onChange={onChange}
         className={cn('[&>.MuiSlider-thumb]:size-[0.6rem]', 'z-[20]')}
       />
 
