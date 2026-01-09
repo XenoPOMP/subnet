@@ -21,6 +21,7 @@ const builder = new StoryBuilder<typeof HatchingEffect>()
   .defineSharedProps({
     className: cn('w-[150px] h-[300px]', 'border-[2px] border-[red]'),
     tint: 'red',
+    backgroundTint: 'rgba(255 0 0 / .15)',
   });
 
 export const Base = builder.buildStory({});
