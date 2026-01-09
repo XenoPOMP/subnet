@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import type { RequiredDeep } from 'type-fest';
 
 import { VStack } from '@/components/ui';
+import { useTranslations } from '@/i18n';
 import { binary, decimal } from '@/utils/base-number';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -19,6 +20,7 @@ interface Props {
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const NetSlider: FC<Props> = ({ network, networkId }) => {
   const { root, updateSubnet, setValue } = useNetworkStore();
+  const { t } = useTranslations();
 
   const min = root?.address.asFullDecimal();
   const max = root?.broadcast.asFullDecimal();
@@ -57,6 +59,18 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
 
   return (
     <div>
+      <h2 className={cn('flex w-full items-center gap-[0.6rem]')}>
+        <div
+          className={cn('size-[12px] rounded-full')}
+          style={{
+            background: network.color,
+          }}
+        ></div>
+
+        {/* eslint-disable-next-line no-extra-boolean-cast */}
+        {!!network.name ? network.name : t.placeholders.network.name}
+      </h2>
+
       <Slider
         min={min}
         max={max}

@@ -1,7 +1,9 @@
 'use client';
 
+import { Chrome } from '@uiw/react-color';
 import cn from 'classnames';
-import { useEffect, useMemo } from 'react';
+import randomColor from 'randomcolor';
+import { useEffect, useMemo, useState } from 'react';
 import type {
   LenientAutocomplete,
   Nullable,
@@ -22,6 +24,8 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 }) => {
   const { t } = useTranslations();
   const { updateRootNetwork, updateSubnet, form, setValue } = useNetworkStore();
+  const [name, setName] = useState('');
+  const [color, setColor] = useState<string>(randomColor());
 
   const addr = form[target]!.input;
 
@@ -40,8 +44,12 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
   const network = useMemo(() => {
     if (!ipAddress) return null;
     const [ip, mask] = ipAddress;
-    return new Network(ip, +mask!);
-  }, [ipAddress]);
+    const net = new Network(ip, +mask!);
+    net.name = name;
+    net.color = color;
+
+    return net;
+  }, [color, ipAddress, name]);
 
   // Sending local input to app state.
   useEffect(() => {
@@ -62,6 +70,23 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
       className={cn('rounded-[0.8rem] bg-gray-500 p-[1.6rem]', className)}
       {...props}
     >
+      {target !== 'root' && (
+        <>
+          <InputField
+            placeholder={t.placeholders.network.name}
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+
+          <Chrome
+            color={color}
+            onChange={color => {
+              setColor(color.hex);
+            }}
+          />
+        </>
+      )}
+
       <InputField
         placeholder='192.168.0.1/24'
         value={addr}

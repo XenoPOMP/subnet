@@ -10,4 +10,9 @@ export const ru: LanguageResource = {
       subnetOutsideRoot: 'Введенный адрес выходит за рамки корневой сети.',
     },
   },
+  placeholders: {
+    network: {
+      name: 'Без названия',
+    },
+  },
 };

@@ -11,4 +11,9 @@ export const en = {
       subnetOutsideRoot: 'Address is outside root network.',
     },
   },
+  placeholders: {
+    network: {
+      name: 'Unnamed',
+    },
+  },
 } satisfies RecursiveKeyValuePair;
