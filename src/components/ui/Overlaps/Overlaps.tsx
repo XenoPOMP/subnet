@@ -29,6 +29,7 @@ export const Overlaps: FC<unknown> = () => {
         },
         lineWidth: '1px',
         lineGap: '5px',
+        key: `overlap-start-${from}-end-${to}`,
 
         // TODO Replace with actual theme color
         className: cn('h-full', 'z-[10]', 'border-[1px] border-[red]'),
