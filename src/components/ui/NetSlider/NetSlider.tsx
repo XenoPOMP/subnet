@@ -92,7 +92,9 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
           draggableTrack: true,
         }}
         onChange={onChange}
-        className={cn('z-[20]')}
+        className={cn(
+          'z-[20] !bg-transparent [&>.rc-slider-rail]:bg-transparent',
+        )}
         classNames={{
           handle: cn(
             '!border-[0px] !opacity-100 !size-[1.0rem] !-mt-[3.5px]',
