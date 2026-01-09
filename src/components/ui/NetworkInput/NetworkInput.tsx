@@ -15,24 +15,13 @@ import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
-/**
- */
-export const NetworkInput: VariableFC<
-  typeof InputField,
-  { target: LenientAutocomplete<'root'> },
-  | 'onChange'
-  | 'onBlur'
-  | 'ref'
-  | 'name'
-  | 'min'
-  | 'max'
-  | 'maxLength'
-  | 'minLength'
-  | 'pattern'
-  | 'required'
-  | 'disabled'
-  | 'placeholder'
-> = ({ className, target, ...props }) => {
+// eslint-disable-next-line jsdoc/require-jsdoc
+export const NetworkInput: VariableFC<typeof InputField, Props, Exclusion> = ({
+  className,
+  target,
+  watchOn,
+  ...props
+}) => {
   const { t } = useTranslations();
   const { updateRootNetwork, updateSubnet } = useNetworkStore();
 
@@ -58,12 +47,14 @@ export const NetworkInput: VariableFC<
     return [ipAddress, mask];
   }, [addr, form.formState.errors.address]);
 
+  // Network created from local state.
   const network = useMemo(() => {
     if (!ipAddress) return null;
     const [ip, mask] = ipAddress;
     return new Network(ip, +mask!);
   }, [ipAddress]);
 
+  // Sending local input to app state.
   useEffect(() => {
     if (!network) return;
 
@@ -74,6 +65,17 @@ export const NetworkInput: VariableFC<
 
     updateSubnet(target, network);
   }, [network]);
+
+  // Update local state when app state has been changed.
+  useEffect(() => {
+    if (!watchOn) return;
+    if (!network) return;
+    // If address has not been changed from outside, do not change local state.
+    if (watchOn.equals(network)) return;
+
+    // Finally, update local state
+    form.setValue('address', watchOn.cidr());
+  }, [watchOn, network, form]);
 
   return (
     <VStack
@@ -115,3 +117,26 @@ export const NetworkInput: VariableFC<
     </VStack>
   );
 };
+
+interface Props {
+  target: LenientAutocomplete<'root'>;
+
+  /**
+   * State that is passed to component. Usually states for app state`s value.
+   */
+  watchOn?: Network;
+}
+
+type Exclusion =
+  | 'onChange'
+  | 'onBlur'
+  | 'ref'
+  | 'name'
+  | 'min'
+  | 'max'
+  | 'maxLength'
+  | 'minLength'
+  | 'pattern'
+  | 'required'
+  | 'disabled'
+  | 'placeholder';
