@@ -61,7 +61,9 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
 
   return (
     <div>
-      <h2 className={cn('flex w-full items-center gap-[0.6rem]')}>
+      <h2
+        className={cn('relative z-[30] flex w-full items-center gap-[0.6rem]')}
+      >
         <div
           className={cn('size-[12px] rounded-full')}
           style={{

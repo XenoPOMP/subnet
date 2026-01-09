@@ -29,7 +29,6 @@ export const Overlaps: FC<unknown> = () => {
         },
         lineWidth: '1px',
         lineGap: '5px',
-        key: `overlap-start-${from}-end-${to}`,
 
         // TODO Replace with actual theme color
         className: cn('h-full', 'z-[10]', 'border-[1px] border-[red]'),
@@ -46,7 +45,12 @@ export const Overlaps: FC<unknown> = () => {
       <div className={cn('size-[100%]')}></div>
 
       <For each={overlaps}>
-        {overlap => <HatchingEffect {...calculateMeasurements(overlap)} />}
+        {overlap => (
+          <HatchingEffect
+            key={`overlap-start-${overlap[0]}-end-${overlap[1]}`}
+            {...calculateMeasurements(overlap)}
+          />
+        )}
       </For>
     </ZStack>
   );
