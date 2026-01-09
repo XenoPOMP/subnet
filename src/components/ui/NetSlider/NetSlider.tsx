@@ -6,7 +6,6 @@ import type { ComponentProps, FC } from 'react';
 import { useMemo } from 'react';
 import type { RequiredDeep } from 'type-fest';
 
-import { VStack } from '@/components/ui';
 import { useTranslations } from '@/i18n';
 import { binary, decimal } from '@/utils/base-number';
 import { Address, Network } from '@/utils/ip';
@@ -72,6 +71,10 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
 
         {/* eslint-disable-next-line no-extra-boolean-cast */}
         {!!network.name ? network.name : t.placeholders.network.name}
+
+        <div className={cn('text-xl italic !leading-[100%] text-gray-400')}>
+          {network.cidr({ showRange: true })}
+        </div>
       </h2>
 
       <Slider
@@ -103,14 +106,6 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
           },
         }}
       />
-
-      <VStack
-        spacing='0.8rem'
-        className={cn('pt-[1.6rem]')}
-      >
-        <p>{network.cidr({ showRange: true })}</p>
-        <p>Step: {step}</p>
-      </VStack>
     </div>
   );
 };
