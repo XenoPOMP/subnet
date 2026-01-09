@@ -14,5 +14,3 @@ export const loadingVariants = cva('', {
     variant: 'circle',
   },
 });
-
-export type Variant = NonNullable<NonNullable<LoadingVariantsType['variant']>>;
