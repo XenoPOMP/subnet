@@ -1,23 +1,31 @@
 import cn from 'classnames';
 import type { VariableFC } from 'xenopomp-essentials';
 
+import type { FieldAlikeProps } from '@/components/ui/kit';
 import { Field } from '@/components/ui/kit';
 
 import type { ButtonProps } from './Button.props';
 import type { ButtonVariantsType } from './Button.variants';
 import { buttonVariants } from './Button.variants';
 
-// eslint-disable-next-line jsdoc/require-jsdoc
-export const Button: VariableFC<'button', ButtonProps & ButtonVariantsType> = ({
+export const Button: VariableFC<
+  'button',
+  ButtonProps & ButtonVariantsType & FieldAlikeProps
+  // eslint-disable-next-line jsdoc/require-jsdoc
+> = ({
   className,
   children,
   type = 'button',
   variant,
   leadingIcon: LeadingIcon,
   square,
+  unstyled,
   ...props
 }) => (
-  <Field asChild>
+  <Field
+    asChild
+    unstyled={unstyled}
+  >
     <button
       type={type}
       className={cn(

@@ -7,7 +7,7 @@ import { slotable } from '@/components/hoc';
  * Global field component. Allows to share styles across all field-like
  * components.
  */
-export const Field = slotable<'div', ComponentProps<'div'>>(
+export const Field = slotable<'div', ComponentProps<'div'> & FieldAlikeProps>(
   'div',
   ({ Comp, className, children, ...props }) => (
     <Comp
@@ -27,3 +27,7 @@ export const Field = slotable<'div', ComponentProps<'div'>>(
     </Comp>
   ),
 );
+
+export interface FieldAlikeProps {
+  unstyled?: boolean;
+}

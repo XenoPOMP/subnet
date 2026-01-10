@@ -33,6 +33,7 @@ const builder = new StoryBuilder<typeof InputField>()
   .defineMeta(meta)
   .defineSharedProps({
     type: 'text',
+    unstyled: false,
   });
 
 export default meta;

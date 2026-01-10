@@ -19,6 +19,7 @@ type Story = StoryObj<typeof meta>;
 const sharedProps = {
   children: 'Click me',
   disabled: false,
+  unstyled: false,
 } satisfies Partial<Story['args']>;
 
 export const Default: Story = {
