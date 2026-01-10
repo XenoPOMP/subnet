@@ -7,7 +7,10 @@ import { useEffect } from 'react';
 import { Loading } from '@/components/ui/kit';
 import { useStaticLocale } from '@/hooks';
 
-// eslint-disable-next-line jsdoc/require-jsdoc
+/**
+ * ## This page will not be available in web mode. Only in desktop.
+ * It`s needed to fix Tauri compatability with i18n feature.
+ */
 export default function SlugPage() {
   const { locale, isLoading } = useStaticLocale();
   const router = useRouter();
