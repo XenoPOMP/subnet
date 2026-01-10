@@ -1,16 +1,24 @@
 import cn from 'classnames';
-import type { FCProps, VariableFC } from 'xenopomp-essentials';
+import type { VariableFC } from 'xenopomp-essentials';
 
-import { slotable } from '@/components/hoc';
+import { Field } from '@/components/ui/kit';
 
 import type { ButtonProps } from './Button.props';
 
-export const Button = slotable<
-  'button',
-  ButtonProps & FCProps<VariableFC<'button'>>
->('button', ({ Comp, className, ...props }) => (
-  <Comp
-    className={cn(className)}
-    {...props}
-  />
-));
+// eslint-disable-next-line jsdoc/require-jsdoc
+export const Button: VariableFC<'button', ButtonProps> = ({
+  className,
+  children,
+  type = 'button',
+  ...props
+}) => (
+  <Field asChild>
+    <button
+      type={type}
+      className={cn(className)}
+      {...props}
+    >
+      {children}
+    </button>
+  </Field>
+);
