@@ -31,6 +31,7 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
     setValue,
     setError,
     removeSubnet,
+    root,
   } = useNetworkStore();
   const [name, setName] = useState('');
   const [color, setColor] = useState<string>(randomColor());
@@ -116,11 +117,27 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
             if (!/^(\d+\.*){4}\/\d{1,2}$/.test(value)) {
               // String does not follow pattern
               setError(target, t.errors.net.wrongFormat);
-            } else {
-              setError(target, undefined);
+              setValue(target, value);
+              return;
             }
 
-            // Anyway, update the state
+            const mask = value.split('/').at(1);
+
+            // Check if mask is from 1 to 31
+            if (mask && Number.isInteger(+mask) && (+mask < 1 || +mask > 31)) {
+              setError(target, t.errors.net.wrongMask);
+              setValue(target, value);
+              return;
+            }
+
+            // User passed subnetwork that is outside of root one
+            if (target !== 'root' && root && network?.isOutsideOf(root)) {
+              setError(target, t.errors.net.subnetOutsideRoot);
+              setValue(target, value);
+              return;
+            }
+
+            setError(target, undefined);
             setValue(target, value);
           }}
           className={cn('w-full')}
