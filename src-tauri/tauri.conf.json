@@ -2,9 +2,9 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "subnet",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "ru.xenopomp.subnet",
   "build": {
-    "frontendDist": "../.next",
+    "frontendDist": "../out",
     "devUrl": "http://localhost:3000",
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build"
@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "subnet",
-        "width": 800,
-        "height": 600,
+        "width": 870,
+        "height": 650,
         "resizable": true,
         "fullscreen": false
       }
