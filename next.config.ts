@@ -2,6 +2,11 @@ import type { NextConfig } from 'next';
 
 import config from '@/utils/next';
 
+console.log({
+  nodeEnv: process.env.NODE_ENV,
+  isTauri: process.env.IS_TAURI === '1',
+});
+
 const baseConfig: NextConfig = {
   // Configure `pageExtensions` to include MDX files
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],

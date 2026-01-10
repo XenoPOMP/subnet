@@ -34,7 +34,7 @@
     "knip": "knip",
     "knip:deps": "yarn knip --dependencies",
     "tauri:dev": "yarn tauri dev",
-    "tauri:build": "yarn tauri build"
+    "tauri:build": "cross-env IS_TAURI=1 yarn tauri build"
   },
   "dependencies": {
     "@dicebear/collection": "^9.2.4",
@@ -98,6 +98,7 @@
     "@vitejs/plugin-react": "^5.1.1",
     "@vitest/coverage-istanbul": "^4.0.14",
     "@voxpelli/semver-set": "^7.0.0",
+    "cross-env": "^10.1.0",
     "cypress": "15.8.1",
     "eslint": "9.37.0",
     "eslint-plugin-jsdoc": "^61.1.1",
