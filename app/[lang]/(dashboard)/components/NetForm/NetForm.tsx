@@ -30,7 +30,12 @@ export function NetForm() {
           'flex items-center justify-between',
         )}
       >
-        <Heading level={2}>{t.pages.dashboard.headings.subnets}</Heading>
+        <Heading
+          level={2}
+          className={cn('select-none')}
+        >
+          {t.pages.dashboard.headings.subnets}
+        </Heading>
 
         <Button
           square
