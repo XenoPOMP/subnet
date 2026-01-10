@@ -2,7 +2,7 @@ aside.form {
   @apply border-r-[1px] border-r-divider overflow-y-auto;
 
   grid-area: sidebar;
-  width: 336px;
+  width: 350px;
 
   .sticky {
     position: sticky;
@@ -11,5 +11,9 @@ aside.form {
 
   section.group {
     @apply p-[1.6rem] border-b-[1px] border-b-divider bg-primary-bg;
+
+    &:last-of-type:not(.alwaysBorder) {
+      border: 0;
+    }
   }
 }

@@ -20,6 +20,7 @@ export const en = {
     dashboard: {
       headings: {
         rootNet: 'Root network',
+        subnets: 'Subnets',
       },
     },
   },

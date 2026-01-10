@@ -19,6 +19,7 @@ export const ru: LanguageResource = {
     dashboard: {
       headings: {
         rootNet: 'Корневая сеть',
+        subnets: 'Подсети',
       },
     },
   },
