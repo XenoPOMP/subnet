@@ -28,7 +28,11 @@ export const Button: VariableFC<'button', ButtonProps & ButtonVariantsType> = ({
       {...props}
     >
       {!!LeadingIcon && (
-        <div className={cn('flex-center size-[2.2rem] pb-[0.25rem]')}>
+        <div
+          className={cn('flex-center size-[2.2rem]', {
+            'pb-[0.25rem]': !square,
+          })}
+        >
           <LeadingIcon
             size='1.6rem'
             color='currentColor'
