@@ -23,7 +23,8 @@ export class Network implements CIDR, Equatable {
 
     this.address = networkAddress;
     this.broadcast = broadcast;
-    this.mask = mask;
+    // Mask may be from 1 to 31
+    this.mask = clamp(1, 31, mask);
   }
 
   cidr(options?: NetworkCIDROptions): string {

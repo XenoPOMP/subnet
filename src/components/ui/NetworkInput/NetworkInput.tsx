@@ -2,6 +2,7 @@
 
 import { Chrome } from '@uiw/react-color';
 import cn from 'classnames';
+import { NetworkIcon } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -11,7 +12,7 @@ import type {
 } from 'xenopomp-essentials';
 
 import { VStack } from '@/components/ui';
-import { Heading, InputField } from '@/components/ui/kit';
+import { Heading, InputField, Label } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -110,7 +111,14 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
         {form[target]!.error && <p>{form[target]!.error}</p>}
 
         {!form[target]?.error && !!network && (
-          <p className={cn('text-lg')}>{network.cidr({ showRange: true })}</p>
+          <>
+            <Label
+              icon={NetworkIcon}
+              className={cn('select-none')}
+            >
+              {network.cidr({ showRange: true })}
+            </Label>
+          </>
         )}
       </VStack>
 

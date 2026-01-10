@@ -24,7 +24,7 @@ const builder = new StoryBuilder<typeof NetworkInput>()
   .defineMeta(meta)
   .defineSharedProps({
     target: 'root',
-    className: cn('w-[500px]'),
+    className: cn('!w-[500px]'),
   });
 
 export const Base = builder.buildStory({});
