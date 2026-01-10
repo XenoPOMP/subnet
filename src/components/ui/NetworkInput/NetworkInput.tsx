@@ -99,6 +99,7 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
               unstyled
               value={name}
               onChange={e => setName(e.target.value)}
+              className={cn('w-full')}
             />
 
             <Spacer />
