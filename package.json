@@ -73,6 +73,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.69.0",
+    "react-tooltip": "^5.30.0",
     "typescript": "^5.9.3",
     "use-clipboard-copy": "^0.2.0",
     "use-debounce": "^10.0.6",
