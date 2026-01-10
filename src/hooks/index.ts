@@ -9,3 +9,4 @@ export * from './useOverlaps';
 export { useCopyToClipboard };
 export * from './use-tracked-state';
 export * from './use-effect-after-mount';
+export * from './use-static-locale';
