@@ -110,9 +110,11 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
           '[&_.rc-slider-handle-2]:!-translate-x-[8px]',
         )}
         classNames={{
+          track: cn('cursor-grab active:cursor-grabbing'),
           handle: cn(
             '!border-[0px] !opacity-100 !size-[1.0rem] !-mt-[3.5px]',
             '!shadow-none',
+            '!pointer-events-none',
           ),
         }}
         styles={{
