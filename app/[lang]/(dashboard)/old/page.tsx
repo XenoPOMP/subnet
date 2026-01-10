@@ -21,10 +21,10 @@ export default function TestPage() {
       <VStack
         alignment='topLeading'
         spacing='1.2rem'
-        className={cn('h-full w-1/4 max-w-[400px] overflow-y-auto')}
+        className={cn('h-full overflow-y-auto')}
         asChild
       >
-        <aside>
+        <aside className={cn('!w-[336px]')}>
           <h1>{t.hello}</h1>
 
           <NetworkInput target='root' />
@@ -50,7 +50,7 @@ export default function TestPage() {
       <VStack
         alignment='topLeading'
         spacing='1.2rem'
-        className={cn('min-h-dvh w-full bg-slate-600 p-[1.2rem]')}
+        className={cn('min-h-dvh flex-grow bg-slate-600 p-[1.2rem]')}
       >
         <NetMap />
       </VStack>
