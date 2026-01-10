@@ -13,14 +13,29 @@ export const Button: VariableFC<'button', ButtonProps & ButtonVariantsType> = ({
   children,
   type = 'button',
   variant,
+  leadingIcon: LeadingIcon,
+  square,
   ...props
 }) => (
   <Field asChild>
     <button
       type={type}
-      className={cn(buttonVariants({ variant }), className)}
+      className={cn(
+        buttonVariants({ variant, square }),
+        'flex items-center justify-start gap-[0.8rem]',
+        className,
+      )}
       {...props}
     >
+      {!!LeadingIcon && (
+        <div className={cn('flex-center size-[2.2rem] pb-[0.25rem]')}>
+          <LeadingIcon
+            size='1.6rem'
+            color='currentColor'
+          />
+        </div>
+      )}
+
       {children}
     </button>
   </Field>

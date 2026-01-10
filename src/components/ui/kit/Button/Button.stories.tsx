@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { Ban, Trash } from 'lucide-react';
 
 import { Button } from './Button';
 
@@ -23,12 +24,25 @@ const sharedProps = {
 export const Default: Story = {
   args: {
     ...sharedProps,
+    leadingIcon: Ban,
   },
 };
 
 export const Danger: Story = {
   args: {
     ...sharedProps,
+    children: 'Delete subnet',
     variant: 'danger',
+    leadingIcon: Trash,
+  },
+};
+
+export const IconOnly: Story = {
+  args: {
+    ...sharedProps,
+    children: undefined,
+    variant: 'danger',
+    leadingIcon: Trash,
+    square: true,
   },
 };
