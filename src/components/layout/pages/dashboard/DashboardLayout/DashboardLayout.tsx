@@ -15,8 +15,7 @@ export function DashboardLayout({ className, children, ...props }: Props) {
       {...props}
     >
       <TitleBar className={cn(styles.dashboardHeader)} />
-
-      <div className={cn(styles.content)}>{children}</div>
+      {children}
     </div>
   );
 }

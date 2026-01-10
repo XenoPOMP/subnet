@@ -1,0 +1,15 @@
+aside.form {
+  @apply border-r-[1px] border-r-divider overflow-y-auto;
+
+  grid-area: sidebar;
+  width: 336px;
+
+  .sticky {
+    position: sticky;
+    inset: 0;
+  }
+
+  section.group {
+    @apply p-[1.6rem] border-b-[1px] border-b-divider bg-primary-bg;
+  }
+}
