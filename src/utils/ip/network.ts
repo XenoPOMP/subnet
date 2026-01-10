@@ -52,6 +52,20 @@ export class Network implements CIDR, Equatable {
     return addressesAreSame && broadcastestAreSame && masksAreSame;
   }
 
+  isOutsideOf(other: Network): boolean {
+    if (this.equals(other)) return false;
+
+    const isBefore =
+      this.address.asFullDecimal() < other.address.asFullDecimal() &&
+      this.broadcast.asFullDecimal() <= other.address.asFullDecimal();
+
+    const isAfter =
+      this.address.asFullDecimal() >= other.broadcast.asFullDecimal() &&
+      this.broadcast.asFullDecimal() > other.broadcast.asFullDecimal();
+
+    return isBefore || isAfter;
+  }
+
   private firstNChars(value: string, n: number): string {
     return value.substring(0, n);
   }
