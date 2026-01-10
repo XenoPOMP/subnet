@@ -113,9 +113,11 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
             const value = e.target.value;
 
             // eslint-disable-next-line regexp/no-unused-capturing-group,regexp/no-super-linear-backtracking
-            if (!/(\d+\.*){4}\/\d{1,2}/.test(value)) {
+            if (!/^(\d+\.*){4}\/\d{1,2}$/.test(value)) {
               // String does not follow pattern
               setError(target, t.errors.net.wrongFormat);
+            } else {
+              setError(target, undefined);
             }
 
             // Anyway, update the state
