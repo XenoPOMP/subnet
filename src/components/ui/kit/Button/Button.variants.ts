@@ -12,8 +12,13 @@ export const buttonVariants = cva(cn(styles.button), {
       default: '',
       danger: cn(styles.danger),
     },
+    square: {
+      true: '!p-[0.8rem]',
+      false: '',
+    },
   },
   defaultVariants: {
     variant: 'default',
+    square: false,
   },
 });
