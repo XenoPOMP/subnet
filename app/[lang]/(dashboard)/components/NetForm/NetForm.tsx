@@ -45,7 +45,7 @@ export function NetForm() {
       </section>
 
       <For each={subnets}>
-        {({ network, id }) => (
+        {({ id }) => (
           <section
             className={cn(styles.group)}
             key={`input-for-${id}`}

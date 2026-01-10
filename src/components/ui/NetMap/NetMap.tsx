@@ -4,13 +4,11 @@ import cn from 'classnames';
 
 import { For } from '@/components/layout';
 import { NetSlider, Overlaps, VStack, ZStack } from '@/components/ui';
-import { useOverlaps } from '@/hooks';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export function NetMap() {
   const { root, subnets } = useNetworkStore();
-  const overlaps = useOverlaps();
 
   const min = root?.address.asFullDecimal();
   const max = root?.broadcast.asFullDecimal();
