@@ -5,6 +5,11 @@ import { WithTooltip } from '@/components/ui/kit';
 
 describe('WithTooltip component', () => {
   test('It renders', () => {
-    assertRendering(<WithTooltip />);
+    assertRendering(
+      <WithTooltip
+        id='some-id'
+        tooltip={<></>}
+      />,
+    );
   });
 });

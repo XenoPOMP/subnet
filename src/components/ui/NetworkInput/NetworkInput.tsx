@@ -11,7 +11,13 @@ import type {
 } from 'xenopomp-essentials';
 
 import { HStack, Spacer, VStack } from '@/components/ui';
-import { Button, Heading, InputField, Label } from '@/components/ui/kit';
+import {
+  Button,
+  ColorPicker,
+  Heading,
+  InputField,
+  Label,
+} from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -94,6 +100,11 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
             spacing='1.0rem'
             className={cn('w-full')}
           >
+            <ColorPicker
+              color={color}
+              onChange={col => setColor(col.hex)}
+            />
+
             <InputField
               placeholder={t.placeholders.network.name}
               unstyled
