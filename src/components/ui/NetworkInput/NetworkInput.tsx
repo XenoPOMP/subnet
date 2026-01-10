@@ -2,7 +2,7 @@
 
 import { Chrome } from '@uiw/react-color';
 import cn from 'classnames';
-import { NetworkIcon } from 'lucide-react';
+import { CircleX, NetworkIcon } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -24,8 +24,14 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
   ...props
 }) => {
   const { t } = useTranslations();
-  const { updateRootNetwork, updateSubnet, form, setValue, removeSubnet } =
-    useNetworkStore();
+  const {
+    updateRootNetwork,
+    updateSubnet,
+    form,
+    setValue,
+    setError,
+    removeSubnet,
+  } = useNetworkStore();
   const [name, setName] = useState('');
   const [color, setColor] = useState<string>(randomColor());
 
@@ -102,20 +108,38 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
         <InputField
           placeholder='192.168.0.1/24'
           value={addr}
-          onChange={e => setValue(target, e.target.value)}
+          onChange={e => {
+            // Do the validation here
+            const value = e.target.value;
+
+            // eslint-disable-next-line regexp/no-unused-capturing-group,regexp/no-super-linear-backtracking
+            if (!/(\d+\.*){4}\/\d{1,2}/.test(value)) {
+              // String does not follow pattern
+              setError(target, t.errors.net.wrongFormat);
+            }
+
+            // Anyway, update the state
+            setValue(target, value);
+          }}
           className={cn('w-full')}
         />
       </VStack>
 
       <VStack spacing='1.0rem'>
-        {form[target]!.error && <p>{form[target]!.error}</p>}
+        {form[target]!.error && (
+          <>
+            <Label
+              icon={CircleX}
+              className={cn('!text-danger')}
+            >
+              {form[target]!.error}
+            </Label>
+          </>
+        )}
 
         {!form[target]?.error && !!network && (
           <>
-            <Label
-              icon={NetworkIcon}
-              className={cn('select-none')}
-            >
+            <Label icon={NetworkIcon}>
               {network.cidr({ showRange: true })}
             </Label>
           </>

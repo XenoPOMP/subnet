@@ -12,7 +12,7 @@ export const Label: VariableFC<'div', Props> = ({
   return (
     <div
       className={cn(
-        'flex items-center gap-[1.0rem]',
+        'flex items-start gap-[1.0rem]',
         'text-shallow-light',
         className,
       )}
@@ -22,7 +22,7 @@ export const Label: VariableFC<'div', Props> = ({
         <Icon
           size='1.6rem'
           color='currentColor'
-          className={cn('mb-[0.3rem]')}
+          className={cn('mt-[0.1rem]')}
         />
       )}
       <div className={cn('text-[1.4rem]')}>{children}</div>
