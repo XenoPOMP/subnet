@@ -1,8 +1,7 @@
 'use client';
 
-import { Chrome } from '@uiw/react-color';
 import cn from 'classnames';
-import { CircleX, NetworkIcon } from 'lucide-react';
+import { CircleX, NetworkIcon, Trash2 } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -11,8 +10,8 @@ import type {
   VariableFC,
 } from 'xenopomp-essentials';
 
-import { VStack } from '@/components/ui';
-import { Heading, InputField, Label } from '@/components/ui/kit';
+import { HStack, Spacer, VStack } from '@/components/ui';
+import { Button, Heading, InputField, Label } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -90,20 +89,30 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
             <Heading level={2}>{t.pages.dashboard.headings.rootNet}</Heading>
           </>
         ) : (
-          <>
+          <HStack
+            alignment='center'
+            spacing='1.0rem'
+            className={cn('w-full')}
+          >
             <InputField
               placeholder={t.placeholders.network.name}
+              unstyled
               value={name}
               onChange={e => setName(e.target.value)}
             />
 
-            <Chrome
-              color={color}
-              onChange={color => {
-                setColor(color.hex);
+            <Spacer />
+
+            <Button
+              variant='danger'
+              leadingIcon={Trash2}
+              square
+              onClick={() => {
+                if (target === 'root') return;
+                removeSubnet(target);
               }}
             />
-          </>
+          </HStack>
         )}
 
         <InputField
@@ -164,21 +173,6 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
           </>
         )}
       </VStack>
-
-      {target !== 'root' && (
-        <>
-          <button
-            type='button'
-            className={cn('text-red-500')}
-            onClick={() => {
-              if (target === 'root') return;
-              removeSubnet(target);
-            }}
-          >
-            Delete
-          </button>
-        </>
-      )}
     </VStack>
   );
 };
