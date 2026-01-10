@@ -11,9 +11,7 @@ export const Field = slotable<'div', ComponentProps<'div'>>(
   'div',
   ({ Comp, className, children, ...props }) => (
     <Comp
-      // TODO Make this actual field wrapper
       className={cn(
-        'TODO',
         // Nullstyles
         'appearance-none text-primary-font placeholder:text-shallow',
         'border-[1px] border-divider bg-input-bg',
