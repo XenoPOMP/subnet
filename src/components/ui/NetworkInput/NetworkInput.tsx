@@ -76,7 +76,7 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
     >
       <VStack
         spacing='1.0rem'
-        className={cn('w-full')}
+        className={cn('w-full select-none')}
       >
         {target === 'root' ? (
           <>
