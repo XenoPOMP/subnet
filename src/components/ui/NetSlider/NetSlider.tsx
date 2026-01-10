@@ -1,11 +1,14 @@
+'use client';
+
 import cn from 'classnames';
 import { clamp } from 'motion';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import type { ComponentProps, FC } from 'react';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import type { RequiredDeep } from 'type-fest';
 
+import { VStack } from '@/components/ui';
 import { useTranslations } from '@/i18n';
 import { binary, decimal } from '@/utils/base-number';
 import { Address, Network } from '@/utils/ip';
@@ -59,25 +62,35 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [network, network.mask]);
 
+  const calculateTipMeasurements = useCallback(
+    (net: Network): ComponentProps<'p'> => {
+      const from = net.address.asFullDecimal();
+      const to = net.broadcast.asFullDecimal();
+      const start = Math.max(from, min!);
+      const end = Math.min(to, max!);
+      const progress = ((end - start) / (max! - min!)) * 100;
+      const left = ((start - min!) / (max! - min!)) * 100;
+
+      return {
+        className: cn('select-none text-[1.2rem]', 'text-center'),
+        style: {
+          width: `${progress}%`,
+          marginLeft: `${left}%`,
+        },
+      };
+    },
+    [min, max],
+  );
+
   return (
-    <div>
-      <h2
-        className={cn('relative z-[30] flex w-full items-center gap-[0.6rem]')}
-      >
-        <div
-          className={cn('size-[12px] rounded-full')}
-          style={{
-            background: network.color,
-          }}
-        ></div>
-
-        {/* eslint-disable-next-line no-extra-boolean-cast */}
-        {!!network.name ? network.name : t.placeholders.network.name}
-
-        <div className={cn('text-xl italic !leading-[100%] text-gray-400')}>
-          {network.cidr({ showRange: true })}
-        </div>
-      </h2>
+    <VStack
+      spacing='0.6rem'
+      className={cn('relative z-[40]')}
+    >
+      <p {...calculateTipMeasurements(network)}>
+        {network.name?.length ? network.name! : t.placeholders.network.name}{' '}
+        <span className={cn('text-shallow-light')}>/{network.mask}</span>
+      </p>
 
       <Slider
         min={min}
@@ -111,6 +124,6 @@ export const NetSlider: FC<Props> = ({ network, networkId }) => {
           },
         }}
       />
-    </div>
+    </VStack>
   );
 };

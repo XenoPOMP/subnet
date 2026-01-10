@@ -30,11 +30,14 @@ export const Overlaps: FC<unknown> = () => {
         lineWidth: '1px',
         lineGap: '5px',
 
-        // TODO Replace with actual theme color
-        className: cn('h-full', 'z-[10]', 'border-[1px] border-[red]'),
-        tint: 'red',
-        // TODO Make separate color for transparent bg!!!
-        backgroundTint: 'rgba(255 0 0 / .15)',
+        className: cn(
+          'h-full',
+          'z-[10]',
+          'border-[1px] border-overlap',
+          'opacity-50',
+        ),
+        tint: 'rgba(var(--colors-overlap))',
+        backgroundTint: 'var(--colors-overlap-bg)',
       };
     },
     [min, max],

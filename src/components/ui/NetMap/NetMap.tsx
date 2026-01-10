@@ -4,15 +4,11 @@ import cn from 'classnames';
 
 import { For } from '@/components/layout';
 import { NetSlider, Overlaps, VStack, ZStack } from '@/components/ui';
-import { useOverlaps } from '@/hooks';
-import { decimal } from '@/utils/base-number';
-import { Address } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export function NetMap() {
   const { root, subnets } = useNetworkStore();
-  const overlaps = useOverlaps();
 
   const min = root?.address.asFullDecimal();
   const max = root?.broadcast.asFullDecimal();
@@ -20,7 +16,7 @@ export function NetMap() {
   return (
     <>
       {!!root && !!min && !!max && (
-        <VStack className={cn('w-full bg-zinc-800 p-[1.6rem]')}>
+        <VStack className={cn('w-full')}>
           <ZStack className={cn('w-full')}>
             <VStack
               className={cn('w-full')}
@@ -40,26 +36,6 @@ export function NetMap() {
             <Overlaps />
           </ZStack>
         </VStack>
-      )}
-
-      {!!overlaps.length && (
-        <>
-          <h2>Overlaps</h2>
-
-          <For each={overlaps}>
-            {([from, to]) => (
-              <div key={`range-from-${from}-to-${to}`}>
-                <b>
-                  {Address.fromBitmap(decimal(from!).binary().value).format()}
-                </b>{' '}
-                -{' '}
-                <b>
-                  {Address.fromBitmap(decimal(to!).binary().value).format()}
-                </b>
-              </div>
-            )}
-          </For>
-        </>
       )}
     </>
   );

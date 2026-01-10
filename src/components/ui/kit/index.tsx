@@ -17,3 +17,7 @@ export * from './Field/Field';
 export * from './Tab/Tab';
 export * from './TabView/TabView';
 export * from './TabView/TabView.context';
+export * from './TitleBar/TitleBar';
+export * from './Label/Label';
+export * from './ColorPicker/ColorPicker';
+export * from './WithTooltip/WithTooltip';

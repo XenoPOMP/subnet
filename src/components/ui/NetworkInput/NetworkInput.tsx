@@ -1,7 +1,7 @@
 'use client';
 
-import { Chrome } from '@uiw/react-color';
 import cn from 'classnames';
+import { CircleX, NetworkIcon, Trash2 } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -10,8 +10,14 @@ import type {
   VariableFC,
 } from 'xenopomp-essentials';
 
-import { VStack } from '@/components/ui';
-import { InputField } from '@/components/ui/kit';
+import { HStack, Spacer, VStack } from '@/components/ui';
+import {
+  Button,
+  ColorPicker,
+  Heading,
+  InputField,
+  Label,
+} from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -23,8 +29,15 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
   ...props
 }) => {
   const { t } = useTranslations();
-  const { updateRootNetwork, updateSubnet, form, setValue, removeSubnet } =
-    useNetworkStore();
+  const {
+    updateRootNetwork,
+    updateSubnet,
+    form,
+    setValue,
+    setError,
+    removeSubnet,
+    root,
+  } = useNetworkStore();
   const [name, setName] = useState('');
   const [color, setColor] = useState<string>(randomColor());
 
@@ -69,57 +82,109 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
   return (
     <VStack
       alignment='topLeading'
-      spacing='0.8rem'
-      className={cn(
-        'rounded-[0.8rem] bg-gray-500 p-[1.6rem]',
-        'w-full',
-        className,
-      )}
+      spacing='2.0rem'
+      className={cn('w-full', className)}
       {...props}
     >
-      {target !== 'root' && (
-        <>
-          <InputField
-            placeholder={t.placeholders.network.name}
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-
-          <Chrome
-            color={color}
-            onChange={color => {
-              setColor(color.hex);
-            }}
-          />
-        </>
-      )}
-
-      <InputField
-        placeholder='192.168.0.1/24'
-        value={addr}
-        onChange={e => setValue(target, e.target.value)}
-      />
-
-      {form[target]!.error && <p>{form[target]!.error}</p>}
-
-      {!form[target]?.error && !!network && (
-        <p className={cn('text-lg')}>{network.cidr({ showRange: true })}</p>
-      )}
-
-      {target !== 'root' && (
-        <>
-          <button
-            type='button'
-            className={cn('text-red-500')}
-            onClick={() => {
-              if (target === 'root') return;
-              removeSubnet(target);
-            }}
+      <VStack
+        spacing='1.0rem'
+        className={cn('w-full select-none')}
+      >
+        {target === 'root' ? (
+          <>
+            <Heading level={2}>{t.pages.dashboard.headings.rootNet}</Heading>
+          </>
+        ) : (
+          <HStack
+            alignment='center'
+            spacing='1.0rem'
+            className={cn('w-full')}
           >
-            Delete
-          </button>
-        </>
-      )}
+            <ColorPicker
+              color={color}
+              onChange={col => setColor(col.hex)}
+            />
+
+            <InputField
+              placeholder={t.placeholders.network.name}
+              unstyled
+              value={name}
+              onChange={e => setName(e.target.value)}
+              className={cn('w-full')}
+            />
+
+            <Spacer />
+
+            <Button
+              variant='danger'
+              leadingIcon={Trash2}
+              square
+              onClick={() => {
+                if (target === 'root') return;
+                removeSubnet(target);
+              }}
+            />
+          </HStack>
+        )}
+
+        <InputField
+          placeholder='192.168.0.1/24'
+          value={addr}
+          onChange={e => {
+            // Do the validation here
+            const value = e.target.value;
+
+            // eslint-disable-next-line regexp/no-unused-capturing-group,regexp/no-super-linear-backtracking
+            if (!/^(\d+\.*){4}\/\d{1,2}$/.test(value)) {
+              // String does not follow pattern
+              setError(target, t.errors.net.wrongFormat);
+              setValue(target, value);
+              return;
+            }
+
+            const mask = value.split('/').at(1);
+
+            // Check if mask is from 1 to 31
+            if (mask && Number.isInteger(+mask) && (+mask < 1 || +mask > 31)) {
+              setError(target, t.errors.net.wrongMask);
+              setValue(target, value);
+              return;
+            }
+
+            // User passed subnetwork that is outside of root one
+            if (target !== 'root' && root && network?.isOutsideOf(root)) {
+              setError(target, t.errors.net.subnetOutsideRoot);
+              setValue(target, value);
+              return;
+            }
+
+            setError(target, undefined);
+            setValue(target, value);
+          }}
+          className={cn('w-full')}
+        />
+      </VStack>
+
+      <VStack spacing='1.0rem'>
+        {form[target]!.error && (
+          <>
+            <Label
+              icon={CircleX}
+              className={cn('!text-danger')}
+            >
+              {form[target]!.error}
+            </Label>
+          </>
+        )}
+
+        {!form[target]?.error && !!network && (
+          <>
+            <Label icon={NetworkIcon}>
+              {network.cidr({ showRange: true })}
+            </Label>
+          </>
+        )}
+      </VStack>
     </VStack>
   );
 };

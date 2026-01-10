@@ -22,3 +22,10 @@ export const Default: Story = {
     ...sharedProps,
   },
 };
+
+export const Short: Story = {
+  args: {
+    ...sharedProps,
+    variant: 'short',
+  },
+};

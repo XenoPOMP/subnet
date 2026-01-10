@@ -15,4 +15,13 @@ export const ru: LanguageResource = {
       name: 'Без названия',
     },
   },
+  pages: {
+    dashboard: {
+      headings: {
+        rootNet: 'Корневая сеть',
+        subnets: 'Подсети',
+        netMap: 'Карта сети',
+      },
+    },
+  },
 };

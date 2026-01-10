@@ -15,7 +15,10 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const sharedProps = {} satisfies Partial<Story['args']>;
+const sharedProps = {
+  children: 'Field',
+  unstyled: false,
+} satisfies Partial<Story['args']>;
 
 export const Primary: Story = {
   args: {

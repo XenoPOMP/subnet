@@ -3,19 +3,28 @@ import type { ComponentProps } from 'react';
 
 import { slotable } from '@/components/hoc';
 
+import styles from './Field.module.scss';
+
 /**
  * Global field component. Allows to share styles across all field-like
  * components.
  */
-export const Field = slotable<'div', ComponentProps<'div'>>(
+export const Field = slotable<'div', ComponentProps<'div'> & FieldAlikeProps>(
   'div',
-  ({ Comp, className, children, ...props }) => (
+  ({ Comp, className, children, unstyled, ...props }) => (
     <Comp
-      // TODO Make this actual field wrapper
       className={cn(
-        'TODO',
         // Nullstyles
-        'appearance-none bg-transparent text-primary-font placeholder:text-primary-font/60',
+        'appearance-none text-primary-font placeholder:text-[1.6rem] placeholder:text-shallow',
+        'border-[1px] border-divider bg-input-bg',
+        'px-[1.2rem] py-[0.8rem]',
+        'text-[1.6rem]',
+        'focus-visible:border-accent focus-visible:outline-none',
+        'transition-colors',
+        styles.field,
+        {
+          [`${styles.unstyled}`]: !!unstyled,
+        },
         className,
       )}
       {...props}
@@ -24,3 +33,7 @@ export const Field = slotable<'div', ComponentProps<'div'>>(
     </Comp>
   ),
 );
+
+export interface FieldAlikeProps {
+  unstyled?: boolean;
+}

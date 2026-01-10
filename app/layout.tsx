@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 import type { ReactNode } from 'react';
+import 'react-tooltip/dist/react-tooltip.css';
 
 import { Providers } from '@/components/layout';
 import { env } from '@/utils/env';
@@ -15,7 +16,7 @@ import {
 
 import './globals.scss';
 
-const mainFont = Inter({
+const mainFont = JetBrains_Mono({
   subsets: ['latin', 'cyrillic'],
 });
 

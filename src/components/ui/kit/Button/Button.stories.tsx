@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import Link from 'next/link';
+import { Ban, Trash } from 'lucide-react';
 
 import { Button } from './Button';
 
@@ -19,21 +19,31 @@ type Story = StoryObj<typeof meta>;
 const sharedProps = {
   children: 'Click me',
   disabled: false,
+  unstyled: false,
 } satisfies Partial<Story['args']>;
 
 export const Default: Story = {
   args: {
     ...sharedProps,
+    leadingIcon: Ban,
   },
 };
 
-export const AsLink: Story = {
-  name: 'As link',
-  decorators: [
-    _story => (
-      <Button asChild>
-        <Link href='https://www.google.com'>google.com</Link>
-      </Button>
-    ),
-  ],
+export const Danger: Story = {
+  args: {
+    ...sharedProps,
+    children: 'Delete subnet',
+    variant: 'danger',
+    leadingIcon: Trash,
+  },
+};
+
+export const IconOnly: Story = {
+  args: {
+    ...sharedProps,
+    children: undefined,
+    variant: 'danger',
+    leadingIcon: Trash,
+    square: true,
+  },
 };

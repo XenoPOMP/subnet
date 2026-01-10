@@ -23,7 +23,8 @@ export class Network implements CIDR, Equatable {
 
     this.address = networkAddress;
     this.broadcast = broadcast;
-    this.mask = mask;
+    // Mask may be from 1 to 31
+    this.mask = clamp(1, 31, mask);
   }
 
   cidr(options?: NetworkCIDROptions): string {
@@ -49,6 +50,20 @@ export class Network implements CIDR, Equatable {
     const masksAreSame = this.mask === rhs.mask;
 
     return addressesAreSame && broadcastestAreSame && masksAreSame;
+  }
+
+  isOutsideOf(other: Network): boolean {
+    if (this.equals(other)) return false;
+
+    const isBefore =
+      this.address.asFullDecimal() < other.address.asFullDecimal() &&
+      this.broadcast.asFullDecimal() <= other.address.asFullDecimal();
+
+    const isAfter =
+      this.address.asFullDecimal() >= other.broadcast.asFullDecimal() &&
+      this.broadcast.asFullDecimal() > other.broadcast.asFullDecimal();
+
+    return isBefore || isAfter;
   }
 
   private firstNChars(value: string, n: number): string {
