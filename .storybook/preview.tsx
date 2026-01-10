@@ -1,11 +1,11 @@
 import { withThemeByClassName } from '@storybook/addon-themes';
 import type { Preview } from '@storybook/nextjs';
 import cn from 'classnames';
-import { Inter } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 
 import '../app/globals.scss';
 
-const mainFont = Inter({
+const mainFont = JetBrains_Mono({
   subsets: ['latin', 'cyrillic'],
 });
 
