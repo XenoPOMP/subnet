@@ -1,4 +1,5 @@
 import type { Meta } from '@storybook/nextjs';
+import cn from 'classnames';
 
 import { InputField } from '@/components/ui/kit';
 import { StoryBuilder } from '@/utils/storybook';
@@ -21,6 +22,9 @@ export default meta;
 
 const builder = new StoryBuilder<typeof NetworkInput>()
   .defineMeta(meta)
-  .defineSharedProps({});
+  .defineSharedProps({
+    target: 'root',
+    className: cn('w-[500px]'),
+  });
 
 export const Base = builder.buildStory({});

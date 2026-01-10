@@ -11,7 +11,7 @@ import type {
 } from 'xenopomp-essentials';
 
 import { VStack } from '@/components/ui';
-import { InputField } from '@/components/ui/kit';
+import { Heading, InputField } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, Network } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -69,42 +69,50 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
   return (
     <VStack
       alignment='topLeading'
-      spacing='0.8rem'
-      className={cn(
-        'rounded-[0.8rem] bg-gray-500 p-[1.6rem]',
-        'w-full',
-        className,
-      )}
+      spacing='2.0rem'
+      className={cn('w-full', className)}
       {...props}
     >
-      {target !== 'root' && (
-        <>
-          <InputField
-            placeholder={t.placeholders.network.name}
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
+      <VStack
+        spacing='1.0rem'
+        className={cn('w-full')}
+      >
+        {target === 'root' ? (
+          <>
+            <Heading level={2}>{t.pages.dashboard.headings.rootNet}</Heading>
+          </>
+        ) : (
+          <>
+            <InputField
+              placeholder={t.placeholders.network.name}
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
 
-          <Chrome
-            color={color}
-            onChange={color => {
-              setColor(color.hex);
-            }}
-          />
-        </>
-      )}
+            <Chrome
+              color={color}
+              onChange={color => {
+                setColor(color.hex);
+              }}
+            />
+          </>
+        )}
 
-      <InputField
-        placeholder='192.168.0.1/24'
-        value={addr}
-        onChange={e => setValue(target, e.target.value)}
-      />
+        <InputField
+          placeholder='192.168.0.1/24'
+          value={addr}
+          onChange={e => setValue(target, e.target.value)}
+          className={cn('w-full')}
+        />
+      </VStack>
 
-      {form[target]!.error && <p>{form[target]!.error}</p>}
+      <VStack spacing='1.0rem'>
+        {form[target]!.error && <p>{form[target]!.error}</p>}
 
-      {!form[target]?.error && !!network && (
-        <p className={cn('text-lg')}>{network.cidr({ showRange: true })}</p>
-      )}
+        {!form[target]?.error && !!network && (
+          <p className={cn('text-lg')}>{network.cidr({ showRange: true })}</p>
+        )}
+      </VStack>
 
       {target !== 'root' && (
         <>

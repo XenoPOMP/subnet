@@ -16,4 +16,11 @@ export const en = {
       name: 'Unnamed',
     },
   },
+  pages: {
+    dashboard: {
+      headings: {
+        rootNet: 'Root network',
+      },
+    },
+  },
 } satisfies RecursiveKeyValuePair;
