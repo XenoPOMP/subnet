@@ -15,7 +15,10 @@ export const Field = slotable<'div', ComponentProps<'div'>>(
       className={cn(
         'TODO',
         // Nullstyles
-        'appearance-none bg-transparent text-primary-font placeholder:text-primary-font/60',
+        'appearance-none text-primary-font placeholder:text-shallow',
+        'border-[1px] border-divider bg-input-bg',
+        'px-[1.2rem] py-[0.8rem]',
+        'text-[1.6rem]',
         className,
       )}
       {...props}
