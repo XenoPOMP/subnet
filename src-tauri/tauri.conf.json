@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "subnet",
+  "productName": "Subnet",
   "version": "1.0.0",
   "identifier": "ru.xenopomp.subnet",
   "build": {
@@ -12,9 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "subnet",
+        "title": "Subnet",
         "width": 870,
         "height": 650,
+        "minWidth": 870,
+        "minHeight": 650,
         "resizable": true,
         "fullscreen": false
       }
