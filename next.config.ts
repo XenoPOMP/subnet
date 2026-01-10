@@ -16,9 +16,5 @@ const baseConfig: NextConfig = {
 
 export default config(baseConfig, {
   mdx: true,
-  serwist: {
-    cacheOnNavigation: true,
-    swSrc: 'app/sw.ts',
-    swDest: 'public/sw.js',
-  },
+  serwist: false,
 });
