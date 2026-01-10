@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import type { ArrayItemType, Writeable } from 'xenopomp-essentials';
 
-const locales = ['en-US', 'ru-RU'] as const;
+export const locales = ['en-US', 'ru-RU'] as const;
 export type Locales = ArrayItemType<Writeable<typeof locales>>;
 
 /**
