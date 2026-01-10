@@ -21,6 +21,7 @@ export const en = {
       headings: {
         rootNet: 'Root network',
         subnets: 'Subnets',
+        netMap: 'Network map',
       },
     },
   },

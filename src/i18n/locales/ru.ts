@@ -20,6 +20,7 @@ export const ru: LanguageResource = {
       headings: {
         rootNet: 'Корневая сеть',
         subnets: 'Подсети',
+        netMap: 'Карта сети',
       },
     },
   },

@@ -46,7 +46,10 @@ export function NetForm() {
 
       <For each={subnets}>
         {({ network, id }) => (
-          <section className={cn(styles.group)}>
+          <section
+            className={cn(styles.group)}
+            key={`input-for-${id}`}
+          >
             <NetworkInput target={id} />
           </section>
         )}

@@ -6,7 +6,6 @@ import { TitleBar } from '@/components/ui/kit';
 import styles from './DashboardLayout.module.scss';
 
 /**
- * @todo Change comment after implementation of layout.
  */
 export function DashboardLayout({ className, children, ...props }: Props) {
   return (
