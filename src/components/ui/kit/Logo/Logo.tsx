@@ -6,6 +6,7 @@ import type { LogoProps } from './Logo.props';
 import type { LogoVariants } from './Logo.variants';
 import { logoVariantsVariants } from './Logo.variants';
 import LogoDefault from './icons/default';
+import LogoShort from './icons/short';
 
 /**
  * App`s logo component. Contains link to root
@@ -34,7 +35,15 @@ export const Logo: VariableFC<
           }}
         />
       ) : (
-        <></>
+        <LogoShort
+          className={cn(
+            logoVariantsVariants({ variant, painting }),
+            'h-[20px]',
+          )}
+          style={{
+            aspectRatio: 87 / 25,
+          }}
+        />
       )}
     </Link>
   );
