@@ -1,0 +1,19 @@
+.button {
+  &:hover {
+    @apply bg-input-bg-light;
+  }
+
+  &:active {
+    @apply text-accent border-accent;
+  }
+
+  &.danger {
+    &:hover {
+      @apply text-danger;
+    }
+
+    &:active {
+      @apply text-danger border-danger;
+    }
+  }
+}

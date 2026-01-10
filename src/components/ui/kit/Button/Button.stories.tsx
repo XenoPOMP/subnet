@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import Link from 'next/link';
 
 import { Button } from './Button';
 
@@ -27,13 +26,9 @@ export const Default: Story = {
   },
 };
 
-export const AsLink: Story = {
-  name: 'As link',
-  decorators: [
-    _story => (
-      <Button asChild>
-        <Link href='https://www.google.com'>google.com</Link>
-      </Button>
-    ),
-  ],
+export const Danger: Story = {
+  args: {
+    ...sharedProps,
+    variant: 'danger',
+  },
 };
