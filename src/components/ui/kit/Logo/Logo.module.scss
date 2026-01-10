@@ -1,0 +1,11 @@
+.icon {
+  &.color {
+    .leftPart {
+      @apply fill-logo-main;
+    }
+
+    .rightPart {
+      @apply fill-logo-accent;
+    }
+  }
+}
