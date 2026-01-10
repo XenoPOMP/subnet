@@ -13,10 +13,12 @@ export const Field = slotable<'div', ComponentProps<'div'>>(
     <Comp
       className={cn(
         // Nullstyles
-        'appearance-none text-primary-font placeholder:text-shallow',
+        'appearance-none text-primary-font placeholder:text-[1.6rem] placeholder:text-shallow',
         'border-[1px] border-divider bg-input-bg',
         'px-[1.2rem] py-[0.8rem]',
         'text-[1.6rem]',
+        'focus-visible:border-accent focus-visible:outline-none',
+        'transition-colors',
         className,
       )}
       {...props}
