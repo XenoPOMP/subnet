@@ -4,9 +4,11 @@ import { assertHookRendering } from 'xenopomp-essentials/vitest';
 
 import { useStaticLocale } from '@/hooks';
 
-import { createUseStaticLocaleTest } from '@test/assets';
+import { createUseStaticLocaleTest, injectMatchMediaMock } from '@test/assets';
 
 describe('useStaticLocale', () => {
+  injectMatchMediaMock();
+
   afterEach(() => {
     cleanup();
   });

@@ -32,7 +32,7 @@ export default xenopomp(
   },
   {
     name: 'Ignore files',
-    ignores: ['**/*.md'],
+    ignores: ['**/*.md', './src-tauri'],
   },
   ...storybook.configs['flat/recommended'],
 );
