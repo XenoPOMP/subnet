@@ -4,7 +4,6 @@ import type { VariableFC } from 'xenopomp-essentials';
 import { HStack, Spacer } from '@/components/ui';
 import { Logo } from '@/components/ui/kit';
 
-// TODO Add logo here
 // TODO Add traffic lights here
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const TitleBar: VariableFC<'header', unknown, 'children'> = ({

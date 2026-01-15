@@ -28,7 +28,7 @@ export const Logo: VariableFC<
         <LogoDefault
           className={cn(
             logoVariantsVariants({ variant, painting }),
-            'h-[20px]',
+            'h-[16px]',
           )}
           style={{
             aspectRatio: 133 / 24,
