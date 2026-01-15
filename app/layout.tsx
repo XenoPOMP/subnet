@@ -12,6 +12,7 @@ import {
   APP_DESCRIPTION,
   APP_NAME,
   APP_TITLE_TEMPLATE,
+  NO_INDEX_PAGE,
 } from '@app/constants';
 
 import './globals.scss';
@@ -61,6 +62,8 @@ export async function generateMetadata(): Promise<Metadata> {
       },
       description: APP_DESCRIPTION,
     },
+    // TODO Maybe, remove this later, if SEO will be needed.
+    ...NO_INDEX_PAGE,
   };
 }
 
