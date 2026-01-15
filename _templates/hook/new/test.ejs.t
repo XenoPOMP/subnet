@@ -4,13 +4,11 @@ eol_last: true
 ---
 import { cleanup } from '@testing-library/react';
 import { afterEach, describe, expect, test } from 'vitest';
+import { assertHookRendering } from 'xenopomp-essentials/vitest';
 
 import { <%= h.changeCase.camelCase(name) %> } from '@/hooks';
 
-import {
-  assertHookRendering,
-  create<%= h.changeCase.pascalCase(name) %>Test
-} from '@test/assets';
+import { create<%= h.changeCase.pascalCase(name) %>Test } from '@test/assets';
 
 describe('<%= h.changeCase.camelCase(name) %>', () => {
   afterEach(() => {

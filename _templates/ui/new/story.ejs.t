@@ -1,7 +1,7 @@
 ---
 to: src/components/ui/kit/<%= h.changeCase.pascalCase(name) %>/<%= h.changeCase.pascalCase(name) %>.stories.tsx
 ---
-import type { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/nextjs';
 
 import { StoryBuilder } from '@/utils/storybook';
 
