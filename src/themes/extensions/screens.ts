@@ -5,7 +5,7 @@ import type { TailwindExtension } from '../extensions';
 export const SCREENS = {
   screens: {
     sm: '769px',
-    md: '960px',
+    md: '870px',
     lg: '1440px',
   },
 } satisfies TailwindExtension;
