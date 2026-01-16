@@ -18,7 +18,7 @@ export const TitleBar: VariableFC<'header', unknown, 'children'> = ({
       <header
         className={cn(
           'h-[--dashboard-header-height]',
-          'p-[1.6rem]',
+          'px-[1.6rem] py-[0.8rem]',
           'border-b-[1px] border-b-divider',
           'select-none',
           className,
