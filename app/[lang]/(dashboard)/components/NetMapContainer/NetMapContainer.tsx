@@ -6,8 +6,12 @@ import { NetMap, VStack } from '@/components/ui';
 import { Field, Heading } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 
+import type { MobileLayoutProps } from '@app/[lang]/(dashboard)/components';
+
+import styles from './NetMapContainer.module.scss';
+
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function NetMapContainer() {
+export function NetMapContainer({ mobile }: Props) {
   const { t } = useTranslations();
 
   return (
@@ -19,7 +23,14 @@ export function NetMapContainer() {
         style={{
           gridArea: 'main',
         }}
-        className={cn('overflow-hidden p-[1.6rem]', '!bg-primary-bg-brutal')}
+        className={cn(
+          'overflow-hidden p-[1.6rem]',
+          '!bg-primary-bg-brutal',
+          styles.netMapContainer,
+          {
+            [`${styles.mobileLayout}`]: mobile,
+          },
+        )}
       >
         <Heading level={2}>{t.pages.dashboard.headings.netMap}</Heading>
 
@@ -35,3 +46,5 @@ export function NetMapContainer() {
     </VStack>
   );
 }
+
+type Props = MobileLayoutProps;

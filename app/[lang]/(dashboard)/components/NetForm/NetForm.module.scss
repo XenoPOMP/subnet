@@ -1,3 +1,5 @@
+@use "../../../../../src/styles/utils/media";
+
 aside.form {
   @apply border-r-[1px] border-r-divider overflow-y-auto;
 
@@ -14,6 +16,18 @@ aside.form {
 
     &:last-of-type:not(.alwaysBorder) {
       border: 0;
+    }
+  }
+
+  &:not(.mobileLayout) {
+    @include media.endAtFixed(870px) {
+      display: none;
+    }
+  }
+
+  &.mobileLayout {
+    @include media.startAtFixed(870px) {
+      display: none;
     }
   }
 }

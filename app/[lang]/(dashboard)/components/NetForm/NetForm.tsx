@@ -12,12 +12,16 @@ import { useNetworkStore } from '@/zustand';
 import styles from './NetForm.module.scss';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function NetForm() {
+export function NetForm({ mobile = false }: Props) {
   const { t } = useTranslations();
   const { createSubnet, subnets } = useNetworkStore();
 
   return (
-    <aside className={cn(styles.form)}>
+    <aside
+      className={cn(styles.form, {
+        [`${styles.mobileLayout}`]: mobile,
+      })}
+    >
       <section className={cn(styles.group)}>
         <NetworkInput target='root' />
       </section>
@@ -57,3 +61,10 @@ export function NetForm() {
     </aside>
   );
 }
+
+export interface MobileLayoutProps {
+  /** If true, component will have mobile layout. */
+  mobile?: boolean;
+}
+
+type Props = MobileLayoutProps;

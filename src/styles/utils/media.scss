@@ -21,6 +21,15 @@
 }
 
 /*
+  Media query for min-width generator.
+*/
+@mixin startAtFixed($value) {
+  @media (min-width: $value) {
+    @content;
+  }
+}
+
+/*
   Media query for max-width generator.
 */
 @mixin endAt($breakpoint-name) {
