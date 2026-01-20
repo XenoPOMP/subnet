@@ -1,8 +1,11 @@
 'use client';
 
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import cn from 'classnames';
 import type { ContextType, FC, PropsWithChildren } from 'react';
 import { useCallback, useMemo, useState } from 'react';
+
+import { Field } from '@/components/ui/kit';
 
 import type { TabInfo } from './TabView.context';
 import { TabViewContext } from './TabView.context';
@@ -49,7 +52,17 @@ export const TabView: FC<PropsWithChildren> = ({ children }) => {
       <TabGroup as='section'>
         <TabList as='header'>
           {tabs.map(({ name }) => (
-            <Tab key={name}>{name}</Tab>
+            <Field
+              key={name}
+              asChild
+              className={cn(
+                'focus-visible:border-divider focus-visible:outline-none',
+                'bg-primary-bg',
+                '[&[data-selected]]:bg-input-bg',
+              )}
+            >
+              <Tab>{name}</Tab>
+            </Field>
           ))}
         </TabList>
 
