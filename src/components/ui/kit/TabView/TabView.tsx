@@ -58,7 +58,8 @@ export const TabView: FC<PropsWithChildren> = ({ children }) => {
               className={cn(
                 'focus-visible:border-divider focus-visible:outline-none',
                 'bg-primary-bg',
-                '[&[data-selected]]:bg-input-bg',
+                '[&[data-selected]]:bg-input-bg-lighter',
+                'border-y-0 border-l-0',
               )}
             >
               <Tab>{name}</Tab>
