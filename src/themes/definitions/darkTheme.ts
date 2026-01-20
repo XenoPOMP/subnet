@@ -34,6 +34,7 @@ export const darkTheme = {
     input: {
       bg: '#131B13',
       'bg-light': '#1B241B',
+      'bg-lighter': '#293529',
     },
   },
 } satisfies Theme;
