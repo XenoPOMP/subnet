@@ -17,6 +17,7 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
   text,
   leadingIcon,
   resetAfterMs: ms = 5_000,
+  textOnCopy,
   ...props
 }) => {
   const [copied, setCopied] = useState(false);
@@ -38,8 +39,24 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
 
   const currentLeadingIcon = copied ? Check : leadingIcon;
 
-  const currentChildren =
-    children === undefined ? undefined : copied ? 'LOC Copied' : children;
+  // eslint-disable-next-line jsdoc/require-jsdoc
+  const getCurrentChildren = () => {
+    // Show textOnCopy only if it is defined
+    if (children === undefined && textOnCopy !== undefined) {
+      return textOnCopy;
+    }
+
+    if (children === undefined && textOnCopy === undefined) {
+      return undefined;
+    }
+
+    if (children !== undefined) {
+      // TODO Replace default text on copy to translated one.
+      return copied ? (textOnCopy ?? 'DEFAULT COPY MESSAGE') : children;
+    }
+
+    return undefined;
+  };
 
   return (
     <Button
@@ -51,7 +68,7 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
       leadingIcon={currentLeadingIcon}
       {...props}
     >
-      {currentChildren} / {copied ? 'COPIED' : 'NOT COPIED'}
+      {getCurrentChildren()}
     </Button>
   );
 };
@@ -59,6 +76,9 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
 interface Props {
   /** This text will be copied on click. */
   text: string;
+
+  /** If defined, will show text on copy anyway. */
+  textOnCopy?: string;
 
   /** Define time amount to reset copied state. */
   resetAfterMs: number;
