@@ -1,5 +1,7 @@
 'use client';
 
+import LZString from 'lz-string';
+
 import { useOrigin } from '@/hooks';
 import type { InferBoundStoreType } from '@/types';
 import type { useNetworkStore } from '@/zustand';
@@ -16,12 +18,12 @@ export const useNetworkLink = (
   // eslint-disable-next-line jsdoc/require-jsdoc
   const encode = (obj: any) => {
     const jsonString = JSON.stringify(obj);
-    return encodeURIComponent(jsonString);
+    return LZString.compressToEncodedURIComponent(jsonString);
   };
 
   const params = new URLSearchParams({
-    root: encode(root?.cidr()),
-    subnets: encode(subnetworks.map(n => n.network.cidr())),
+    root: encode(root),
+    subnets: encode(subnetworks),
   });
 
   // eslint-disable-next-line jsdoc/require-jsdoc
