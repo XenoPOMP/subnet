@@ -25,4 +25,10 @@ export const en = {
       },
     },
   },
+  copyTextMessages: {
+    defaultOne: 'Copied!',
+    shareNetwork: {
+      shared: 'Network link copied!',
+    },
+  },
 } satisfies RecursiveKeyValuePair;

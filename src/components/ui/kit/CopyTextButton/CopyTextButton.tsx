@@ -8,6 +8,7 @@ import type { VariableFC } from 'xenopomp-essentials';
 
 import { Button } from '@/components/ui/kit';
 import { useCopyToClipboard } from '@/hooks';
+import { useTranslations } from '@/i18n';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const CopyTextButton: VariableFC<typeof Button, Props> = ({
@@ -23,6 +24,7 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
   const [copied, setCopied] = useState(false);
   const [start, reset] = useTimeoutCallback(() => setCopied(false), ms);
   const { copy, isSupported } = useCopyToClipboard();
+  const { t } = useTranslations();
 
   // Reset timeout each time text changed
   useEffect(() => reset, [text, reset]);
@@ -51,8 +53,7 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
     }
 
     if (children !== undefined) {
-      // TODO Replace default text on copy to translated one.
-      return copied ? (textOnCopy ?? 'DEFAULT COPY MESSAGE') : children;
+      return copied ? (textOnCopy ?? t.copyTextMessages.defaultOne) : children;
     }
 
     return undefined;

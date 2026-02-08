@@ -24,4 +24,10 @@ export const ru: LanguageResource = {
       },
     },
   },
+  copyTextMessages: {
+    defaultOne: 'Скопировано!',
+    shareNetwork: {
+      shared: 'Ссылка скопирована!',
+    },
+  },
 };
