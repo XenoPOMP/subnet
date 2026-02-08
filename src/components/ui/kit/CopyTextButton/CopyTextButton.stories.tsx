@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/nextjs';
-import { Link } from 'lucide-react';
+import { Check, Link } from 'lucide-react';
 
 import { StoryBuilder } from '@/utils/storybook';
 
@@ -14,6 +14,7 @@ const meta = {
   },
   subcomponents: {
     Link,
+    Check,
   },
 } satisfies Meta<typeof CopyTextButton>;
 

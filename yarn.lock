@@ -2928,6 +2928,18 @@
     "@swc/helpers" "^0.5.0"
     clsx "^2.0.0"
 
+"@react-hook/latest@^1.0.2":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@react-hook/latest/-/latest-1.0.3.tgz#c2d1d0b0af8b69ec6e2b3a2412ba0768ac82db80"
+  integrity sha512-dy6duzl+JnAZcDbNTfmaP3xHiKtbXYOaz3G51MGVljh548Y8MWzTr+PHLOfvpypEVW9zwvl+VyKjbWKEVbV1Rg==
+
+"@react-hook/timeout@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@react-hook/timeout/-/timeout-2.1.1.tgz#d4db750002a0231027897d4370040cbcc02a118d"
+  integrity sha512-nl76ab/tLU8tBtn54gX12z/XalQSLkZl86ZqH6HoV32y4+XzZq6LCQo9fJJpxqZpT2ueXiM5YnbPPghdHBlRWg==
+  dependencies:
+    "@react-hook/latest" "^1.0.2"
+
 "@react-stately/flags@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@react-stately/flags/-/flags-3.1.2.tgz#5c8e5ae416d37d37e2e583d2fcb3a046293504f2"
