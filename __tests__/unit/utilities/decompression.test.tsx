@@ -13,9 +13,13 @@ const compress = (obj: any): string => {
 
 describe('LZ decompressions', () => {
   test('Root network can be decompressed', () => {
-    const compressed = compress(new Network(new Address(192, 168, 0, 0), 24));
+    const compressed = compress(
+      new Network(new Address(192, 168, 0, 0), 24, 'Name is correct!', '#fff'),
+    );
     const decompressed = decompressRootNetwork(compressed);
     expect(decompressed?.cidr()).toEqual('192.168.0.0/24');
+    expect(decompressed?.name).toEqual('Name is correct!');
+    expect(decompressed?.color).toEqual('#fff');
   });
 
   test('decompressRootNetwork validates compressed string', () => {
@@ -28,18 +32,24 @@ describe('LZ decompressions', () => {
     const subnets: Store['subnets'] = [
       {
         id: 'first',
-        network: new Network(new Address(192, 168, 0, 1), 24),
+        network: new Network(new Address(192, 168, 0, 1), 24, 'One', '#fff'),
       },
       {
         id: 'second',
-        network: new Network(new Address(192, 168, 0, 20), 24),
+        network: new Network(new Address(192, 168, 0, 20), 24, 'Two', '#000'),
       },
     ];
     const compressed = compress(subnets);
     const decompressed = decompessSubnets(compressed);
     expect(
-      decompressed.map(v => `${v.id} = ${v.network.cidr()}`),
-    ).toStrictEqual(['first = 192.168.0.1/24', 'second = 192.168.0.20/24']);
+      decompressed.map(
+        v =>
+          `${v.id} = ${v.network.cidr()} ("${v.network.name ?? 'Unnamed'}": ${v.network.color ?? 'No color'})`,
+      ),
+    ).toStrictEqual([
+      `first = 192.168.0.1/24 ("One": #fff)`,
+      'second = 192.168.0.20/24 ("Two": #f00)',
+    ]);
   });
 
   test('decompessSubnets validates object', () => {
