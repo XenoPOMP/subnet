@@ -28,7 +28,9 @@ export const useNetworkLink = (
 
   // eslint-disable-next-line jsdoc/require-jsdoc
   const createUrl = () => {
-    const url = new URL(`${origin}/share`);
+    const url = new URL(
+      `${origin === '' ? 'http://localhost:3000' : origin}/share`,
+    );
     url.search = params.toString();
     return url;
   };
