@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Get current`s page origin.
  */

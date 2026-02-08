@@ -11,3 +11,4 @@ export * from './use-tracked-state';
 export * from './use-effect-after-mount';
 export * from './use-static-locale';
 export * from './use-origin';
+export * from './use-network-link';
