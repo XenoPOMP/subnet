@@ -4,11 +4,13 @@ import { Link } from 'lucide-react';
 import type { FC } from 'react';
 
 import { CopyTextButton } from '@/components/ui/kit';
+import { useOrigin } from '@/hooks';
 import { useTranslations } from '@/i18n';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const ShareMapButton: FC<unknown> = () => {
   const { t } = useTranslations();
+  const origin = useOrigin();
 
   // TODO Generate proper link
   return (
@@ -17,6 +19,8 @@ export const ShareMapButton: FC<unknown> = () => {
       leadingIcon={Link}
       text='copy link'
       textOnCopy={t.copyTextMessages.shareNetwork.shared}
-    />
+    >
+      {origin}
+    </CopyTextButton>
   );
 };
