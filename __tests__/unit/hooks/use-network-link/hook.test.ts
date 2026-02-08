@@ -4,15 +4,17 @@ import { assertHookRendering } from 'xenopomp-essentials/vitest';
 
 import { useNetworkLink } from '@/hooks';
 
-import { createUseNetworkLinkTest } from '@test/assets';
+import { createUseNetworkLinkTest, injectMatchMediaMock } from '@test/assets';
 
 describe('useNetworkLink', () => {
+  injectMatchMediaMock();
+
   afterEach(() => {
     cleanup();
   });
 
   test('It renders', () => {
-    assertHookRendering(() => useNetworkLink());
+    assertHookRendering(() => useNetworkLink(null, []));
   });
 
   test('Testing with test component', () => {

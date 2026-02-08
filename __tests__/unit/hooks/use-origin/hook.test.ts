@@ -4,9 +4,11 @@ import { assertHookRendering } from 'xenopomp-essentials/vitest';
 
 import { useOrigin } from '@/hooks';
 
-import { createUseOriginTest } from '@test/assets';
+import { createUseOriginTest, injectMatchMediaMock } from '@test/assets';
 
 describe('useOrigin', () => {
+  injectMatchMediaMock();
+
   afterEach(() => {
     cleanup();
   });

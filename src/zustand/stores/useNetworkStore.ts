@@ -1,6 +1,7 @@
 'use client';
 
 import lodashSet from 'lodash.set';
+import LZString from 'lz-string';
 import { v4 as uuid } from 'uuid';
 import type { Lenient } from 'xenopomp-essentials';
 import { create } from 'zustand';
@@ -19,6 +20,14 @@ export const useNetworkStore = create<INetworkStore & NetworkFormDelegate>(
     },
 
     subnets: [],
+
+    // eslint-disable-next-line jsdoc/require-jsdoc
+    loadFromSearchParams(root, subnets) {
+      // Decompressing strings
+      const rootDecompressed = LZString.decompressFromEncodedURIComponent(root);
+      const subnetsDecompressed =
+        LZString.decompressFromEncodedURIComponent(subnets);
+    },
 
     // eslint-disable-next-line jsdoc/require-jsdoc
     createSubnet() {
@@ -97,7 +106,7 @@ export const useNetworkStore = create<INetworkStore & NetworkFormDelegate>(
 interface INetworkStore {
   root: Network | null;
   updateRootNetwork: (net: Network) => void;
-
+  loadFromSearchParams: (root: string, subnets: string) => void;
   subnets: Array<{
     id: string;
     network: Network;
