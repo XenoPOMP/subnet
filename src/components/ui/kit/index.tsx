@@ -21,3 +21,4 @@ export * from './TitleBar/TitleBar';
 export * from './Label/Label';
 export * from './ColorPicker/ColorPicker';
 export * from './WithTooltip/WithTooltip';
+export * from './CopyTextButton/CopyTextButton';
