@@ -5,7 +5,7 @@ import { z } from 'zod';
 import type { ZodJson } from '@/types';
 import { Address, Network } from '@/utils/ip';
 
-const schema = z.object<ZodJson<InstanceType<typeof Network>>>({
+export const networkSchema = z.object<ZodJson<InstanceType<typeof Network>>>({
   address: z.object<ZodJson<InstanceType<typeof Address>>>({
     oct1: z.number(),
     oct2: z.number(),
@@ -30,7 +30,7 @@ export function decompressRootNetwork(compressed: string): Optional<Network> {
   const rawObject = JSON.parse(decompressed);
 
   try {
-    const parsed = schema.parse(rawObject);
+    const parsed = networkSchema.parse(rawObject);
 
     const rawAddress = parsed.address as {
       oct1: number;
