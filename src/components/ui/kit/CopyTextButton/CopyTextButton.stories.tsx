@@ -29,3 +29,30 @@ const builder = new StoryBuilder<typeof CopyTextButton>()
   });
 
 export const Base = builder.buildStory({});
+
+export const WithTextOnCopy = builder.buildStory({
+  args: {
+    textOnCopy: 'Custom text on copy!',
+    text: 'This is a long text to copy!',
+    children: 'Click me',
+    leadingIcon: Link,
+  },
+});
+
+export const NoChildren = builder.buildStory({
+  args: {
+    textOnCopy: 'Custom text on copy!',
+    text: 'This is a long text to copy!',
+    children: undefined,
+    leadingIcon: Link,
+  },
+});
+
+export const NoIcon = builder.buildStory({
+  args: {
+    textOnCopy: 'Custom text on copy!',
+    text: 'This is a long text to copy!',
+    children: undefined,
+    leadingIcon: undefined,
+  },
+});

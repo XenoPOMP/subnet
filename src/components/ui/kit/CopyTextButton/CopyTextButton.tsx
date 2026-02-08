@@ -42,7 +42,7 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
   // eslint-disable-next-line jsdoc/require-jsdoc
   const getCurrentChildren = () => {
     // Show textOnCopy only if it is defined
-    if (children === undefined && textOnCopy !== undefined) {
+    if (children === undefined && textOnCopy !== undefined && copied) {
       return textOnCopy;
     }
 
@@ -81,5 +81,5 @@ interface Props {
   textOnCopy?: string;
 
   /** Define time amount to reset copied state. */
-  resetAfterMs: number;
+  resetAfterMs?: number;
 }
