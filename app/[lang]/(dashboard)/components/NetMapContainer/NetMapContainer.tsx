@@ -2,13 +2,11 @@
 
 import cn from 'classnames';
 
-import { HStack, NetMap, Spacer, VStack } from '@/components/ui';
+import { HStack, NetMap, VStack } from '@/components/ui';
 import { Field, Heading } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 
 import type { MobileLayoutProps } from '@app/[lang]/(dashboard)/components';
-
-import { ShareMapButton } from '../../../share/components';
 
 import styles from './NetMapContainer.module.scss';
 
@@ -40,8 +38,12 @@ export function NetMapContainer({ mobile }: Props) {
         >
           <Heading level={2}>
             {t.pages.dashboard.headings.netMap}
-            <Spacer />
-            <ShareMapButton />
+            {/* eslint-disable-next-line style/spaced-comment */}
+            {/*TODO Return copy feature.*/}
+            {/* eslint-disable-next-line style/spaced-comment */}
+            {/*<Spacer />*/}
+            {/* eslint-disable-next-line style/spaced-comment */}
+            {/*<ShareMapButton />*/}
           </Heading>
         </HStack>
 
