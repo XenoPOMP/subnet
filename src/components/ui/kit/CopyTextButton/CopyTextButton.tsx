@@ -2,11 +2,13 @@
 
 import { useTimeoutCallback } from '@react-hook/timeout';
 import cn from 'classnames';
+import deepmerge from 'deepmerge';
 import { Check } from 'lucide-react';
+import type { ComponentProps } from 'react';
 import { useEffect, useState } from 'react';
 import type { VariableFC } from 'xenopomp-essentials';
 
-import { Button } from '@/components/ui/kit';
+import { Button, Label } from '@/components/ui/kit';
 import { useCopyToClipboard } from '@/hooks';
 import { useTranslations } from '@/i18n';
 
@@ -19,6 +21,7 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
   leadingIcon,
   resetAfterMs: ms = 5_000,
   textOnCopy,
+  as = 'button',
   ...props
 }) => {
   const [copied, setCopied] = useState(false);
@@ -60,17 +63,39 @@ export const CopyTextButton: VariableFC<typeof Button, Props> = ({
   };
 
   return (
-    <Button
-      className={cn(className)}
-      onClick={e => {
-        doCopy();
-        onClick?.(e);
-      }}
-      leadingIcon={currentLeadingIcon}
-      {...props}
-    >
-      {getCurrentChildren()}
-    </Button>
+    <>
+      {as === 'button' && (
+        <Button
+          className={cn(className)}
+          onClick={e => {
+            doCopy();
+            onClick?.(e);
+          }}
+          leadingIcon={currentLeadingIcon}
+          {...props}
+        >
+          {getCurrentChildren()}
+        </Button>
+      )}
+
+      {as === 'label' && (
+        <Label
+          {...deepmerge<ComponentProps<'button'>, ComponentProps<typeof Label>>(
+            props,
+            {
+              ref: undefined,
+            },
+          )}
+          icon={currentLeadingIcon}
+          className={cn(className, 'cursor-pointer')}
+          onClick={() => {
+            doCopy();
+          }}
+        >
+          {getCurrentChildren()}
+        </Label>
+      )}
+    </>
   );
 };
 
@@ -83,4 +108,7 @@ interface Props {
 
   /** Define time amount to reset copied state. */
   resetAfterMs?: number;
+
+  /** Defines how to render copy button. */
+  as?: 'button' | 'label';
 }

@@ -56,3 +56,10 @@ export const NoIcon = builder.buildStory({
     leadingIcon: undefined,
   },
 });
+
+export const AsLabel = builder.buildStory({
+  args: {
+    text: 'This is a long text to copy!',
+    as: 'label',
+  },
+});
