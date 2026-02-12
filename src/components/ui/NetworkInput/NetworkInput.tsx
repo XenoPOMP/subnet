@@ -1,7 +1,7 @@
 'use client';
 
 import cn from 'classnames';
-import { CircleX, NetworkIcon, Trash2 } from 'lucide-react';
+import { CircleX, NetworkIcon, Trash2, VenetianMask } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -14,6 +14,7 @@ import { HStack, Spacer, VStack } from '@/components/ui';
 import {
   Button,
   ColorPicker,
+  CopyTextButton,
   Heading,
   InputField,
   Label,
@@ -182,6 +183,14 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
             <Label icon={NetworkIcon}>
               {network.cidr({ showRange: true })}
             </Label>
+
+            <CopyTextButton
+              text={network.getMaskAsAddress().format()}
+              leadingIcon={VenetianMask}
+              as='label'
+            >
+              {network.getMaskAsAddress().format()}
+            </CopyTextButton>
           </>
         )}
       </VStack>
