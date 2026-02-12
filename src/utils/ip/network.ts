@@ -75,6 +75,19 @@ export class Network implements CIDR, Equatable {
     return isBefore || isAfter;
   }
 
+  /**
+   * Converts CIDR mask to ip-address like format.
+   *
+   * @example
+   * new Network(new Address(192, 168, 0, 1), 24)
+   *  .getMaskAsAddress()
+   *  .format() // 255.255.255.0
+   */
+  getMaskAsAddress(): Address {
+    const bitmap = `${'1'.repeat(this.mask)}${'0'.repeat(32 - this.mask)}`;
+    return Address.fromBitmap(bitmap);
+  }
+
   private firstNChars(value: string, n: number): string {
     return value.substring(0, n);
   }
