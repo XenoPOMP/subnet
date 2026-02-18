@@ -11,13 +11,13 @@
   grid-template-rows: max-content 1fr;
   grid-template-columns: max-content 1fr;
 
-  @include media.endAtFixed(870px) {
-    grid-template-areas:
-      "header"
-      "main"
-    ;
-    grid-template-columns: 1fr;
-  }
+  //@include media.endAtFixed(870px) {
+  //  grid-template-areas:
+  //    "header"
+  //    "main"
+  //  ;
+  //  grid-template-columns: 1fr;
+  //}
 
   header.dashboardHeader {
     grid-area: header;

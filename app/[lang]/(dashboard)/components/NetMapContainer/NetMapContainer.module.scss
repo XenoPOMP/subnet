@@ -1,15 +1,14 @@
 @use "../../../../../src/styles/utils/media";
 
 .netMapContainer {
-  &:not(.mobileLayout) {
-    @include media.endAtFixed(870px) {
-      display: none;
-    }
-  }
-
-  &.mobileLayout {
-    @include media.startAtFixed(870px) {
-      display: none;
-    }
-  }
+  //&:not(.mobileLayout) {
+  //  @include media.endAtFixed(870px) {
+  //    display: none;
+  //  }
+  //}
+  //&.mobileLayout {
+  //  @include media.startAtFixed(870px) {
+  //    display: none;
+  //  }
+  //}
 }
