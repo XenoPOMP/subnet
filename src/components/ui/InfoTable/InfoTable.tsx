@@ -40,7 +40,6 @@ export const InfoTable: FC<InfoTableProps> = ({ title, content }) => {
           <For each={content}>
             {([title, item]) => (
               <Fragment key={`${title}-${item}`}>
-                {/* eslint-disable-next-line no-extra-boolean-cast */}
                 {!!title ? (
                   <>
                     <p className={cn('text-shallow')}>{title}</p>

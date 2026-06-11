@@ -1,7 +1,11 @@
 import cn from 'classnames';
+import { useMemo } from 'react';
 import type { VariableFC } from 'xenopomp-essentials';
+import { parseVersion } from 'xenopomp-essentials';
 
-import { HStack } from '@/components/ui';
+import packageJsonFile from '~/package.json';
+
+import { HStack, Spacer } from '@/components/ui';
 import { Logo } from '@/components/ui/kit';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
@@ -9,6 +13,23 @@ export const TitleBar: VariableFC<'header', unknown, 'children'> = ({
   className,
   ...props
 }) => {
+  const parsedVersion = parseVersion(packageJsonFile.version);
+  const versionDisplay = useMemo((): string => {
+    const { version, preid, prerelease } = parsedVersion;
+
+    // v0.0.0-beta.12
+    if (!!version && !!preid && !!prerelease) {
+      return ``;
+    }
+
+    if (!!version) {
+      // v0.0.0
+      return `v${version}`;
+    }
+
+    return '';
+  }, [parsedVersion]);
+
   return (
     <HStack
       asChild
@@ -25,6 +46,10 @@ export const TitleBar: VariableFC<'header', unknown, 'children'> = ({
         {...props}
       >
         <Logo />
+        <Spacer />
+        <span className={cn('text-[1.4rem] text-shallow')}>
+          {versionDisplay}
+        </span>
       </header>
     </HStack>
   );

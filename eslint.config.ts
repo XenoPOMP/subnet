@@ -35,4 +35,9 @@ export default xenopomp(
     ignores: ['**/*.md', './src-tauri'],
   },
   ...storybook.configs['flat/recommended'],
+  {
+    rules: {
+      'no-extra-boolean-cast': 'off',
+    },
+  },
 );
