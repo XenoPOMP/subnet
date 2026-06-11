@@ -25,6 +25,8 @@ export function clampCidrMask(maskValue: number): number;
  */
 export function clampCidrMask(maskValue: string): number;
 
+export function clampCidrMask(maskValue: number | string): number;
+
 // eslint-disable-next-line jsdoc/require-jsdoc
 export function clampCidrMask(maskValue: number | string): number {
   const trueValue: number = Number.isInteger(+maskValue) ? +maskValue : 0;
