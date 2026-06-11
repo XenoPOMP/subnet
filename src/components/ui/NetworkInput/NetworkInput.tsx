@@ -194,7 +194,7 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
         </VStack>
       )}
 
-      {!!pool && !!network && addr !== '' && (
+      {!!pool && !!network && addr !== '' && !form[target]!.error && (
         <VStack spacing='1.6rem'>
           <InfoTable
             title={t.poolInfo.headings.subnet}
