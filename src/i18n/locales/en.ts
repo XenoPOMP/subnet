@@ -40,6 +40,7 @@ export const en = {
       network: 'Network',
       broadcast: 'Broadcast',
       mask: 'Mask',
+      totalHosts: 'Hosts count',
     },
   },
 } satisfies RecursiveKeyValuePair;

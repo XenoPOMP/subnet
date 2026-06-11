@@ -39,6 +39,7 @@ export const ru: LanguageResource = {
       network: 'Адрес сети',
       broadcast: 'Широковещ.',
       mask: 'Маска',
+      totalHosts: 'Кол-во хостов',
     },
   },
 };

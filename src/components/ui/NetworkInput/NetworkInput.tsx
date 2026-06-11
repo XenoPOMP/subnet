@@ -213,8 +213,11 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
             content={[
               [
                 undefined,
-                `${pool.firstHost.format()} - ${pool.lastHost.format()}`,
+                pool.firstHost.equals(pool.lastHost)
+                  ? `${pool.firstHost.format()}`
+                  : `${pool.firstHost.format()} - ${pool.lastHost.format()}`,
               ],
+              [t.poolInfo.labels.totalHosts, pool.count().toString()],
             ]}
           />
         </VStack>
