@@ -2,6 +2,7 @@
 
 import cn from 'classnames';
 import { CircleX, NetworkIcon, Trash2, VenetianMask } from 'lucide-react';
+import { clamp } from 'motion';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -48,7 +49,17 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
     if (form[target]!.error) {
       return null;
     }
-    const [ip, mask] = addr.split('/');
+    const [rawIp, rawMask] = addr.split('/');
+
+    // Calculate nullish ip and mask
+    const ip: string = !(rawIp === undefined || rawIp === '')
+      ? rawIp
+      : '0.0.0.0';
+    const mask =
+      rawMask !== undefined && rawMask !== '' && Number.isInteger(+rawMask)
+        ? clamp(0, 32, +rawMask).toString()
+        : '0';
+
     const [oct1, oct2, oct3, oct4] = ip!.split('.');
 
     const ipAddress = new Address(+oct1!, +oct2!, +oct3!, +oct4!);
