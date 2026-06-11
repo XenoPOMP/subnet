@@ -145,8 +145,8 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 
             const mask = value.split('/').at(1);
 
-            // Check if mask is from 1 to 31
-            if (mask && Number.isInteger(+mask) && (+mask < 1 || +mask > 31)) {
+            // Check if mask is from 0 to 32
+            if (mask && Number.isInteger(+mask) && (+mask < 0 || +mask > 32)) {
               setError(target, t.errors.net.wrongMask);
               setValue(target, value);
               return;
