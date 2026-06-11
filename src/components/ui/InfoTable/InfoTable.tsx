@@ -43,12 +43,14 @@ export const InfoTable: FC<InfoTableProps> = ({ title, content }) => {
                 {!!title ? (
                   <>
                     <p className={cn('text-shallow')}>{title}</p>
-                    <p className={cn('text-primary-font')}>{item}</p>
+                    <p className={cn('select-text text-primary-font')}>
+                      {item}
+                    </p>
                   </>
                 ) : (
                   <>
                     <p
-                      className={cn('text-primary-font')}
+                      className={cn('select-text text-primary-font')}
                       style={{
                         gridColumn: 'span 2',
                       }}
