@@ -1,7 +1,7 @@
 'use client';
 
 import cn from 'classnames';
-import { CircleX, NetworkIcon, Trash2, VenetianMask } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -10,15 +10,8 @@ import type {
   VariableFC,
 } from 'xenopomp-essentials';
 
-import { HStack, Spacer, VStack } from '@/components/ui';
-import {
-  Button,
-  ColorPicker,
-  CopyTextButton,
-  Heading,
-  InputField,
-  Label,
-} from '@/components/ui/kit';
+import { HStack, InfoTable, Spacer, VStack } from '@/components/ui';
+import { Button, ColorPicker, Heading, InputField } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, HostsPool, Network, clampCidrMask } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -184,34 +177,31 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
         />
       </VStack>
 
-      <VStack spacing='1.0rem'>
-        {form[target]!.error && (
-          <>
-            <Label
-              icon={CircleX}
-              className={cn('!text-danger')}
-            >
-              {form[target]!.error}
-            </Label>
-          </>
-        )}
+      {!!pool && !!network && addr !== '' && (
+        <VStack spacing='1.6rem'>
+          <InfoTable
+            title={t.poolInfo.headings.subnet}
+            content={[
+              [t.poolInfo.labels.network, network.address.format()],
+              [t.poolInfo.labels.broadcast, network.broadcast.format()],
+              [
+                t.poolInfo.labels.mask,
+                `/${network.mask}, ${network.getMaskAsAddress().format()}`,
+              ],
+            ]}
+          />
 
-        {!form[target]?.error && !!network && (
-          <>
-            <Label icon={NetworkIcon}>
-              {network.cidr({ showRange: true })}
-            </Label>
-
-            <CopyTextButton
-              text={network.getMaskAsAddress().format()}
-              leadingIcon={VenetianMask}
-              as='label'
-            >
-              {network.getMaskAsAddress().format()}
-            </CopyTextButton>
-          </>
-        )}
-      </VStack>
+          <InfoTable
+            title={t.poolInfo.headings.hosts}
+            content={[
+              [
+                undefined,
+                `${pool.firstHost.format()} - ${pool.lastHost.format()}`,
+              ],
+            ]}
+          />
+        </VStack>
+      )}
     </VStack>
   );
 };

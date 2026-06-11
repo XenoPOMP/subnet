@@ -31,4 +31,15 @@ export const en = {
       shared: 'Network link copied!',
     },
   },
+  poolInfo: {
+    headings: {
+      subnet: 'Subnet',
+      hosts: 'Hosts',
+    },
+    labels: {
+      network: 'Network',
+      broadcast: 'Broadcast',
+      mask: 'Mask',
+    },
+  },
 } satisfies RecursiveKeyValuePair;

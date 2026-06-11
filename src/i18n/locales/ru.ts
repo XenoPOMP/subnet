@@ -30,4 +30,15 @@ export const ru: LanguageResource = {
       shared: 'Ссылка скопирована!',
     },
   },
+  poolInfo: {
+    headings: {
+      subnet: 'Подсеть',
+      hosts: 'Хосты',
+    },
+    labels: {
+      network: 'Адрес сети',
+      broadcast: 'Широковещ.',
+      mask: 'Маска',
+    },
+  },
 };

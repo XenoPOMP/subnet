@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import type { FC } from 'react';
+import { Fragment } from 'react';
 
 import { For } from '@/components/layout';
 import { VStack } from '@/components/ui';
@@ -38,7 +39,7 @@ export const InfoTable: FC<InfoTableProps> = ({ title, content }) => {
         >
           <For each={content}>
             {([title, item]) => (
-              <>
+              <Fragment key={`${title}-${item}`}>
                 {/* eslint-disable-next-line no-extra-boolean-cast */}
                 {!!title ? (
                   <>
@@ -59,7 +60,7 @@ export const InfoTable: FC<InfoTableProps> = ({ title, content }) => {
                     </p>
                   </>
                 )}
-              </>
+              </Fragment>
             )}
           </For>
         </section>
