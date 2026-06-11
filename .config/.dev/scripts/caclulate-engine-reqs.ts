@@ -58,6 +58,7 @@ async function parseLatestNodeVersion(): Promise<string | undefined> {
   const EXTRA_SEMVERS: string[] = [
     ...ltsOnly(),
     LATEST_NODE_VERSION ? `<${LATEST_NODE_VERSION}` : undefined,
+    '>=22',
   ].filter(s => s !== undefined);
 
   DevLogger.start('Calculating Node.js engine semver from dependencies');
