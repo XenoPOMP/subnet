@@ -2,7 +2,6 @@
 
 import cn from 'classnames';
 import { CircleX, NetworkIcon, Trash2, VenetianMask } from 'lucide-react';
-import { clamp } from 'motion';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -21,7 +20,7 @@ import {
   Label,
 } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
-import { Address, Network } from '@/utils/ip';
+import { Address, Network, clampCidrMask } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
@@ -57,7 +56,7 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
       : '0.0.0.0';
     const mask =
       rawMask !== undefined && rawMask !== '' && Number.isInteger(+rawMask)
-        ? clamp(0, 32, +rawMask).toString()
+        ? clampCidrMask(+rawMask).toString()
         : '0';
 
     const [oct1, oct2, oct3, oct4] = ip!.split('.');
