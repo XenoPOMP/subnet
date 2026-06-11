@@ -5,6 +5,11 @@ import { InfoTable } from '@/components/ui';
 
 describe('InfoTable component', () => {
   test('It renders', () => {
-    assertRendering(<InfoTable />);
+    assertRendering(
+      <InfoTable
+        title='Table'
+        content={[]}
+      />,
+    );
   });
 });
