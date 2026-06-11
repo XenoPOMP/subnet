@@ -1,7 +1,7 @@
 'use client';
 
 import cn from 'classnames';
-import { Trash2 } from 'lucide-react';
+import { CircleX, Trash2 } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -11,7 +11,13 @@ import type {
 } from 'xenopomp-essentials';
 
 import { HStack, InfoTable, Spacer, VStack } from '@/components/ui';
-import { Button, ColorPicker, Heading, InputField } from '@/components/ui/kit';
+import {
+  Button,
+  ColorPicker,
+  Heading,
+  InputField,
+  Label,
+} from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, HostsPool, Network, clampCidrMask } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
@@ -176,6 +182,17 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
           className={cn('w-full')}
         />
       </VStack>
+
+      {form[target]!.error && (
+        <VStack spacing='1.0rem'>
+          <Label
+            icon={CircleX}
+            className={cn('!text-danger')}
+          >
+            {form[target]!.error}
+          </Label>
+        </VStack>
+      )}
 
       {!!pool && !!network && addr !== '' && (
         <VStack spacing='1.6rem'>
