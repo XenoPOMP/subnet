@@ -1,10 +1,9 @@
 import cn from 'classnames';
 import type { VariableFC } from 'xenopomp-essentials';
 
-import { HStack, Spacer } from '@/components/ui';
+import { HStack } from '@/components/ui';
 import { Logo } from '@/components/ui/kit';
 
-// TODO Add traffic lights here
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const TitleBar: VariableFC<'header', unknown, 'children'> = ({
   className,
@@ -25,7 +24,7 @@ export const TitleBar: VariableFC<'header', unknown, 'children'> = ({
         )}
         {...props}
       >
-        <p>Traffic lights</p> <Spacer /> <Logo />
+        <Logo />
       </header>
     </HStack>
   );
