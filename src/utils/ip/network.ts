@@ -1,8 +1,7 @@
-import { clamp } from 'motion';
 import type { Optional } from 'xenopomp-essentials';
 
 import type { CIDR, Equatable } from '@/types';
-import { Address } from '@/utils/ip';
+import { Address, clampCidrMask } from '@/utils/ip';
 
 export class Network implements CIDR, Equatable {
   readonly address: Address;
@@ -18,7 +17,8 @@ export class Network implements CIDR, Equatable {
     name: Optional<string> = undefined,
     color: Optional<string> = undefined,
   ) {
-    const trueMask = clamp(1, 31, mask);
+    // Mask may be from 0 to 32
+    const trueMask = clampCidrMask(mask);
     const bitmap = ipAddress.format({
       grade: 'binary',
       delimiters: false,
@@ -27,10 +27,10 @@ export class Network implements CIDR, Equatable {
     const networkAddress = Address.fromBitmap(netAddressBitmap.padEnd(32, '0'));
     const broadcast = Address.fromBitmap(netAddressBitmap.padEnd(32, '1'));
 
+    // Set addresses
     this.address = networkAddress;
     this.broadcast = broadcast;
-    // Mask may be from 1 to 31
-    this.mask = clamp(1, 31, mask);
+    this.mask = trueMask;
     // Set info
     this.name = name;
     this.color = color;

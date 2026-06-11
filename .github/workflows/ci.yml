@@ -57,6 +57,9 @@ jobs:
         with:
           vite-config-path: .config/vitest.config.ts
 
+      - name: '🔨 App can be built'
+        run: yarn run build
+
       # E2E testing
       - name: '🖥️ Run Cypress in headless mode'
         run: yarn e2e:ci

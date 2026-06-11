@@ -6,7 +6,7 @@ export const ru: LanguageResource = {
     required: 'Это поле обязательное!',
     net: {
       wrongFormat: 'Неправильный формат адреса (правильный - "192.168.0.1/24")',
-      wrongMask: 'Маска подсети должна быть числом от 1 до 31',
+      wrongMask: 'Маска подсети должна быть числом от 0 до 32',
       subnetOutsideRoot: 'Введенный адрес выходит за рамки корневой сети.',
     },
   },
@@ -28,6 +28,18 @@ export const ru: LanguageResource = {
     defaultOne: 'Скопировано!',
     shareNetwork: {
       shared: 'Ссылка скопирована!',
+    },
+  },
+  poolInfo: {
+    headings: {
+      subnet: 'Подсеть',
+      hosts: 'Хосты',
+    },
+    labels: {
+      network: 'Адрес сети',
+      broadcast: 'Широковещ.',
+      mask: 'Маска',
+      totalHosts: 'Кол-во хостов',
     },
   },
 };

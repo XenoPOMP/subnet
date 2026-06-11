@@ -7,7 +7,7 @@ export const en = {
     net: {
       wrongFormat:
         'Wrong format of address (the correct one is "192.168.0.1/{1-31}")',
-      wrongMask: 'Mask must be an integer (1-31)',
+      wrongMask: 'Mask must be an integer (0-32)',
       subnetOutsideRoot: 'Address is outside root network.',
     },
   },
@@ -29,6 +29,18 @@ export const en = {
     defaultOne: 'Copied!',
     shareNetwork: {
       shared: 'Network link copied!',
+    },
+  },
+  poolInfo: {
+    headings: {
+      subnet: 'Subnet',
+      hosts: 'Hosts',
+    },
+    labels: {
+      network: 'Network',
+      broadcast: 'Broadcast',
+      mask: 'Mask',
+      totalHosts: 'Hosts count',
     },
   },
 } satisfies RecursiveKeyValuePair;

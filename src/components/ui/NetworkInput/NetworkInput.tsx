@@ -1,7 +1,7 @@
 'use client';
 
 import cn from 'classnames';
-import { CircleX, NetworkIcon, Trash2, VenetianMask } from 'lucide-react';
+import { CircleX, Trash2 } from 'lucide-react';
 import randomColor from 'randomcolor';
 import { useEffect, useMemo, useState } from 'react';
 import type {
@@ -10,17 +10,16 @@ import type {
   VariableFC,
 } from 'xenopomp-essentials';
 
-import { HStack, Spacer, VStack } from '@/components/ui';
+import { HStack, InfoTable, Spacer, VStack } from '@/components/ui';
 import {
   Button,
   ColorPicker,
-  CopyTextButton,
   Heading,
   InputField,
   Label,
 } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
-import { Address, Network } from '@/utils/ip';
+import { Address, HostsPool, Network, clampCidrMask } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
@@ -48,7 +47,17 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
     if (form[target]!.error) {
       return null;
     }
-    const [ip, mask] = addr.split('/');
+    const [rawIp, rawMask] = addr.split('/');
+
+    // Calculate nullish ip and mask
+    const ip: string = !(rawIp === undefined || rawIp === '')
+      ? rawIp
+      : '0.0.0.0';
+    const mask =
+      rawMask !== undefined && rawMask !== '' && Number.isInteger(+rawMask)
+        ? clampCidrMask(+rawMask).toString()
+        : '0';
+
     const [oct1, oct2, oct3, oct4] = ip!.split('.');
 
     const ipAddress = new Address(+oct1!, +oct2!, +oct3!, +oct4!);
@@ -66,6 +75,14 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 
     return net;
   }, [color, ipAddress, name]);
+
+  const pool = useMemo((): HostsPool | null => {
+    // Null-safety
+    if (network === null) {
+      return null;
+    }
+    return new HostsPool(network);
+  }, [network]);
 
   // Sending local input to app state.
   useEffect(() => {
@@ -145,8 +162,8 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 
             const mask = value.split('/').at(1);
 
-            // Check if mask is from 1 to 31
-            if (mask && Number.isInteger(+mask) && (+mask < 1 || +mask > 31)) {
+            // Check if mask is from 0 to 32
+            if (mask && Number.isInteger(+mask) && (+mask < 0 || +mask > 32)) {
               setError(target, t.errors.net.wrongMask);
               setValue(target, value);
               return;
@@ -166,34 +183,45 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
         />
       </VStack>
 
-      <VStack spacing='1.0rem'>
-        {form[target]!.error && (
-          <>
-            <Label
-              icon={CircleX}
-              className={cn('!text-danger')}
-            >
-              {form[target]!.error}
-            </Label>
-          </>
-        )}
+      {form[target]!.error && (
+        <VStack spacing='1.0rem'>
+          <Label
+            icon={CircleX}
+            className={cn('!text-danger')}
+          >
+            {form[target]!.error}
+          </Label>
+        </VStack>
+      )}
 
-        {!form[target]?.error && !!network && (
-          <>
-            <Label icon={NetworkIcon}>
-              {network.cidr({ showRange: true })}
-            </Label>
+      {!!pool && !!network && addr !== '' && !form[target]!.error && (
+        <VStack spacing='1.6rem'>
+          <InfoTable
+            title={t.poolInfo.headings.subnet}
+            content={[
+              [t.poolInfo.labels.network, network.address.format()],
+              [t.poolInfo.labels.broadcast, network.broadcast.format()],
+              [
+                t.poolInfo.labels.mask,
+                `/${network.mask}, ${network.getMaskAsAddress().format()}`,
+              ],
+            ]}
+          />
 
-            <CopyTextButton
-              text={network.getMaskAsAddress().format()}
-              leadingIcon={VenetianMask}
-              as='label'
-            >
-              {network.getMaskAsAddress().format()}
-            </CopyTextButton>
-          </>
-        )}
-      </VStack>
+          <InfoTable
+            title={t.poolInfo.headings.hosts}
+            content={[
+              [
+                undefined,
+                pool.firstHost.equals(pool.lastHost)
+                  ? `${pool.firstHost.format()}`
+                  : `${pool.firstHost.format()} - ${pool.lastHost.format()}`,
+              ],
+              [t.poolInfo.labels.totalHosts, pool.count().toLocaleString()],
+            ]}
+          />
+        </VStack>
+      )}
     </VStack>
   );
 };
