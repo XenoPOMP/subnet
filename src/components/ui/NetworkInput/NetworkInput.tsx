@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 import { Address, HostsPool, Network, clampCidrMask } from '@/utils/ip';
+import { prettyInt } from '@/utils/pretty';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
@@ -217,7 +218,10 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
                   ? `${pool.firstHost.format()}`
                   : `${pool.firstHost.format()} - ${pool.lastHost.format()}`,
               ],
-              [t.poolInfo.labels.totalHosts, pool.count().toString()],
+              [
+                t.poolInfo.labels.totalHosts,
+                prettyInt(pool.count().toString()),
+              ],
             ]}
           />
         </VStack>
