@@ -20,7 +20,7 @@ import {
   Label,
 } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
-import { Address, Network, clampCidrMask } from '@/utils/ip';
+import { Address, HostsPool, Network, clampCidrMask } from '@/utils/ip';
 import { useNetworkStore } from '@/zustand';
 
 // eslint-disable-next-line jsdoc/require-jsdoc
@@ -76,6 +76,14 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
 
     return net;
   }, [color, ipAddress, name]);
+
+  const pool = useMemo((): HostsPool | null => {
+    // Null-safety
+    if (network === null) {
+      return null;
+    }
+    return new HostsPool(network);
+  }, [network]);
 
   // Sending local input to app state.
   useEffect(() => {

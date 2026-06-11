@@ -1,7 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { Address, Network, clampCidrMask } from '@/utils/ip';
-import { HostsPool } from '@/utils/ip/hosts-pool.ts';
+import { Address, HostsPool, Network, clampCidrMask } from '@/utils/ip';
 
 describe('HostsPool class', () => {
   testHostsPool([0, 0, 0, 0], 0, {
