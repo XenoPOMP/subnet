@@ -9,7 +9,6 @@
     "yarn": "^1"
   },
   "scripts": {
-    "prenext": "echo Syncing assets",
     "next": "next",
     "dev": "yarn next dev",
     "build": "yarn next build",
