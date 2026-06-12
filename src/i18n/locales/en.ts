@@ -43,4 +43,10 @@ export const en = {
       totalHosts: 'Hosts count',
     },
   },
+  seo: {
+    root: {
+      title: 'Network map',
+      desc: 'Small utility for visually mapping networks.',
+    },
+  },
 } satisfies RecursiveKeyValuePair;

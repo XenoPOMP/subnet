@@ -9,7 +9,6 @@ import { createCanonical, generateOpenGraph } from '@/utils/seo';
 
 import {
   APP_DEFAULT_TITLE,
-  APP_DESCRIPTION,
   APP_NAME,
   APP_TITLE_TEMPLATE,
   NO_INDEX_PAGE,
@@ -34,7 +33,6 @@ export async function generateMetadata(): Promise<Metadata> {
       default: APP_NAME,
       template: APP_TITLE_TEMPLATE,
     },
-    description: APP_DESCRIPTION,
     appleWebApp: {
       capable: false,
       statusBarStyle: 'default',
@@ -59,7 +57,6 @@ export async function generateMetadata(): Promise<Metadata> {
         default: APP_DEFAULT_TITLE,
         template: APP_TITLE_TEMPLATE,
       },
-      description: APP_DESCRIPTION,
     },
     // TODO Maybe, remove this later, if SEO will be needed.
     ...NO_INDEX_PAGE,
