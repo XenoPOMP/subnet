@@ -54,7 +54,7 @@ function getLocale(request: NextRequest) {
 // eslint-disable-next-line jsdoc/require-jsdoc
 export function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
-  const { pathname, searchParams } = request.nextUrl;
+  const { searchParams } = request.nextUrl;
   const preferredLocale: string | null = searchParams.get('locale');
 
   // Check if locale is provided in searchParams
