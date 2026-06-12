@@ -48,7 +48,7 @@ export const TitleBar: VariableFC<'header', unknown, 'children'> = ({
         )}
         {...props}
       >
-        <Logo />
+        <Logo href='/' />
         <Spacer />
         <span className={cn('text-[1.4rem] text-shallow')}>
           {versionDisplay}

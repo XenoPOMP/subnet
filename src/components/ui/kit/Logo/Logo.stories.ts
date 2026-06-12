@@ -15,7 +15,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const sharedProps = {} satisfies Partial<Story['args']>;
+const sharedProps = {
+  href: '/',
+} satisfies Partial<Story['args']>;
 
 export const Default: Story = {
   args: {
