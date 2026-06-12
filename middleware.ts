@@ -54,18 +54,22 @@ function getLocale(request: NextRequest) {
 // eslint-disable-next-line jsdoc/require-jsdoc
 export function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
-  const { pathname } = request.nextUrl;
-  const pathnameHasLocale = locales.some(
-    locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
-  );
+  const { searchParams } = request.nextUrl;
+  const preferredLocale: string | null = searchParams.get('locale');
+
+  // Check if locale is provided in searchParams
+  const pathnameHasLocale: boolean =
+    !!preferredLocale &&
+    (locales as readonly string[]).includes(preferredLocale);
 
   if (pathnameHasLocale) return;
 
   // Redirect if there is no locale
   const locale = getLocale(request);
-  request.nextUrl.pathname = `/${locale}${pathname}`;
+  request.nextUrl.searchParams.set('locale', locale);
+
   // e.g. incoming request is /products
-  // The new URL is now /en-US/products
+  // The new URL is now /products?locale=en-US
   return NextResponse.redirect(request.nextUrl);
 }
 
