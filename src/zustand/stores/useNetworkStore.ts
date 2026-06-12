@@ -57,7 +57,6 @@ export const useNetworkStore = create<INetworkStore & NetworkFormDelegate>(
       return id;
     },
 
-    // FIXME When removing items, networks are reset on other items.
     // eslint-disable-next-line jsdoc/require-jsdoc
     removeSubnet(id) {
       const prevSubnets = get().subnets;

@@ -36,15 +36,7 @@ export function NetMapContainer({ mobile }: Props) {
           asChild
           alignment='leading'
         >
-          <Heading level={2}>
-            {t.pages.dashboard.headings.netMap}
-            {/* eslint-disable-next-line style/spaced-comment */}
-            {/*TODO Return copy feature.*/}
-            {/* eslint-disable-next-line style/spaced-comment */}
-            {/*<Spacer />*/}
-            {/* eslint-disable-next-line style/spaced-comment */}
-            {/*<ShareMapButton />*/}
-          </Heading>
+          <Heading level={2}>{t.pages.dashboard.headings.netMap}</Heading>
         </HStack>
 
         <Field
