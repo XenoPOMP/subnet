@@ -13,7 +13,7 @@ import LogoDefault from './icons/default';
 import LogoShort from './icons/short';
 
 /**
- * App`s logo component. Contains link to root
+ * App's logo component. Contains link to root
  * page (can be overwritten).
  * @constructor
  */
