@@ -1,9 +1,35 @@
-import { describe } from 'vitest';
+import type { usePathname, useRouter } from 'next/navigation';
+import { describe, vi } from 'vitest';
+import { injectMocks } from 'xenopomp-essentials/vitest';
 
-import Home from '@app/[lang]/(dashboard)/page.tsx';
+import Home from '@app/(dashboard)/page.tsx';
 
 import { testNextPage } from '@test/assets';
 
 describe('Index page', () => {
+  injectMocks(() => {
+    vi.mock('next/navigation', () => {
+      return {
+        /** Mock implementation for useRouter */
+        useRouter: (): Partial<ReturnType<typeof useRouter>> => {
+          return {
+            /** Mock implementation for useRouter().push */
+            push() {},
+          };
+        },
+
+        // eslint-disable-next-line jsdoc/require-jsdoc
+        useSearchParams(): URLSearchParams {
+          return new URLSearchParams();
+        },
+
+        /** Mock implementation for usePathname */
+        usePathname: (): Partial<ReturnType<typeof usePathname>> => {
+          return '/';
+        },
+      };
+    });
+  });
+
   testNextPage(<Home />);
 });
