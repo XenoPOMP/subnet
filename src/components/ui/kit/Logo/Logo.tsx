@@ -1,6 +1,10 @@
+'use client';
+
 import cn from 'classnames';
 import Link from 'next/link';
 import type { VariableFC } from 'xenopomp-essentials';
+
+import { useCurrentLocale } from '@/hooks';
 
 import type { LogoProps } from './Logo.props';
 import type { LogoVariants } from './Logo.variants';
@@ -16,11 +20,16 @@ import LogoShort from './icons/short';
 export const Logo: VariableFC<
   typeof Link,
   LogoProps & LogoVariants,
-  'children' | 'href'
+  'children'
 > = ({ href = '/', className, variant, painting, ...props }) => {
+  const locale = useCurrentLocale();
+
   return (
     <Link
-      href={href}
+      href={{
+        pathname: href,
+        query: { locale },
+      }}
       className={cn(className)}
       {...props}
     >
