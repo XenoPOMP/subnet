@@ -8,8 +8,9 @@ import packageJsonFile from '~/package.json';
 import { HStack, Spacer } from '@/components/ui';
 import { Logo } from '@/components/ui/kit';
 
-// TODO Implement DropdownMenu component
-// TODO Add language selection to TitleBar using DropdownMenu component.
+// TODO ⬇️ Implement DropdownMenu component
+// TODO 🔤 Add language selection to TitleBar using DropdownMenu component.
+// TODO 🎨 Add theme switching
 // eslint-disable-next-line jsdoc/require-jsdoc
 export const TitleBar: VariableFC<'header', unknown, 'children'> = ({
   className,
