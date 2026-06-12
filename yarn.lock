@@ -13544,13 +13544,6 @@ vite-tsconfig-paths@^4.3.2:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vitest-matchmedia-mock@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/vitest-matchmedia-mock/-/vitest-matchmedia-mock-2.0.1.tgz#6093fb3ed4bec2e3b0635ae248c2a4280447ffc5"
-  integrity sha512-qrQC4KjS4VBKdjqFlBplQ3jBziS+YW98Fv1UXtZlfKsG+aAobCYbhGAnaVOysvrQLCaJAKSkAuJ09iKTl1YgWg==
-  dependencies:
-    vitest "^3.0.2"
-
 vitest-matchmedia-mock@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vitest-matchmedia-mock/-/vitest-matchmedia-mock-2.0.3.tgz#4d68c54cc94506023945e68dd4c4b64a4c004f40"
