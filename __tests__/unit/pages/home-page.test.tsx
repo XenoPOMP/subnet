@@ -2,9 +2,9 @@ import type { usePathname, useRouter } from 'next/navigation';
 import { describe, vi } from 'vitest';
 import { injectMocks } from 'xenopomp-essentials/vitest';
 
-import Home from '@app/(dashboard)/page.tsx';
-
 import { testNextPage } from '@test/assets';
+
+import Home from '../../../app/(translated)/page.tsx';
 
 describe('Index page', () => {
   injectMocks(() => {
