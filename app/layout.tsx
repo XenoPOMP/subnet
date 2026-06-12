@@ -5,7 +5,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 
 import { Providers } from '@/components/layout';
 import { env } from '@/utils/env';
-import { generateOpenGraph } from '@/utils/seo';
+import { createCanonical, generateOpenGraph } from '@/utils/seo';
 
 import {
   APP_DEFAULT_TITLE,
@@ -44,10 +44,9 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: CANONICAL_URL,
       languages: {
-        // ru: CANONICAL_URL,
-
-        // Should be changed to another one, if i18n has been implemented
-        'x-default': CANONICAL_URL,
+        ru: createCanonical(new URL(CANONICAL_URL), 'ru-RU'),
+        en: createCanonical(new URL(CANONICAL_URL), 'en-US'),
+        'x-default': createCanonical(new URL(CANONICAL_URL), 'en-US'),
       },
     },
     formatDetection: {
