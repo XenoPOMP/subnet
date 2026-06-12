@@ -5,11 +5,10 @@ import 'react-tooltip/dist/react-tooltip.css';
 
 import { Providers } from '@/components/layout';
 import { env } from '@/utils/env';
-import { generateOpenGraph } from '@/utils/seo';
+import { createCanonical, generateOpenGraph } from '@/utils/seo';
 
 import {
   APP_DEFAULT_TITLE,
-  APP_DESCRIPTION,
   APP_NAME,
   APP_TITLE_TEMPLATE,
   NO_INDEX_PAGE,
@@ -34,7 +33,6 @@ export async function generateMetadata(): Promise<Metadata> {
       default: APP_NAME,
       template: APP_TITLE_TEMPLATE,
     },
-    description: APP_DESCRIPTION,
     appleWebApp: {
       capable: false,
       statusBarStyle: 'default',
@@ -44,10 +42,9 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: CANONICAL_URL,
       languages: {
-        // ru: CANONICAL_URL,
-
-        // Should be changed to another one, if i18n has been implemented
-        'x-default': CANONICAL_URL,
+        ru: createCanonical(new URL(CANONICAL_URL), 'ru-RU'),
+        en: createCanonical(new URL(CANONICAL_URL), 'en-US'),
+        'x-default': createCanonical(new URL(CANONICAL_URL), 'en-US'),
       },
     },
     formatDetection: {
@@ -60,7 +57,6 @@ export async function generateMetadata(): Promise<Metadata> {
         default: APP_DEFAULT_TITLE,
         template: APP_TITLE_TEMPLATE,
       },
-      description: APP_DESCRIPTION,
     },
     // TODO Maybe, remove this later, if SEO will be needed.
     ...NO_INDEX_PAGE,

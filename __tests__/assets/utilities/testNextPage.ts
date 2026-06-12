@@ -1,12 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { expect, test } from 'vitest';
-import {
-  assertNotThrowing,
-  assertRendering,
-  injectMocks,
-  mockRouter,
-} from 'xenopomp-essentials/vitest';
+import { assertNotThrowing, assertRendering } from 'xenopomp-essentials/vitest';
 
 import { RQProvider } from '@/components/providers';
 
@@ -27,10 +22,6 @@ export const testNextPage = (
   page: ReactNode,
   options?: ITestNextPageOptions,
 ) => {
-  injectMocks(() => {
-    mockRouter();
-  });
-
   test('It renders', () => {
     assertRendering(page, {
       wrapper: RQProvider,

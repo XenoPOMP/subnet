@@ -1,6 +1,6 @@
 {
   "name": "subnet",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "author": "XenoPOMP",
   "repository": "https://github.com/XenoPOMP/subnet",
@@ -9,10 +9,11 @@
     "yarn": "^1"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "next": "next",
+    "dev": "yarn next dev",
+    "build": "yarn next build",
+    "start": "yarn next start",
+    "lint": "yarn next lint",
     "deploy": "yarn build && yarn start",
     "unit:test": "vitest -c .config/vitest.config.ts",
     "coverage": "vitest -c .config/vitest.config.ts run --coverage",

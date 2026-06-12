@@ -9,4 +9,7 @@ const envSchema = z.object({
 export type EnvSchema = z.infer<typeof envSchema>;
 
 // Use this object to validate env file
-export const env = envSchema.parse(process.env);
+export const env = envSchema.parse({
+  CANONICAL_URL: process.env.NEXT_PUBLIC_CANONICAL_URL,
+  NODE_ENV: process.env.NODE_ENV,
+});

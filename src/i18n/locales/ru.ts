@@ -42,4 +42,10 @@ export const ru: LanguageResource = {
       totalHosts: 'Кол-во хостов',
     },
   },
+  seo: {
+    root: {
+      title: 'Карта сети',
+      desc: 'Утилита для визуального просмотра распределения подсетей.',
+    },
+  },
 };
