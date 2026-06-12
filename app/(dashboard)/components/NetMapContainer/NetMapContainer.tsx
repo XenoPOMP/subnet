@@ -6,7 +6,7 @@ import { HStack, NetMap, VStack } from '@/components/ui';
 import { Field, Heading } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
 
-import type { MobileLayoutProps } from '@app/[lang]/(dashboard)/components';
+import type { MobileLayoutProps } from '@app/(dashboard)/components';
 
 import styles from './NetMapContainer.module.scss';
 
