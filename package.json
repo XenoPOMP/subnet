@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@dicebear/collection": "^9.4.2",
-    "@dicebear/core": "^10.2.0",
+    "@dicebear/core": "^9.4.2",
     "@formatjs/intl-localematcher": "^0.8.10",
     "@headlessui/react": "^2.2.10",
     "@heroui/kbd": "^2.2.26",

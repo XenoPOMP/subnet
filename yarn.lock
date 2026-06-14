@@ -1405,10 +1405,12 @@
     "@dicebear/thumbs" "9.4.2"
     "@dicebear/toon-head" "9.4.2"
 
-"@dicebear/core@^10.2.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@dicebear/core/-/core-10.2.0.tgz#f37719b3a1779f0f9672cdeec2f9d57c7d5bb37c"
-  integrity sha512-SCeGiD+/FkZmj1cYlzVPvWA+hXmvdTrLSi5zMDvZxBoCIGK69d4w6J2vDnenRt1BOKtQKLKxE3C8CsVtRHPRxg==
+"@dicebear/core@^9.4.2":
+  version "9.4.2"
+  resolved "https://registry.yarnpkg.com/@dicebear/core/-/core-9.4.2.tgz#8c15c7ef20e598228240a0fbfb173fe34d01f0bb"
+  integrity sha512-MF0042+Z3s8PGZKZLySfhft28bUa3B1iq0e5NSjCvY8gfMi5aIH/iRJGRJa1N9Jz1BNkxYb4yvJ/N9KO8Z6Y+w==
+  dependencies:
+    "@types/json-schema" "^7.0.15"
 
 "@dicebear/croodles-neutral@9.4.2":
   version "9.4.2"
