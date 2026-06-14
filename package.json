@@ -9,7 +9,7 @@
     "yarn": "^1"
   },
   "scripts": {
-    "next": "next",
+    "next": "npx -y next@15.5.19",
     "dev": "yarn next dev",
     "build": "yarn next build",
     "start": "yarn next start",
