@@ -8,6 +8,9 @@ updates:
     ignore:
       - dependency-name: "*eslint*"
       - dependency-name: "*storybook*"
+      - dependency-name: "*dicebear*"
+      - dependency-name: "*next*"
+      - dependency-name: "*typescript*"
     groups:
       production-deps:
         dependency-type: "production"
