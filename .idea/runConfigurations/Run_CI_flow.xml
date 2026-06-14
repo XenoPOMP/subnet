@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run CI flow" type="ShConfigurationType">
-    <option name="SCRIPT_TEXT" value="yarn install --frozen-lockfile --prefer-offline ; yarn run build-storybook --test ; yarn lint:ci ; yarn coverage ; yarn e2e:ci ;" />
+    <option name="SCRIPT_TEXT" value="yarn install --frozen-lockfile --prefer-offline ; yarn run build-storybook --test ; yarn lint:ci ; yarn coverage ; yarn run build ; yarn e2e:ci ;" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
     <option name="SCRIPT_PATH" value="" />
     <option name="SCRIPT_OPTIONS" value="" />
