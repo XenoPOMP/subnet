@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  frontend:
+    image: ${FRONT_IMAGE_TAG}
+    container_name: "subnet-frontend"
+    restart: unless-stopped
+    ports:
+      - "192.168.10.222:9000:3000"
+    volumes:
+      - .env:/app/.env
