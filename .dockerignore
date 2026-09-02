@@ -5,3 +5,7 @@ npm-debug.log
 README.md
 .next
 .git
+
+# Release artifacts
+release
+release.sh
