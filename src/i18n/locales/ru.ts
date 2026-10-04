@@ -48,7 +48,7 @@ export const ru: LanguageResource = {
     newProject: 'Новый проект',
     edit: 'Изменить проект',
     delete: 'Удалить проект',
-    deleteConfirm: 'Удалить этот проект? Это действие нельзя отменить.',
+    confirmDelete: 'Подтвердить удаление',
     noDescription: 'Без описания',
     dialog: {
       title: 'О проекте',

@@ -49,7 +49,7 @@ export const en = {
     newProject: 'New project',
     edit: 'Edit project',
     delete: 'Delete project',
-    deleteConfirm: 'Delete this project? This cannot be undone.',
+    confirmDelete: 'Confirm deletion',
     noDescription: 'No description',
     dialog: {
       title: 'Project details',

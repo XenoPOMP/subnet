@@ -2,7 +2,7 @@
 
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import cn from 'classnames';
-import { ChevronDown, Pencil, Plus, Trash2 } from 'lucide-react';
+import { Check, ChevronDown, Pencil, Plus, Trash2, X } from 'lucide-react';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -12,6 +12,46 @@ import { useTranslations } from '@/i18n';
 import { useProjectsBootstrap, useProjectsStore } from '@/zustand';
 
 import { ProjectDialog } from './ProjectDialog';
+
+/**
+ * Two-step delete: native `window.confirm` is blocked in webviews (e.g. Tauri),
+ * so confirmation is rendered inline. State resets when popover closes.
+ */
+const DeleteProjectButton: FC<{ onDelete: () => void }> = ({ onDelete }) => {
+  const { t } = useTranslations();
+  const [confirming, setConfirming] = useState<boolean>(false);
+
+  if (!confirming) {
+    return (
+      <Button
+        square
+        variant='danger'
+        leadingIcon={Trash2}
+        aria-label={t.projects.delete}
+        onClick={() => setConfirming(true)}
+      />
+    );
+  }
+
+  return (
+    <>
+      <Button
+        square
+        variant='danger'
+        leadingIcon={Check}
+        aria-label={t.projects.confirmDelete}
+        title={t.projects.confirmDelete}
+        onClick={onDelete}
+      />
+      <Button
+        square
+        leadingIcon={X}
+        aria-label={t.projects.dialog.cancel}
+        onClick={() => setConfirming(false)}
+      />
+    </>
+  );
+};
 
 /**
  * Header control for switching between saved network maps (projects).
@@ -67,7 +107,8 @@ export const ProjectSwitcher: FC = () => {
                         'flex items-center gap-[0.8rem] p-[0.8rem]',
                         'border-b-[1px] border-b-divider',
                         {
-                          'bg-input-bg': project.id === activeId,
+                          'border-l-[3px] border-l-accent bg-input-bg-light':
+                            project.id === activeId,
                         },
                       )}
                     >
@@ -109,17 +150,8 @@ export const ProjectSwitcher: FC = () => {
                           close();
                         }}
                       />
-                      <Button
-                        square
-                        variant='danger'
-                        leadingIcon={Trash2}
-                        aria-label={t.projects.delete}
-                        onClick={() => {
-                          // eslint-disable-next-line no-alert
-                          if (window.confirm(t.projects.deleteConfirm)) {
-                            deleteProject(project.id);
-                          }
-                        }}
+                      <DeleteProjectButton
+                        onDelete={() => deleteProject(project.id)}
                       />
                     </li>
                   )}
