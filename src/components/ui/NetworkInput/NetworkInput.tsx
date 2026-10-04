@@ -37,9 +37,15 @@ export const NetworkInput: VariableFC<'div', Props, 'children'> = ({
     setError,
     removeSubnet,
     root,
+    subnets,
   } = useNetworkStore();
-  const [name, setName] = useState('');
-  const [color, setColor] = useState<string>(randomColor());
+
+  // Subnet may already exist in store (e.g. when project is loaded).
+  const [stored] = useState(() => subnets.find(({ id }) => id === target));
+  const [name, setName] = useState(stored?.network.name ?? '');
+  const [color, setColor] = useState<string>(
+    stored?.network.color ?? randomColor(),
+  );
 
   const addr = form[target]!.input;
 

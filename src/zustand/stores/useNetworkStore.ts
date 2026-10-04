@@ -5,7 +5,11 @@ import { v4 as uuid } from 'uuid';
 import type { Lenient } from 'xenopomp-essentials';
 import { create } from 'zustand';
 
-import { decompessSubnets, decompressRootNetwork } from '@/utils/compression';
+import {
+  compressJson,
+  decompessSubnets,
+  decompressRootNetwork,
+} from '@/utils/compression';
 import { Address, Network } from '@/utils/ip';
 
 export const useNetworkStore = create<INetworkStore & NetworkFormDelegate>(
@@ -38,6 +42,34 @@ export const useNetworkStore = create<INetworkStore & NetworkFormDelegate>(
         root: parsedRoot ?? null,
         subnets: parsedSubnets,
       });
+    },
+
+    // eslint-disable-next-line jsdoc/require-jsdoc
+    getSnapshot() {
+      const { root, subnets, form } = get();
+
+      return {
+        root: compressJson(root),
+        subnets: compressJson(subnets),
+        form: JSON.parse(JSON.stringify(form)),
+      };
+    },
+
+    // eslint-disable-next-line jsdoc/require-jsdoc
+    loadSnapshot(snapshot) {
+      const root = decompressRootNetwork(snapshot.root) ?? null;
+      const subnets = decompessSubnets(snapshot.subnets);
+
+      // Every input must have a form entry, otherwise NetworkInput crashes.
+      const form: NetworkForm['form'] = {
+        ...snapshot.form,
+        root: snapshot.form.root ?? { input: root?.cidr() ?? '' },
+      };
+      subnets.forEach(({ id, network }) => {
+        form[id] ??= { input: network.cidr() };
+      });
+
+      set({ root, subnets, form });
     },
 
     // eslint-disable-next-line jsdoc/require-jsdoc
@@ -117,6 +149,10 @@ interface INetworkStore {
   root: Network | null;
   updateRootNetwork: (net: Network) => void;
   loadFromSearchParams: (root: string, subnets: string) => void;
+  /** Serializes current working state, so it can be stored in project. */
+  getSnapshot: () => NetworkSnapshot;
+  /** Replaces current working state with the stored one. */
+  loadSnapshot: (snapshot: NetworkSnapshot) => void;
   subnets: Array<{
     id: string;
     network: Network;
@@ -135,6 +171,14 @@ interface NetworkForm {
   form: {
     root: FormInput;
   } & Partial<Record<Lenient<string>, FormInput>>;
+}
+
+export interface NetworkSnapshot {
+  /** Compressed root network (same format as in share link). */
+  root: string;
+  /** Compressed subnets list (same format as in share link). */
+  subnets: string;
+  form: NetworkForm['form'];
 }
 
 type Target = keyof NetworkForm['form'];

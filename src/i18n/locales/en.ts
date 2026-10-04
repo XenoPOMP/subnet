@@ -43,6 +43,24 @@ export const en = {
       totalHosts: 'Hosts count',
     },
   },
+  projects: {
+    untitled: 'Untitled project',
+    heading: 'Projects',
+    newProject: 'New project',
+    edit: 'Edit project',
+    delete: 'Delete project',
+    deleteConfirm: 'Delete this project? This cannot be undone.',
+    noDescription: 'No description',
+    dialog: {
+      title: 'Project details',
+      emoji: 'Icon',
+      name: 'Name',
+      description: 'Description',
+      descriptionPlaceholder: 'What is this network map for?',
+      save: 'Save',
+      cancel: 'Cancel',
+    },
+  },
   seo: {
     root: {
       title: 'Network map',

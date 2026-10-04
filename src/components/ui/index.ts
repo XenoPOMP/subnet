@@ -14,3 +14,4 @@ export * from './HatchingEffect/HatchingEffect';
 export * from './NetSlider/NetSlider';
 export * from './MediaRendered/MediaRendered';
 export * from './InfoTable/InfoTable';
+export * from './ProjectSwitcher/ProjectSwitcher';

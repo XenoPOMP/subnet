@@ -42,6 +42,24 @@ export const ru: LanguageResource = {
       totalHosts: 'Кол-во хостов',
     },
   },
+  projects: {
+    untitled: 'Проект без названия',
+    heading: 'Проекты',
+    newProject: 'Новый проект',
+    edit: 'Изменить проект',
+    delete: 'Удалить проект',
+    deleteConfirm: 'Удалить этот проект? Это действие нельзя отменить.',
+    noDescription: 'Без описания',
+    dialog: {
+      title: 'О проекте',
+      emoji: 'Иконка',
+      name: 'Название',
+      description: 'Описание',
+      descriptionPlaceholder: 'Для чего эта карта сети?',
+      save: 'Сохранить',
+      cancel: 'Отмена',
+    },
+  },
   seo: {
     root: {
       title: 'Карта сети',

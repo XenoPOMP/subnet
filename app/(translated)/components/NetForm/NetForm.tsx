@@ -7,7 +7,7 @@ import { For } from '@/components/layout';
 import { NetworkInput } from '@/components/ui';
 import { Button, Heading } from '@/components/ui/kit';
 import { useTranslations } from '@/i18n';
-import { useNetworkStore } from '@/zustand';
+import { useNetworkStore, useProjectsStore } from '@/zustand';
 
 import styles from './NetForm.module.scss';
 
@@ -15,9 +15,12 @@ import styles from './NetForm.module.scss';
 export function NetForm({ mobile = false }: Props) {
   const { t } = useTranslations();
   const { createSubnet, subnets } = useNetworkStore();
+  // Inputs keep local state, so they are remounted when project changes.
+  const activeProjectId = useProjectsStore(state => state.activeId);
 
   return (
     <aside
+      key={activeProjectId}
       className={cn(styles.form, {
         [`${styles.mobileLayout}`]: mobile,
       })}
